@@ -12,14 +12,18 @@ collections:
   # お知らせ
   - name: "news"
     label: "お知らせ"
-    folder: "_news"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - {label: "タイトル", name: "title", widget: "string"}
-      - {label: "日付", name: "date", widget: "datetime"}
-      - {label: "カテゴリ", name: "category", widget: "select", options: ["お知らせ", "イベント", "活動報告"]}
-      - {label: "本文", name: "body", widget: "markdown"}
+    files:
+      - name: "news"
+        label: "お知らせ一覧"
+        file: "_data/news.json"
+        fields:
+          - label: "お知らせ一覧"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "日付", name: "date", widget: "string"}
+              - {label: "カテゴリ", name: "category", widget: "select", options: ["お知らせ", "イベント", "活動報告"]}
+              - {label: "内容", name: "text", widget: "string"}
 
   # 施設紹介
   - name: "about"
