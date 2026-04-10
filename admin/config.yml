@@ -3,14 +3,93 @@ backend:
   branch: main
 
 media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+locale: "ja"
 
 collections:
+
+  # お知らせ
   - name: "news"
     label: "お知らせ"
     folder: "_news"
     create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - {label: "タイトル", name: "title", widget: "string"}
       - {label: "日付", name: "date", widget: "datetime"}
       - {label: "カテゴリ", name: "category", widget: "select", options: ["お知らせ", "イベント", "活動報告"]}
       - {label: "本文", name: "body", widget: "markdown"}
+
+  # 施設紹介
+  - name: "about"
+    label: "施設紹介"
+    files:
+      - name: "about"
+        label: "施設紹介ページ"
+        file: "_data/about.json"
+        fields:
+          - {label: "本文1", name: "text1", widget: "text"}
+          - {label: "本文2", name: "text2", widget: "text"}
+
+  # 活動内容
+  - name: "activities"
+    label: "活動内容"
+    files:
+      - name: "activities"
+        label: "活動内容ページ"
+        file: "_data/activities.json"
+        fields:
+          - label: "活動一覧"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "番号", name: "num", widget: "string"}
+              - {label: "タイトル", name: "title", widget: "string"}
+              - {label: "説明", name: "description", widget: "text"}
+
+  # 作品紹介
+  - name: "works"
+    label: "作品紹介"
+    files:
+      - name: "works"
+        label: "作品紹介ページ"
+        file: "_data/works.json"
+        fields:
+          - label: "作品一覧"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "作品名", name: "title", widget: "string"}
+              - {label: "説明", name: "description", widget: "text"}
+              - {label: "画像", name: "image", widget: "image", required: false}
+
+  # よくある質問
+  - name: "faq"
+    label: "よくある質問"
+    files:
+      - name: "faq"
+        label: "FAQページ"
+        file: "_data/faq.json"
+        fields:
+          - label: "質問一覧"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "質問", name: "question", widget: "string"}
+              - {label: "回答", name: "answer", widget: "text"}
+
+  # 基本情報
+  - name: "settings"
+    label: "基本情報"
+    files:
+      - name: "settings"
+        label: "施設基本情報"
+        file: "_data/settings.json"
+        fields:
+          - {label: "施設名", name: "name", widget: "string"}
+          - {label: "電話番号", name: "phone", widget: "string"}
+          - {label: "住所", name: "address", widget: "string"}
+          - {label: "利用時間（平日）", name: "hours_weekday", widget: "string"}
+          - {label: "利用時間（土曜）", name: "hours_saturday", widget: "string"}
+          - {label: "休業日", name: "closed", widget: "string"}
