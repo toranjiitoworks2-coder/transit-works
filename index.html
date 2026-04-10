@@ -189,7 +189,7 @@
       <span class="sec-label">お知らせ</span>
       <h2 class="sec-title-en slide-in">Log</h2>
     </div>
-    <div class="news-list">
+    <div class="news-list" id="newsList">
       <a href="#" class="news-item sa"><time>2026.04.01</time><span class="news-cat">お知らせ</span><span class="news-text">4月の活動スケジュールを更新しました</span><span class="news-arrow">&rarr;</span></a>
       <a href="#" class="news-item sa sa-d1"><time>2026.03.15</time><span class="news-cat">イベント</span><span class="news-text">春のレクリエーション活動を開催しました</span><span class="news-arrow">&rarr;</span></a>
       <a href="#" class="news-item sa sa-d2"><time>2026.03.01</time><span class="news-cat">お知らせ</span><span class="news-text">新しい創作プログラムがスタートします</span><span class="news-arrow">&rarr;</span></a>
@@ -203,7 +203,7 @@
     <span class="sec-label">制作・作業</span>
     <h2 class="sec-title-en slide-in">Works</h2>
     <p class="sec-lead">利用者さんが作り上げた作品と、日々の仕事をご紹介します。</p>
-    <div class="cards">
+    <div class="cards" id="activitiesCards">
       <div class="card sa"><span class="card-num">01</span><h3>軽作業</h3><p>封入・検品・シール貼りなど、手先を使った作業を中心に取り組みます。無理のないペースで進められます。</p></div>
       <div class="card sa sa-d1"><span class="card-num">02</span><h3>創作活動</h3><p>アート制作やハンドメイド作品づくりなど、創造力を活かした活動を楽しめます。</p></div>
       <div class="card sa sa-d2"><span class="card-num">03</span><h3>PC作業</h3><p>データ入力やデザイン作業など、パソコンスキルを身につけながら働く力を養います。</p></div>
@@ -218,7 +218,7 @@
     <span class="sec-label">作品紹介</span>
     <h2 class="sec-title-en slide-in">Hangar</h2>
     <p class="sec-lead">トランジットWorksで生まれたオリジナル作品たち</p>
-    <div class="works-grid">
+    <div class="works-grid" id="worksGrid">
       <div class="works-card sa"><div class="works-thumb"><span>PHOTO</span></div><h3>アロマキャンドル</h3><p>天然素材を使い、手作りしたオリジナルキャンドル。</p></div>
       <div class="works-card sa sa-d1"><div class="works-thumb"><span>PHOTO</span></div><h3>アロマストーン</h3><p>好みのアロマオイルを染み込ませて使うインテリア雑貨。</p></div>
       <div class="works-card sa sa-d2"><div class="works-thumb"><span>PHOTO</span></div><h3>ルームスプレー</h3><p>天然精油をブレンドしたルームスプレー。</p></div>
@@ -277,7 +277,7 @@
   <div class="container fade-in">
     <span class="sec-label">よくある質問</span>
     <h2 class="sec-title-en slide-in">FAQ</h2>
-    <div class="faq-list">
+    <div class="faq-list" id="faqList">
       <div class="faq-item sa">
         <button class="faq-q" aria-expanded="false">利用するにはどんな条件が必要ですか？<span class="faq-icon"></span></button>
         <div class="faq-a"><p>障がい者手帳または療育手帳をお持ちの方、もしくは医師の診断書がある方が対象です。まずはお気軽にご相談ください。</p></div>
@@ -313,12 +313,12 @@
     <h2 class="sec-title-en slide-in">Arrival</h2>
     <div class="access-grid">
       <div class="access-table">
-        <div class="access-row"><div class="access-th">事業所名</div><div class="access-td">トランジットWorks</div></div>
+        <div class="access-row"><div class="access-th">事業所名</div><div class="access-td" id="cms-name">トランジットWorks</div></div>
         <div class="access-row"><div class="access-th">種別</div><div class="access-td">就労継続支援B型</div></div>
-        <div class="access-row"><div class="access-th">所在地</div><div class="access-td">大阪府交野市私部西１丁目１－１１ ウシオビル３階</div></div>
-        <div class="access-row"><div class="access-th">利用時間</div><div class="access-td">9:30〜15:30（月〜金）<br>9:30〜12:00（第2・第4土曜、祝日）※昼食なし</div></div>
-        <div class="access-row"><div class="access-th">休業日</div><div class="access-td">日曜・第1土曜・第3土曜</div></div>
-        <div class="access-row"><div class="access-th">電話</div><div class="access-td"><a href="tel:0728607737">０７２－８６０－７７３７</a></div></div>
+        <div class="access-row"><div class="access-th">所在地</div><div class="access-td" id="cms-address">大阪府交野市私部西１丁目１－１１ ウシオビル３階</div></div>
+        <div class="access-row"><div class="access-th">利用時間</div><div class="access-td"><span id="cms-hours-weekday">9:30〜15:30（月〜金）</span><br><span id="cms-hours-saturday">9:30〜12:00（第2・第4土曜、祝日）※昼食なし</span></div></div>
+        <div class="access-row"><div class="access-th">休業日</div><div class="access-td" id="cms-closed">日曜・第1土曜・第3土曜</div></div>
+        <div class="access-row"><div class="access-th">電話</div><div class="access-td"><a href="tel:0728607737" id="cms-phone">０７２－８６０－７７３７</a></div></div>
       </div>
       <div class="access-map">
         <iframe title="トランジットWorksの所在地" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3277.8!2d135.6677!3d34.8205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000f8b5c5c5c5c5%3A0x0!2z5aSn6Ziq5bqc5Lqk6YeO5biC56eB6YOo6KW_77yR5LiB55uu77yR4oiS77yR77yR!5e0!3m2!1sja!2sjp!4v1234567890!5m2!1sja!2sjp" width="100%" height="400" style="border:0;border-radius:8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -396,7 +396,7 @@ var observer=new IntersectionObserver(function(entries){entries.forEach(function
 var fadeEls=document.querySelectorAll(".fade-in,.sa");
 for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
 
-// Hero text animation — wait for loading to finish
+// Hero text animation
 (function(){
   var catch_el=document.getElementById("heroCatch");
   var sub_el=document.getElementById("heroSubCopy");
@@ -404,8 +404,6 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
   var text=catch_el.textContent;
   catch_el.textContent="";
   catch_el.style.visibility="visible";
-
-  // Split into individual character spans
   for(var c=0;c<text.length;c++){
     var s=document.createElement("span");
     s.className="char";
@@ -413,33 +411,25 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
     s.style.animationDelay=(c*0.05)+"s";
     catch_el.appendChild(s);
   }
-
-  // Detect when loading finishes
   var loadEl=document.getElementById("loading");
   function startHeroAnim(){
-    // Curtain reveal
     var curtain=document.getElementById("curtain");
     if(curtain)curtain.classList.add("up");
     catch_el.classList.add("animate");
     var catchDuration=text.length*50+450;
     setTimeout(function(){sub_el.classList.add("animate")},catchDuration);
-    setTimeout(function(){sub2_el.classList.add("animate")},catchDuration+500);
+    setTimeout(function(){if(sub2_el)sub2_el.classList.add("animate")},catchDuration+500);
   }
-
-  // Watch for loading.done class
   var mo=new MutationObserver(function(mutations){
     mutations.forEach(function(m){
       if(loadEl.classList.contains("done")){
         mo.disconnect();
         setTimeout(startHeroAnim,300);
-        // hide loading element after split animation completes
         setTimeout(function(){loadEl.classList.add("hidden")},1200);
       }
     });
   });
   mo.observe(loadEl,{attributes:true,attributeFilter:["class"]});
-
-  // Fallback if loading already done or no loading
   setTimeout(function(){
     if(!catch_el.classList.contains("animate")){
       startHeroAnim();
@@ -520,30 +510,22 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
   var dot=document.getElementById("curDot");
   var ring=document.getElementById("curRing");
   if(!dot||!ring||window.matchMedia("(pointer:coarse)").matches)return;
-
   var mx=0,my=0,rx=0,ry=0;
-
   document.addEventListener("mousemove",function(e){
     mx=e.clientX;my=e.clientY;
     dot.style.left=mx+"px";dot.style.top=my+"px";
   });
-
-  // Ring follows with lerp
   function tick(){
     rx+=(mx-rx)*.15;ry+=(my-ry)*.15;
     ring.style.left=rx+"px";ring.style.top=ry+"px";
     requestAnimationFrame(tick);
   }
   tick();
-
-  // Hover grow
   var targets=document.querySelectorAll("a,button,[role=button]");
   for(var i=0;i<targets.length;i++){
     targets[i].addEventListener("mouseenter",function(){ring.classList.add("hover")});
     targets[i].addEventListener("mouseleave",function(){ring.classList.remove("hover")});
   }
-
-  // Click shrink
   document.addEventListener("mousedown",function(){ring.classList.add("click");dot.classList.add("click")});
   document.addEventListener("mouseup",function(){ring.classList.remove("click");dot.classList.remove("click")});
 })();
@@ -608,13 +590,11 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
   var puffs=[];
   var animId=null;
   var running=false;
-
   function resizeCanvas(){
     var scene=canvas.parentElement;
     canvas.width=scene.offsetWidth;
     canvas.height=scene.offsetHeight;
   }
-
   function spawnPuff(planeX,planeY){
     var count=2+Math.floor(Math.random()*2);
     for(var i=0;i<count;i++){
@@ -630,37 +610,6 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
       });
     }
   }
-
-  function drawSmoke(planeScreenX,planeScreenY){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    // spawn new puffs near the plane tail
-    if(running&&Math.random()<0.6){
-      spawnPuff(planeScreenX,planeScreenY);
-    }
-    for(var i=puffs.length-1;i>=0;i--){
-      var p=puffs[i];
-      p.x+=p.vx;
-      p.y+=p.vy;
-      p.vy-=0.005;
-      p.r+=p.grow;
-      p.life++;
-      var t=p.life/p.maxLife;
-      if(t>=1){puffs.splice(i,1);continue;}
-      var alpha;
-      if(t<0.15)alpha=t/0.15*0.7;
-      else if(t>0.5)alpha=(1-t)/0.5*0.7;
-      else alpha=0.7;
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle="rgba(255,255,255,"+alpha+")";
-      ctx.fill();
-    }
-    if(running||puffs.length>0){
-      animId=requestAnimationFrame(function(){drawSmoke(planeScreenX,planeScreenY)});
-    }
-  }
-
-  // Track plane position via CSS animation
   function startSmoke(){
     resizeCanvas();
     puffs=[];
@@ -690,7 +639,6 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
     }
     track();
   }
-
   function stopSmoke(){
     running=false;
     setTimeout(function(){
@@ -699,7 +647,6 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
       puffs=[];
     },1200);
   }
-
   var navLinks=document.querySelectorAll(".nav-list a, .mobile-nav a");
   for(var i=0;i<navLinks.length;i++){
     navLinks[i].addEventListener("click",function(e){
@@ -726,29 +673,27 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
 })();
 
 // === 10. FAQ accordion ===
-(function(){
+function initFaqAccordion(){
   var items=document.querySelectorAll(".faq-q");
   for(var i=0;i<items.length;i++){
     items[i].addEventListener("click",function(){
       var item=this.parentElement;
       var isOpen=item.classList.contains("open");
-      // close all
       var all=document.querySelectorAll(".faq-item.open");
       for(var j=0;j<all.length;j++){all[j].classList.remove("open");all[j].querySelector(".faq-q").setAttribute("aria-expanded","false")}
-      // toggle current
       if(!isOpen){item.classList.add("open");this.setAttribute("aria-expanded","true")}
     });
   }
-})();
+}
+initFaqAccordion();
 
-// === 11. Flying plane — once when hero is visible (after loading) ===
+// === 11. Flying plane ===
 (function(){
   var hero=document.querySelector(".hero");
   var plane=document.getElementById("flyingPlane");
   var loadEl=document.getElementById("loading");
   if(!hero||!plane)return;
   var flown=false;
-
   function startObserving(){
     var obs=new IntersectionObserver(function(entries){
       entries.forEach(function(e){
@@ -763,8 +708,6 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
     },{threshold:0.3});
     obs.observe(hero);
   }
-
-  // Wait for loading to finish before observing
   if(loadEl&&!loadEl.classList.contains("done")){
     var mo=new MutationObserver(function(){
       if(loadEl.classList.contains("done")){
@@ -792,7 +735,6 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
       var start=performance.now();
       function tick(now){
         var t=Math.min((now-start)/duration,1);
-        // ease-out
         var ease=1-Math.pow(1-t,3);
         el.textContent=Math.round(target*ease);
         if(t<1)requestAnimationFrame(tick);
@@ -815,6 +757,67 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
     if(particles)particles.style.transform="translateY("+(y*0.35)+"px)";
   },{passive:true});
 })();
+
+// === 15. CMS データ読み込み ===
+async function loadCMSData(){
+
+  // 活動内容
+  try{
+    const res=await fetch('/_data/activities.json');
+    const data=await res.json();
+    const cards=document.getElementById('activitiesCards');
+    if(cards&&data.items&&data.items.length){
+      cards.innerHTML=data.items.map(function(item,i){
+        return '<div class="card sa'+(i>0?' sa-d'+i:'')+'"><span class="card-num">'+item.num+'</span><h3>'+item.title+'</h3><p>'+item.description+'</p></div>';
+      }).join('');
+      var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
+      cards.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
+    }
+  }catch(e){}
+
+  // 作品紹介
+  try{
+    const res=await fetch('/_data/works.json');
+    const data=await res.json();
+    const grid=document.getElementById('worksGrid');
+    if(grid&&data.items&&data.items.length){
+      grid.innerHTML=data.items.map(function(item,i){
+        return '<div class="works-card sa'+(i>0?' sa-d'+i:'')+'"><div class="works-thumb">'+(item.image?'<img src="'+item.image+'" alt="'+item.title+'">':'<span>PHOTO</span>')+'</div><h3>'+item.title+'</h3><p>'+item.description+'</p></div>';
+      }).join('');
+      var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
+      grid.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
+    }
+  }catch(e){}
+
+  // よくある質問
+  try{
+    const res=await fetch('/_data/faq.json');
+    const data=await res.json();
+    const list=document.getElementById('faqList');
+    if(list&&data.items&&data.items.length){
+      list.innerHTML=data.items.map(function(item,i){
+        return '<div class="faq-item sa'+(i>0?' sa-d'+i:'')+'"><button class="faq-q" aria-expanded="false">'+item.question+'<span class="faq-icon"></span></button><div class="faq-a"><p>'+item.answer+'</p></div></div>';
+      }).join('');
+      initFaqAccordion();
+      var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
+      list.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
+    }
+  }catch(e){}
+
+  // 基本情報
+  try{
+    const res=await fetch('/_data/settings.json');
+    const data=await res.json();
+    if(data.name){var el=document.getElementById('cms-name');if(el)el.textContent=data.name;}
+    if(data.address){var el=document.getElementById('cms-address');if(el)el.textContent=data.address;}
+    if(data.hours_weekday){var el=document.getElementById('cms-hours-weekday');if(el)el.textContent=data.hours_weekday;}
+    if(data.hours_saturday){var el=document.getElementById('cms-hours-saturday');if(el)el.textContent=data.hours_saturday;}
+    if(data.closed){var el=document.getElementById('cms-closed');if(el)el.textContent=data.closed;}
+    if(data.phone){var el=document.getElementById('cms-phone');if(el){el.textContent=data.phone;el.href='tel:'+data.phone.replace(/[^0-9]/g,'');}}
+  }catch(e){}
+}
+
+loadCMSData();
 
 }); // end DOMContentLoaded
 </script>
