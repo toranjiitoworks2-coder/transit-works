@@ -761,6 +761,20 @@ initFaqAccordion();
 // === 15. CMS データ読み込み ===
 async function loadCMSData(){
 
+  // お知らせ
+  try{
+    const res=await fetch('/_data/news.json');
+    const data=await res.json();
+    const list=document.getElementById('newsList');
+    if(list&&data.items&&data.items.length){
+      list.innerHTML=data.items.map(function(item,i){
+        return '<a href="#" class="news-item sa'+(i>0?' sa-d'+i:'')+'"><time>'+item.date+'</time><span class="news-cat">'+item.category+'</span><span class="news-text">'+item.text+'</span><span class="news-arrow">&rarr;</span></a>';
+      }).join('');
+      var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
+      list.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
+    }
+  }catch(e){}
+
   // 活動内容
   try{
     const res=await fetch('/_data/activities.json');
