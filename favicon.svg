@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" rx="6" fill="#2d6a4f"/>
+  <!-- Biplane silhouette -->
+  <g fill="#fff" transform="translate(4,6)">
+    <!-- fuselage -->
+    <ellipse cx="12" cy="10" rx="9" ry="3"/>
+    <!-- nose -->
+    <ellipse cx="21" cy="10" rx="2.5" ry="2"/>
+    <!-- top wing -->
+    <rect x="6" y="2" width="12" height="2.5" rx="1"/>
+    <!-- bottom wing -->
+    <rect x="6" y="15.5" width="12" height="2.5" rx="1"/>
+    <!-- wing struts -->
+    <rect x="9" y="4.5" width="1" height="11" rx=".5"/>
+    <rect x="15" y="4.5" width="1" height="11" rx=".5"/>
+    <!-- tail fin -->
+    <path d="M3 10 L0 4 L5 8 Z"/>
+    <path d="M3 10 L1 16 L5 12 Z"/>
+    <!-- propeller -->
+    <ellipse cx="23.5" cy="10" rx=".8" ry="4" opacity=".7"/>
+  </g>
+</svg>

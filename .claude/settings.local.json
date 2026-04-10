@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c ':*)",
+      "Bash(python -c \"print\\('hello'\\)\")",
+      "Bash(python write_html.py)",
+      "Bash(start \"c:/Users/tranjitmember/Downloads/transit-works-split/index.html\")",
+      "Bash(python -c \"from PIL import Image; print\\('Pillow OK'\\)\")",
+      "Bash(pip install:*)",
+      "Bash(sed -i 's|^//    if\\(processedPlane\\){|    if\\(processedPlane\\){|' \"c:/Users/tranjitmember/Downloads/transit-works-split/script.js\")",
+      "Bash(sed -i 's|^//      ctx.save\\(\\);|      ctx.save\\(\\);|' \"c:/Users/tranjitmember/Downloads/transit-works-split/script.js\")",
+      "Bash(sed -i 's|^//      ctx.globalAlpha = opacity;|      ctx.globalAlpha = opacity;|' \"c:/Users/tranjitmember/Downloads/transit-works-split/script.js\")",
+      "Bash(sed -i 's|^//      ctx.translate\\(x + pw/2, y + ph/2\\);|      ctx.translate\\(x + pw/2, y + ph/2\\);|' \"c:/Users/tranjitmember/Downloads/transit-works-split/script.js\")",
+      "Bash(sed -i 's|^//      ctx.rotate\\(tilt \\\\* Math.PI / 180\\);|      ctx.rotate\\(tilt * Math.PI / 180\\);|' \"c:/Users/tranjitmember/Downloads/transit-works-split/script.js\")"
+    ]
+  }
+}
