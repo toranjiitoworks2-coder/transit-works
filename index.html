@@ -38,6 +38,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+
+<!-- Netlify Identity Widget -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
 
@@ -816,6 +819,20 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
 }); // end DOMContentLoaded
 </script>
 <img id="flyingPlane" src="plane.png" alt="" style="position:fixed;top:20%;left:110%;width:80px;z-index:9999;pointer-events:none;transition:left 2.5s ease-in-out;display:none;filter:brightness(0.3);">
+
+<!-- Netlify Identity Widget redirect -->
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", function(user) {
+      if (!user) {
+        window.netlifyIdentity.on("login", function() {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
+
 <script src="script.js"></script>
 </body>
 </html>
