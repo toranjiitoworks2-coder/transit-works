@@ -25,16 +25,32 @@ collections:
               - {label: "カテゴリ", name: "category", widget: "select", options: ["お知らせ", "イベント", "活動報告"]}
               - {label: "内容", name: "text", widget: "string"}
 
-  # 施設紹介
+  # 施設紹介・代表メッセージ
   - name: "about"
-    label: "施設紹介"
+    label: "施設紹介・代表メッセージ"
     files:
       - name: "about"
-        label: "施設紹介ページ"
+        label: "施設紹介・代表メッセージ"
         file: "_data/about.json"
         fields:
-          - {label: "本文1", name: "text1", widget: "text"}
-          - {label: "本文2", name: "text2", widget: "text"}
+          - {label: "施設紹介 本文1", name: "text1", widget: "text"}
+          - {label: "施設紹介 本文2", name: "text2", widget: "text"}
+          - {label: "代表メッセージ 本文1", name: "rep1", widget: "text"}
+          - {label: "代表メッセージ 本文2", name: "rep2", widget: "text"}
+          - {label: "代表メッセージ 本文3", name: "rep3", widget: "text"}
+          - {label: "代表氏名", name: "rep_name", widget: "string"}
+          - {label: "代表写真", name: "rep_photo", widget: "image", required: false}
+
+  # ヒーロー
+  - name: "hero"
+    label: "トップページ"
+    files:
+      - name: "hero"
+        label: "トップページ"
+        file: "_data/hero.json"
+        fields:
+          - {label: "キャッチコピー", name: "catch", widget: "string"}
+          - {label: "サブコピー", name: "sub", widget: "string"}
 
   # 活動内容
   - name: "activities"
