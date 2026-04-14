@@ -115,7 +115,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .rep-side{width:250px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:0}
 .rep-photo{width:250px;height:250px;border-radius:50%;overflow:hidden;background:#ccc;display:flex;align-items:center;justify-content:center}
 .rep-photo img{width:100%;height:100%;object-fit:cover}
-.rep-photo img[src="representative.jpg"]{display:none}
+.rep-photo img[src="representative.jpg"]{display:block}
 .rep-photo-ph{font-size:.7rem;letter-spacing:.15em;color:rgba(255,255,255,.4)}
 .rep-sign-text{display:flex;flex-direction:column;gap:3px;font-size:.75rem;color:rgba(255,255,255,.45);line-height:1.6;text-align:center;margin-top:20px;position:static}
 .rep-name{font-size:1rem;font-weight:500;color:#fff;margin-top:6px}
