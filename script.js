@@ -156,8 +156,8 @@ document.querySelectorAll('a,button').forEach(el=>{
   el.addEventListener('mouseleave',()=>cursor.classList.remove('hover'));
 });
 
-// スクロールリビール
-const reveals=document.querySelectorAll('.reveal');
+// スクロールリビール（.reveal と .sa の両方を一度だけフェードイン）
+const reveals=document.querySelectorAll('.reveal, .sa');
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
