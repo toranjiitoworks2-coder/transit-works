@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: toranjiitoworks2-coder/transit-works
   branch: main
+  base_url: https://transit-works.pages.dev
+  auth_endpoint: oauth/authorize
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
