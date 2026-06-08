@@ -6,6 +6,8 @@
     {"title": "レジンインテリア小物", "description": "コースターやトレイなどのインテリアアイテム。", "image": ""},
     {"title": "木工作品", "description": "木材を使った手作りのオリジナル作品。", "image": "/images/works-wood.jpg"},
     {"title": "押し花シール", "description": "本物の花を使ったオリジナルシール。", "image": "/images/works-flower.jpg"},
-    {"title": "マグネット", "description": "オリジナルデザインのマグネット作品。", "image": "/images/works-magnet.jpg"}
+    {"title": "マグネット", "description": "オリジナルデザインのマグネット作品。", "image": "/images/works-magnet.jpg"},
+    {"title": "木工ロボット", "description": "木材を組み合わせて作るユニークなロボット作品。", "image": "/images/works-robot.jpg"},
+    {"title": "一輪挿し", "description": "お気に入りの花を一輪、さりげなく飾れる手作りの一輪挿し。", "image": "/images/works-ikebana.jpg"}
   ]
 }
