@@ -1,10 +1,11 @@
 {
   "items": [
-    {"title": "アロマストーン", "description": "好みのアロマオイルを染み込ませて使うインテリア雑貨。", "image": ""},
+    {"title": "アロマストーン", "description": "好みのアロマオイルを染み込ませて使うインテリア雑貨。", "image": "/images/works-aroma.jpg"},
     {"title": "アロマワックスサシェ", "description": "天然精油をブレンドしたアロマワックスサシェ。", "image": ""},
     {"title": "レジンアクセサリー", "description": "ドライフラワーやラメを閉じ込めたアクセサリー。", "image": ""},
     {"title": "レジンインテリア小物", "description": "コースターやトレイなどのインテリアアイテム。", "image": ""},
-    {"title": "木工作品", "description": "木材を使った手作りのオリジナル作品。", "image": ""},
-    {"title": "押し花シール", "description": "本物の花を使ったオリジナルシール。", "image": ""}
+    {"title": "木工作品", "description": "木材を使った手作りのオリジナル作品。", "image": "/images/works-wood.jpg"},
+    {"title": "押し花シール", "description": "本物の花を使ったオリジナルシール。", "image": "/images/works-flower.jpg"},
+    {"title": "マグネット", "description": "オリジナルデザインのマグネット作品。", "image": "/images/works-magnet.jpg"}
   ]
 }

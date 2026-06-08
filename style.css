@@ -72,7 +72,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
   overflow:hidden;
 }
 .hero-strip-img span{font-size:.7rem;letter-spacing:.15em;color:#bbb;font-weight:300}
-/* Replace span with img later: .hero-strip-img img{width:100%;height:100%;object-fit:cover} */
+.hero-strip-img img{width:100%;height:100%;object-fit:cover;display:block}
 @keyframes stripScroll{
   0%{transform:translateX(0)}
   100%{transform:translateX(calc(-300px * 8 - 16px * 8))}
@@ -180,7 +180,8 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .works-thumb{aspect-ratio:4/3;background:#e0e0e0;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .works-thumb span{font-size:.7rem;letter-spacing:.2em;color:#aaa;transition:transform .5s ease}
 .works-card:hover .works-thumb span{transform:scale(1.08)}
-/* When real images: .works-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease} .works-card:hover .works-thumb img{transform:scale(1.06)} */
+.works-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;display:block}
+.works-card:hover .works-thumb img{transform:scale(1.06)}
 .works-card h3{font-size:.88rem;font-weight:500;padding:16px 16px 4px;color:var(--text)}
 .works-card p{font-size:.76rem;color:var(--text-sub);padding:0 16px 20px;line-height:1.7}
 
@@ -371,6 +372,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .sa-d3{transition-delay:.3s}
 .sa-d4{transition-delay:.4s}
 .sa-d5{transition-delay:.5s}
+.sa-d6{transition-delay:.6s}
 
 
 /* ===== Custom cursor ===== */
