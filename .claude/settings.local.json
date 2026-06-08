@@ -14,7 +14,9 @@
       "Bash(sed -i 's|^//      ctx.rotate\\(tilt \\\\* Math.PI / 180\\);|      ctx.rotate\\(tilt * Math.PI / 180\\);|' \"c:/Users/tranjitmember/Downloads/transit-works-split/script.js\")",
       "Bash(git push:*)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "PowerShell(New-Item *)",
+      "PowerShell(Copy-Item *)"
     ]
   }
 }
