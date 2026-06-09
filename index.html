@@ -56,13 +56,9 @@
   </div>
 </div>
 
-<!-- Nav transition overlay -->
-<div class="nav-trans" id="navTrans">
-  <span class="nav-trans-title" id="navTransTitle"></span>
-  <div class="nav-trans-scene">
-    <canvas class="nav-trans-canvas" id="navTransCanvas"></canvas>
-    <img class="nav-trans-plane" src="plane.png" alt="" width="150" height="150">
-  </div>
+<!-- Page transition overlay (nav click) -->
+<div class="page-trans" id="pageTrans" aria-hidden="true">
+  <span class="page-trans-logo">TRANSIT WORKS</span>
 </div>
 
 <!-- Custom cursor -->
@@ -578,79 +574,38 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
   },{passive:true});
 })();
 
-// === 9. Nav transition overlay + exhaust smoke ===
+// === 9. Page transition overlay (simple) ===
 (function(){
-  var overlay=document.getElementById("navTrans");
-  var titleEl=document.getElementById("navTransTitle");
-  var canvas=document.getElementById("navTransCanvas");
-  if(!overlay||!titleEl||!canvas)return;
-  var ctx=canvas.getContext("2d");
-  var puffs=[];
-  var animId=null;
-  var running=false;
-  function resizeCanvas(){
-    var scene=canvas.parentElement;
-    canvas.width=scene.offsetWidth;
-    canvas.height=scene.offsetHeight;
-  }
-  function spawnPuff(planeX,planeY){
-    var count=2+Math.floor(Math.random()*2);
-    for(var i=0;i<count;i++){
-      puffs.push({x:planeX+140+(Math.random()*10),y:planeY+60+(Math.random()-0.5)*30,r:6+Math.random()*10,vx:0.8+Math.random()*1.2,vy:(Math.random()-0.5)*0.4,life:0,maxLife:50+Math.random()*40,grow:0.15+Math.random()*0.1});
-    }
-  }
-  function startSmoke(){
-    resizeCanvas();puffs=[];running=true;
-    var planeEl=overlay.querySelector(".nav-trans-plane");
-    function track(){
-      if(!running&&puffs.length===0)return;
-      var sceneRect=canvas.parentElement.getBoundingClientRect();
-      var planeRect=planeEl.getBoundingClientRect();
-      var px=planeRect.left-sceneRect.left;
-      var py=planeRect.top-sceneRect.top;
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      if(running&&Math.random()<0.55){spawnPuff(px,py)}
-      for(var i=puffs.length-1;i>=0;i--){
-        var p=puffs[i];
-        p.x+=p.vx;p.y+=p.vy;p.vy-=0.005;p.r+=p.grow;p.life++;
-        var t=p.life/p.maxLife;
-        if(t>=1){puffs.splice(i,1);continue}
-        var alpha;
-        if(t<0.15)alpha=t/0.15*0.7;
-        else if(t>0.5)alpha=(1-t)/0.5*0.7;
-        else alpha=0.7;
-        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-        ctx.fillStyle="rgba(255,255,255,"+alpha+")";ctx.fill();
-      }
-      animId=requestAnimationFrame(track);
-    }
-    track();
-  }
-  function stopSmoke(){
-    running=false;
-    setTimeout(function(){if(animId)cancelAnimationFrame(animId);ctx.clearRect(0,0,canvas.width,canvas.height);puffs=[];},1200);
-  }
-  var navLinks=document.querySelectorAll(".nav-list a, .mobile-nav a");
+  var overlay=document.getElementById("pageTrans");
+  if(!overlay)return;
+  var busy=false;
+  var navLinks=document.querySelectorAll(".nav-list a, .mobile-nav a, .footer-nav-col a");
   for(var i=0;i<navLinks.length;i++){
     navLinks[i].addEventListener("click",function(e){
       var href=this.getAttribute("href");
-      if(!href||href.charAt(0)!=="#")return;
+      if(!href||href.charAt(0)!=="#"||href==="#")return;
       var target=document.querySelector(href);
       if(!target)return;
       e.preventDefault();
-      titleEl.textContent=this.textContent;
-      overlay.classList.add("active");
-      startSmoke();
+      if(busy)return;
+      busy=true;
       var mn=document.getElementById("mobileNav");
       var hb=document.getElementById("hamburger");
       if(mn)mn.classList.remove("open");
       if(hb)hb.classList.remove("active");
+      overlay.classList.remove("exit");
+      void overlay.offsetWidth;
+      overlay.classList.add("cover");
       setTimeout(function(){
         var top=target.getBoundingClientRect().top+window.scrollY-72;
         window.scrollTo({top:top,behavior:"auto"});
-        stopSmoke();
-        setTimeout(function(){overlay.classList.remove("active")},200);
-      },1500);
+        overlay.classList.remove("cover");
+        overlay.classList.add("exit");
+        setTimeout(function(){
+          overlay.classList.remove("exit");
+          busy=false;
+        },380);
+      },420);
     });
   }
 })();
