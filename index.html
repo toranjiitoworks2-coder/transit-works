@@ -203,7 +203,7 @@
       <span class="sec-label">お知らせ</span>
       <h2 class="sec-title-en slide-in">Log</h2>
     </div>
-    <div class="news-list" id="newsList">
+    <div class="news-grid" id="newsList">
     </div>
   </div>
 </section>
@@ -228,16 +228,23 @@
     <span class="sec-label">作品紹介</span>
     <h2 class="sec-title-en slide-in">Hangar</h2>
     <p class="sec-lead">トランジットWorksで生まれたオリジナル作品たち</p>
+    <div class="works-filter" id="worksFilter">
+      <button class="works-filter-btn active" type="button" data-filter="all">すべて</button>
+      <button class="works-filter-btn" type="button" data-filter="軽作業">軽作業</button>
+      <button class="works-filter-btn" type="button" data-filter="創作">創作</button>
+      <button class="works-filter-btn" type="button" data-filter="生活訓練">生活訓練</button>
+    </div>
     <div class="works-grid" id="worksGrid">
-      <div class="works-card sa"><div class="works-thumb"><img src="/images/works-aroma.jpg" alt="アロマストーン"></div><h3>アロマストーン</h3><p>好みのアロマオイルを染み込ませて使うインテリア雑貨。</p></div>
-      <div class="works-card sa sa-d1"><div class="works-thumb"><span>PHOTO</span></div><h3>アロマワックスサシェ</h3><p>天然精油をブレンドしたアロマワックスサシェ。</p></div>
-      <div class="works-card sa sa-d2"><div class="works-thumb"><span>PHOTO</span></div><h3>レジンアクセサリー</h3><p>ドライフラワーやラメを閉じ込めたアクセサリー。</p></div>
-      <div class="works-card sa sa-d3"><div class="works-thumb"><span>PHOTO</span></div><h3>レジンインテリア小物</h3><p>コースターやトレイなどのインテリアアイテム。</p></div>
-      <div class="works-card sa sa-d4"><div class="works-thumb"><img src="/images/works-wood.jpg" alt="木工作品"></div><h3>木工作品</h3><p>木材を使った手作りのオリジナル作品。</p></div>
-      <div class="works-card sa sa-d5"><div class="works-thumb"><img src="/images/works-flower.jpg" alt="押し花シール"></div><h3>押し花シール</h3><p>本物の花を使ったオリジナルシール。</p></div>
-      <div class="works-card sa sa-d6"><div class="works-thumb"><img src="/images/works-magnet.jpg" alt="マグネット"></div><h3>マグネット</h3><p>オリジナルデザインのマグネット作品。</p></div>
-      <div class="works-card sa sa-d7"><div class="works-thumb"><img src="/images/works-robot.jpg" alt="木工ロボット"></div><h3>木工ロボット</h3><p>木材を組み合わせて作るユニークなロボット作品。</p></div>
-      <div class="works-card sa sa-d8"><div class="works-thumb"><img src="/images/works-ikebana.jpg" alt="一輪挿し"></div><h3>一輪挿し</h3><p>お気に入りの花を一輪、さりげなく飾れる手作りの一輪挿し。</p></div>
+      <div class="works-card sa" data-category="軽作業"><div class="works-thumb"><span>PHOTO</span></div><h3>軽作業</h3><p>封入・検品・シール貼りなど、手先を使った作業を中心に取り組みます。無理のないペースで進められます。</p></div>
+      <div class="works-card sa sa-d1" data-category="創作"><div class="works-thumb"><img src="/images/works-aroma.jpg" alt="アロマストーン"></div><h3>アロマストーン</h3><p>好みのアロマオイルを染み込ませて使うインテリア雑貨。</p></div>
+      <div class="works-card sa sa-d2" data-category="創作"><div class="works-thumb"><span>PHOTO</span></div><h3>アロマワックスサシェ</h3><p>天然精油をブレンドしたアロマワックスサシェ。</p></div>
+      <div class="works-card sa sa-d3" data-category="創作"><div class="works-thumb"><span>PHOTO</span></div><h3>レジンアクセサリー</h3><p>ドライフラワーやラメを閉じ込めたアクセサリー。</p></div>
+      <div class="works-card sa sa-d4" data-category="創作"><div class="works-thumb"><span>PHOTO</span></div><h3>レジンインテリア小物</h3><p>コースターやトレイなどのインテリアアイテム。</p></div>
+      <div class="works-card sa sa-d5" data-category="創作"><div class="works-thumb"><img src="/images/works-wood.jpg" alt="木工作品"></div><h3>木工作品</h3><p>木材を使った手作りのオリジナル作品。</p></div>
+      <div class="works-card sa sa-d6" data-category="創作"><div class="works-thumb"><img src="/images/works-flower.jpg" alt="押し花シール"></div><h3>押し花シール</h3><p>本物の花を使ったオリジナルシール。</p></div>
+      <div class="works-card sa sa-d7" data-category="創作"><div class="works-thumb"><img src="/images/works-magnet.jpg" alt="マグネット"></div><h3>マグネット</h3><p>オリジナルデザインのマグネット作品。</p></div>
+      <div class="works-card sa sa-d8" data-category="創作"><div class="works-thumb"><img src="/images/works-robot.jpg" alt="木工ロボット"></div><h3>木工ロボット</h3><p>木材を組み合わせて作るユニークなロボット作品。</p></div>
+      <div class="works-card sa sa-d8" data-category="創作"><div class="works-thumb"><img src="/images/works-ikebana.jpg" alt="一輪挿し"></div><h3>一輪挿し</h3><p>お気に入りの花を一輪、さりげなく飾れる手作りの一輪挿し。</p></div>
     </div>
   </div>
 </section>
@@ -657,6 +664,39 @@ function initFaqAccordion(){
 }
 initFaqAccordion();
 
+// === 10b. Works category filter ===
+(function(){
+  var tabs=document.querySelectorAll(".works-filter-btn");
+  var grid=document.getElementById("worksGrid");
+  if(!tabs.length||!grid)return;
+  function applyFilter(cat){
+    var cards=grid.querySelectorAll(".works-card");
+    cards.forEach(function(card){
+      var match=(cat==="all"||card.getAttribute("data-category")===cat);
+      if(match){
+        card.style.display="";
+        requestAnimationFrame(function(){card.classList.remove("hide")});
+      }else{
+        card.classList.add("hide");
+        setTimeout(function(){
+          if(card.classList.contains("hide"))card.style.display="none";
+        },320);
+      }
+    });
+  }
+  window.applyWorksFilter=function(){
+    var active=document.querySelector(".works-filter-btn.active");
+    if(active)applyFilter(active.getAttribute("data-filter"));
+  };
+  tabs.forEach(function(tab){
+    tab.addEventListener("click",function(){
+      tabs.forEach(function(t){t.classList.remove("active")});
+      tab.classList.add("active");
+      applyFilter(tab.getAttribute("data-filter"));
+    });
+  });
+})();
+
 // === 11. Flying plane ===
 (function(){
   var hero=document.querySelector(".hero");
@@ -761,7 +801,9 @@ async function loadCMSData(){
     const list=document.getElementById('newsList');
     if(list&&data.items&&data.items.length){
       list.innerHTML=data.items.map(function(item,i){
-        return '<a href="#" class="news-item sa'+(i>0?' sa-d'+i:'')+'"><time>'+item.date+'</time><span class="news-cat">'+item.category+'</span><span class="news-text">'+item.text+'</span><span class="news-arrow">&rarr;</span></a>';
+        var d=(i<3?' sa-d'+i:'');
+        var thumb=item.image?'<img src="'+item.image+'" alt="">':'<span>PHOTO</span>';
+        return '<a href="#" class="news-card sa'+d+'"><div class="news-card-thumb">'+thumb+'</div><div class="news-card-body"><div class="news-card-meta"><time>'+item.date+'</time><span class="news-card-cat">'+item.category+'</span></div><h3 class="news-card-title">'+item.text+'</h3></div></a>';
       }).join('');
       var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
       list.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
@@ -789,10 +831,12 @@ async function loadCMSData(){
     const grid=document.getElementById('worksGrid');
     if(grid&&data.items&&data.items.length){
       grid.innerHTML=data.items.map(function(item,i){
-        return '<div class="works-card sa'+(i>0?' sa-d'+i:'')+'"><div class="works-thumb">'+(item.image?'<img src="'+item.image+'" alt="'+item.title+'">':'<span>PHOTO</span>')+'</div><h3>'+item.title+'</h3><p>'+item.description+'</p></div>';
+        var cat=(item.category||'創作').replace(/"/g,'&quot;');
+        return '<div class="works-card sa'+(i>0?' sa-d'+(i%9):'')+'" data-category="'+cat+'"><div class="works-thumb">'+(item.image?'<img src="'+item.image+'" alt="'+item.title+'">':'<span>PHOTO</span>')+'</div><h3>'+item.title+'</h3><p>'+item.description+'</p></div>';
       }).join('');
       var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
       grid.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
+      if(window.applyWorksFilter)window.applyWorksFilter();
     }
   }catch(e){}
 

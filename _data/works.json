@@ -1,13 +1,14 @@
 {
   "items": [
-    {"title": "アロマストーン", "description": "好みのアロマオイルを染み込ませて使うインテリア雑貨。", "image": "/images/works-aroma.jpg"},
-    {"title": "アロマワックスサシェ", "description": "天然精油をブレンドしたアロマワックスサシェ。", "image": ""},
-    {"title": "レジンアクセサリー", "description": "ドライフラワーやラメを閉じ込めたアクセサリー。", "image": ""},
-    {"title": "レジンインテリア小物", "description": "コースターやトレイなどのインテリアアイテム。", "image": ""},
-    {"title": "木工作品", "description": "木材を使った手作りのオリジナル作品。", "image": "/images/works-wood.jpg"},
-    {"title": "押し花シール", "description": "本物の花を使ったオリジナルシール。", "image": "/images/works-flower.jpg"},
-    {"title": "マグネット", "description": "オリジナルデザインのマグネット作品。", "image": "/images/works-magnet.jpg"},
-    {"title": "木工ロボット", "description": "木材を組み合わせて作るユニークなロボット作品。", "image": "/images/works-robot.jpg"},
-    {"title": "一輪挿し", "description": "お気に入りの花を一輪、さりげなく飾れる手作りの一輪挿し。", "image": "/images/works-ikebana.jpg"}
+    {"title": "軽作業", "description": "封入・検品・シール貼りなど、手先を使った作業を中心に取り組みます。無理のないペースで進められます。", "image": "", "category": "軽作業"},
+    {"title": "アロマストーン", "description": "好みのアロマオイルを染み込ませて使うインテリア雑貨。", "image": "/images/works-aroma.jpg", "category": "創作"},
+    {"title": "アロマワックスサシェ", "description": "天然精油をブレンドしたアロマワックスサシェ。", "image": "", "category": "創作"},
+    {"title": "レジンアクセサリー", "description": "ドライフラワーやラメを閉じ込めたアクセサリー。", "image": "", "category": "創作"},
+    {"title": "レジンインテリア小物", "description": "コースターやトレイなどのインテリアアイテム。", "image": "", "category": "創作"},
+    {"title": "木工作品", "description": "木材を使った手作りのオリジナル作品。", "image": "/images/works-wood.jpg", "category": "創作"},
+    {"title": "押し花シール", "description": "本物の花を使ったオリジナルシール。", "image": "/images/works-flower.jpg", "category": "創作"},
+    {"title": "マグネット", "description": "オリジナルデザインのマグネット作品。", "image": "/images/works-magnet.jpg", "category": "創作"},
+    {"title": "木工ロボット", "description": "木材を組み合わせて作るユニークなロボット作品。", "image": "/images/works-robot.jpg", "category": "創作"},
+    {"title": "一輪挿し", "description": "お気に入りの花を一輪、さりげなく飾れる手作りの一輪挿し。", "image": "/images/works-ikebana.jpg", "category": "創作"}
   ]
 }
