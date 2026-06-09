@@ -41,7 +41,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 /* ===== Hero ===== */
 .hero{margin-top:68px;height:100vh;min-height:560px;background:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
 /* Hero text — hidden until animated */
-.hero-catch{font-size:clamp(2.4rem,10vw,8rem);font-weight:200;color:#111;letter-spacing:.04em;line-height:1.2;position:relative;z-index:2;margin-bottom:36px;visibility:hidden}
+.hero-catch{font-size:clamp(1.8rem,6vw,5rem);font-weight:200;color:#111;letter-spacing:.04em;line-height:1.2;position:relative;z-index:2;margin-bottom:36px;visibility:hidden}
 .hero-catch .char{display:inline-block;opacity:0;transform:translateY(20px);transition:none}
 .hero-catch.animate .char{animation:charIn .45s ease forwards}
 @keyframes charIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
