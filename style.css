@@ -502,7 +502,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 }
 .page-trans.cover .page-trans-bar-fill{
   width:100%;
-  transition:width .95s cubic-bezier(.4,0,.6,1) .15s;
+  transition:width 1.4s cubic-bezier(.4,0,.6,1) .15s;
 }
 
 /* Meters (bottom-right) */
