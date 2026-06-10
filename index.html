@@ -92,8 +92,15 @@
 
 <!-- ===== Header ===== -->
 <header class="header">
-  <div class="header-inner">
-    <a href="#" class="logo">トランジットWorks</a>
+  <div class="header-top">
+    <a href="tel:072-860-7737" class="header-phone">072-860-7737</a>
+  </div>
+  <div class="header-center">
+    <a href="#" class="header-logo-link" aria-label="トランジットWorks">
+      <img src="/images/logo-sign.png" alt="トランジットWorks 就労継続支援B型事業所" class="header-logo-img">
+    </a>
+  </div>
+  <div class="header-bottom">
     <nav><ul class="nav-list">
       <li><a href="#about">施設紹介</a></li>
       <li><a href="#works">活動内容</a></li>
@@ -104,8 +111,8 @@
       <li><a href="#access">アクセス</a></li>
     </ul></nav>
     <a href="#contact" class="nav-cta" role="button">お問い合わせ</a>
-    <button class="hamburger" id="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
   </div>
+  <button class="hamburger" id="hamburger" aria-label="メニュー"><span></span><span></span><span></span></button>
   <div class="mobile-nav" id="mobileNav">
     <a href="#about">施設紹介</a><a href="#works">活動内容</a><a href="#gallery">ギャラリー</a><a href="#target">ご利用をお考えの方</a><a href="#flow">ご利用の流れ</a><a href="#faq">よくある質問</a><a href="#access">アクセス</a><a href="#contact">お問い合わせ</a>
   </div>
@@ -635,7 +642,9 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
       overlay.classList.add("cover");
       startMeters();
       setTimeout(function(){
-        var top=target.getBoundingClientRect().top+window.scrollY-72;
+        var headerEl=document.querySelector(".header");
+        var headerH=headerEl?headerEl.offsetHeight:72;
+        var top=target.getBoundingClientRect().top+window.scrollY-headerH-8;
         window.scrollTo({top:top,behavior:"auto"});
         overlay.classList.remove("cover");
         overlay.classList.add("exit");
