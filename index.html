@@ -504,6 +504,18 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
   });
 })();
 
+// === 2b. Shrink header on scroll ===
+(function(){
+  var header=document.querySelector(".header");
+  if(!header)return;
+  function onScroll(){
+    if(window.scrollY>100)header.classList.add("scrolled");
+    else header.classList.remove("scrolled");
+  }
+  window.addEventListener("scroll",onScroll,{passive:true});
+  onScroll();
+})();
+
 // === 3. Ripple on CTA button ===
 (function(){
   var btns=document.querySelectorAll(".nav-cta,.cta-btn");
