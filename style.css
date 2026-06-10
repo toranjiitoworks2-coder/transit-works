@@ -11,6 +11,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .header-top,.header-center,.header-bottom{max-width:1100px;margin:0 auto;padding:0 40px}
 .header-top{display:flex;justify-content:flex-end;align-items:center;min-height:22px}
 .header-phone{font-size:.78rem;font-weight:500;color:var(--text-sub);letter-spacing:.06em;transition:color .2s}
+.header-phone-icon{margin-right:.3em}
 .header-phone:hover{color:var(--green)}
 .header-center{display:flex;justify-content:center;align-items:center;padding-top:8px;padding-bottom:8px}
 .header-logo-link{display:block;line-height:0}
