@@ -320,7 +320,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 /* ===== Footer ===== */
 .footer{background:#1a3a5c;color:rgba(255,255,255,.7);padding:72px 0 0;font-weight:300}
 .footer-brand{text-align:center;padding-bottom:48px}
-.footer-logo-img{max-width:200px;width:auto;height:auto;margin:0 auto;opacity:.9}
+.footer-logo-img{max-width:260px;width:auto;height:auto;margin:0 auto;opacity:.9}
 .footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;padding-bottom:48px;align-items:start}
 .footer-logo{font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:20px;letter-spacing:.03em}
 .footer-info{margin-bottom:24px}
