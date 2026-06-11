@@ -255,6 +255,7 @@
       <div class="works-card sa sa-d1" data-category="自主製品"><div class="works-thumb"><img src="/images/works-aroma.jpg" alt="アロマ作品"></div><h3>アロマ作品</h3><p>アロマストーンやアロマワックスサシェなど、香りを楽しむハンドメイド作品。</p></div>
       <div class="works-card sa sa-d2" data-category="自主製品"><div class="works-thumb"><img src="/images/works-wood.jpg" alt="木工作品"></div><h3>木工作品</h3><p>木材を使ったロボット・一輪挿し・マグネットなど、手作りのオリジナル木工作品。</p></div>
       <div class="works-card sa sa-d3" data-category="自主製品"><div class="works-thumb"><img src="/images/works-flower.jpg" alt="押し花シール"></div><h3>押し花シール</h3><p>本物の花を使ったオリジナルシール。</p></div>
+      <div class="works-card sa sa-d4" data-category="自主製品"><div class="works-thumb"><span>PHOTO</span></div><h3>楽曲制作</h3><p>AIを活用してオリジナル楽曲を制作しています。プログレッシブロック・ポストロックにインスパイアされたサウンドが特徴です。</p><span class="works-soon-badge">準備中</span></div>
     </div>
   </div>
 </section>
@@ -397,6 +398,15 @@
     <div class="works-modal-img"><img id="worksModalImg" src="" alt=""></div>
     <h3 class="works-modal-title" id="worksModalTitle"></h3>
     <p class="works-modal-desc" id="worksModalDesc"></p>
+  </div>
+</div>
+
+<!-- ===== YouTube audio modal ===== -->
+<div class="yt-modal" id="ytModal" aria-hidden="true">
+  <div class="yt-modal-overlay" data-close></div>
+  <div class="yt-modal-box" role="dialog" aria-modal="true" aria-label="楽曲試聴">
+    <button class="yt-modal-close" type="button" aria-label="閉じる" data-close>&times;</button>
+    <div class="yt-modal-frame"><iframe id="ytFrame" src="" title="楽曲試聴" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
   </div>
 </div>
 
@@ -888,6 +898,7 @@ initFaqAccordion();
     document.body.style.overflow="";
   }
   grid.addEventListener("click",function(e){
+    if(e.target.closest(".works-audio-btn"))return;
     var card=e.target.closest(".works-card");
     if(card)openModal(card);
   });
@@ -896,6 +907,45 @@ initFaqAccordion();
   });
   document.addEventListener("keydown",function(e){
     if(e.key==="Escape"&&modal.classList.contains("open"))closeModal();
+  });
+})();
+
+// === 14c. YouTube audio modal ===
+(function(){
+  var grid=document.getElementById("worksGrid");
+  var modal=document.getElementById("ytModal");
+  if(!grid||!modal)return;
+  var frame=document.getElementById("ytFrame");
+  function toId(url){
+    if(!url)return "";
+    var m=String(url).match(/(?:youtu\.be\/|[?&]v=|embed\/|shorts\/)([A-Za-z0-9_-]{11})/);
+    return m?m[1]:(/^[A-Za-z0-9_-]{11}$/.test(url)?url:"");
+  }
+  function open(url){
+    var id=toId(url);
+    if(!id)return;
+    frame.setAttribute("src","https://www.youtube.com/embed/"+id+"?autoplay=1&rel=0");
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden","false");
+    document.body.style.overflow="hidden";
+  }
+  function close(){
+    frame.setAttribute("src","");
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden","true");
+    document.body.style.overflow="";
+  }
+  grid.addEventListener("click",function(e){
+    var btn=e.target.closest(".works-audio-btn");
+    if(!btn)return;
+    e.stopPropagation();
+    open(btn.getAttribute("data-youtube"));
+  });
+  modal.addEventListener("click",function(e){
+    if(e.target.hasAttribute("data-close"))close();
+  });
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"&&modal.classList.contains("open"))close();
   });
 })();
 
@@ -967,7 +1017,13 @@ async function loadCMSData(){
     if(grid&&data.items&&data.items.length){
       grid.innerHTML=data.items.map(function(item,i){
         var cat=(item.category||'創作').replace(/"/g,'&quot;');
-        return '<div class="works-card sa'+(i>0?' sa-d'+(i%9):'')+'" data-category="'+cat+'"><div class="works-thumb">'+(item.image?'<img src="'+item.image+'" alt="'+item.title+'">':'<span>PHOTO</span>')+'</div><h3>'+item.title+'</h3><p>'+item.description+'</p></div>';
+        var media='';
+        if(item.youtube_url!==undefined){
+          media = item.youtube_url
+            ? '<button class="works-audio-btn" type="button" data-youtube="'+String(item.youtube_url).replace(/"/g,'&quot;')+'">▶ 試聴する</button>'
+            : '<span class="works-soon-badge">準備中</span>';
+        }
+        return '<div class="works-card sa'+(i>0?' sa-d'+(i%9):'')+'" data-category="'+cat+'"><div class="works-thumb">'+(item.image?'<img src="'+item.image+'" alt="'+item.title+'">':'<span>PHOTO</span>')+'</div><h3>'+item.title+'</h3><p>'+item.description+'</p>'+media+'</div>';
       }).join('');
       var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
       grid.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
