@@ -127,7 +127,16 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .about-body .link-arrow{color:var(--green)}
 
 /* ===== Philosophy ===== */
-.philosophy{background:#1a1a1a;color:#fff;padding:200px 0}
+.philosophy{
+  background-color:#1a1a1a;
+  background-image:
+    radial-gradient(circle at 18% 25%, rgba(255,255,255,.05), transparent 55%),
+    radial-gradient(circle at 82% 72%, rgba(45,106,79,.14), transparent 55%);
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-attachment:fixed;
+  color:#fff;padding:200px 0
+}
 .philosophy .sec-label{color:rgba(255,255,255,.35);margin-bottom:16px}
 .philosophy .sec-title-en{color:#fff;margin-bottom:44px}
 .philosophy-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
@@ -221,6 +230,20 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .works-card:hover .works-thumb img{transform:scale(1.05)}
 .works-card h3{font-size:.88rem;font-weight:500;padding:16px 16px 4px;color:var(--text)}
 .works-card p{font-size:.76rem;color:var(--text-sub);padding:0 16px 20px;line-height:1.7}
+.works-card:has(.works-thumb img){cursor:pointer}
+/* Works modal */
+.works-modal{position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center;padding:24px}
+.works-modal.open{display:flex;animation:worksModalFade .3s ease}
+.works-modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,.75)}
+.works-modal-box{position:relative;z-index:1;max-width:560px;width:100%;max-height:90vh;overflow:auto;background:#fff;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.4);animation:worksModalPop .3s ease}
+.works-modal-img{width:100%;background:#f0f0f0}
+.works-modal-img img{width:100%;height:auto;max-height:60vh;object-fit:cover;display:block}
+.works-modal-title{font-size:1.05rem;font-weight:500;color:var(--text);padding:20px 24px 6px}
+.works-modal-desc{font-size:.85rem;color:var(--text-sub);line-height:1.8;padding:0 24px 24px}
+.works-modal-close{position:absolute;top:10px;right:12px;z-index:2;width:36px;height:36px;border:none;border-radius:50%;background:rgba(0,0,0,.45);color:#fff;font-size:1.6rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.works-modal-close:hover{background:rgba(0,0,0,.7)}
+@keyframes worksModalFade{from{opacity:0}to{opacity:1}}
+@keyframes worksModalPop{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
 
 /* ===== Gallery ===== */
 .gallery{background:var(--gray)}
@@ -630,6 +653,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 /* ===== About stats (count-up) ===== */
 .about-stats{display:flex;gap:40px;margin-top:48px;padding-top:40px;padding-bottom:20px;border-top:1px solid rgba(255,255,255,.1)}
 .stat{text-align:center;flex:1}
+.stat-value{white-space:nowrap}
 .stat-num{font-size:clamp(2rem,4vw,3.2rem);font-weight:100;color:#fff;letter-spacing:.05em}
 .stat-unit{font-size:.85rem;font-weight:300;color:rgba(255,255,255,.5);margin-left:2px}
 .stat-label{display:block;font-size:.7rem;color:rgba(255,255,255,.35);margin-top:6px;letter-spacing:.1em}

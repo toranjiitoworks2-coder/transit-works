@@ -158,6 +158,24 @@
         <a href="#departure" class="link-arrow">view more &rarr;</a>
       </div>
     </div>
+    <div class="about-stats sa">
+      <div class="stat">
+        <div class="stat-value"><span class="stat-num" data-count="2024">0</span><span class="stat-unit">年4月</span></div>
+        <span class="stat-label">開所</span>
+      </div>
+      <div class="stat">
+        <div class="stat-value"><span class="stat-unit">約</span><span class="stat-num" data-count="300">0</span><span class="stat-unit">日</span></div>
+        <span class="stat-label">通所日数</span>
+      </div>
+      <div class="stat">
+        <div class="stat-value"><span class="stat-num" data-count="20">0</span><span class="stat-unit">名</span></div>
+        <span class="stat-label">利用定員</span>
+      </div>
+      <div class="stat">
+        <div class="stat-value"><span class="stat-num" data-count="10">0</span><span class="stat-unit">種類以上</span></div>
+        <span class="stat-label">作品種類</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -370,6 +388,17 @@
 </section>
 
 <!-- ===== Footer ===== -->
+<!-- ===== Works modal ===== -->
+<div class="works-modal" id="worksModal" aria-hidden="true">
+  <div class="works-modal-overlay" data-close></div>
+  <div class="works-modal-box" role="dialog" aria-modal="true" aria-labelledby="worksModalTitle">
+    <button class="works-modal-close" type="button" aria-label="閉じる" data-close>&times;</button>
+    <div class="works-modal-img"><img id="worksModalImg" src="" alt=""></div>
+    <h3 class="works-modal-title" id="worksModalTitle"></h3>
+    <p class="works-modal-desc" id="worksModalDesc"></p>
+  </div>
+</div>
+
 <footer class="footer">
   <div class="container">
     <div class="footer-brand"><img src="/images/logo-sign-white.png" alt="トランジットWorks 就労継続支援B型事業所" class="footer-logo-img"></div>
@@ -783,6 +812,43 @@ initFaqAccordion();
     hero.style.backgroundPositionY=(y*0.5)+"px";
     if(particles)particles.style.transform="translateY("+(y*0.35)+"px)";
   },{passive:true});
+})();
+
+// === 14b. Works modal ===
+(function(){
+  var grid=document.getElementById("worksGrid");
+  var modal=document.getElementById("worksModal");
+  if(!grid||!modal)return;
+  var imgEl=document.getElementById("worksModalImg");
+  var titleEl=document.getElementById("worksModalTitle");
+  var descEl=document.getElementById("worksModalDesc");
+  function openModal(card){
+    var img=card.querySelector(".works-thumb img");
+    if(!img)return; // PHOTOプレースホルダーは表示しない
+    imgEl.setAttribute("src",img.getAttribute("src"));
+    imgEl.setAttribute("alt",img.getAttribute("alt")||"");
+    var h=card.querySelector("h3"),p=card.querySelector("p");
+    titleEl.textContent=h?h.textContent:"";
+    descEl.textContent=p?p.textContent:"";
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden","false");
+    document.body.style.overflow="hidden";
+  }
+  function closeModal(){
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden","true");
+    document.body.style.overflow="";
+  }
+  grid.addEventListener("click",function(e){
+    var card=e.target.closest(".works-card");
+    if(card)openModal(card);
+  });
+  modal.addEventListener("click",function(e){
+    if(e.target.hasAttribute("data-close"))closeModal();
+  });
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"&&modal.classList.contains("open"))closeModal();
+  });
 })();
 
 // === 15. CMS データ読み込み ===
