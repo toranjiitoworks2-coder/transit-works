@@ -1,6 +1,6 @@
 /* ===== Reset ===== */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:220px}
+html{scroll-behavior:smooth;scroll-padding-top:220px;overflow-x:hidden}
 body{font-family:'Noto Sans JP',sans-serif;font-weight:300;color:#111;background:#fff;line-height:1.9;overflow-x:hidden}
 a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;display:block}
 :root{--green:#2d6a4f;--black:#1a1a1a;--gray:#f5f5f5;--border:#e5e5e5;--text:#111;--text-sub:#666;--white:#fff}
@@ -92,7 +92,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .hero-scroll.hide{opacity:0;pointer-events:none}
 @keyframes heroScrollBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
 /* Hero text — hidden until animated */
-.hero-catch{font-size:clamp(1.6rem,4vw,3.5rem);font-weight:200;color:#fff;letter-spacing:.1em;line-height:1.25;position:relative;z-index:2;margin-bottom:36px;visibility:hidden;white-space:nowrap;text-shadow:0 2px 24px rgba(0,0,0,.35)}
+.hero-catch{font-size:clamp(1.6rem,4vw,3.5rem);font-weight:200;color:#fff;letter-spacing:.1em;line-height:1.25;position:relative;z-index:2;margin-bottom:36px;visibility:hidden;white-space:nowrap;max-width:100%;overflow-wrap:break-word;text-shadow:0 2px 24px rgba(0,0,0,.35)}
 .hero-catch .char{display:inline-block;opacity:0;transform:translateY(20px);transition:none}
 .hero-catch.animate .char{animation:charIn .45s ease forwards}
 @keyframes charIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
@@ -505,7 +505,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 
 /* ===== Responsive — Small phones ===== */
 @media(max-width:480px){
-  .hero-catch{font-size:clamp(2rem,11vw,3.4rem)}
+  .hero-catch{font-size:clamp(2rem,11vw,3.4rem);max-width:100%}
   .hero-strip-img{width:150px;height:100px}
   @keyframes stripScroll{0%{transform:translateX(0)}100%{transform:translateX(calc(-150px * 8 - 16px * 8))}}
   .sec-title-en{font-size:1.8rem}
