@@ -7,7 +7,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .container{max-width:1100px;margin:0 auto;padding:0 40px}
 
 /* ===== Header ===== */
-.header{position:fixed;top:0;left:0;width:100%;z-index:1000;background:#fff;border-bottom:1px solid var(--border);padding:10px 0 14px;transition:padding .3s ease}
+.header{position:fixed;top:0;left:0;width:100%;z-index:1000;background:transparent;border-bottom:1px solid transparent;padding:10px 0 14px;transition:padding .3s ease,background-color .3s ease,border-color .3s ease}
 .header-top,.header-center,.header-bottom{max-width:1100px;margin:0 auto;padding:0 40px}
 .header-top{display:flex;justify-content:flex-end;align-items:center;min-height:22px;overflow:hidden;transition:max-height .3s ease,min-height .3s ease,opacity .3s ease}
 .header-phone{
@@ -22,18 +22,27 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
   background:transparent;
   border:1.5px solid #1a3a5c;
   border-radius:50px;
-  transition:background-color .2s,color .2s;
+  transition:background-color .2s,color .2s,border-color .3s ease;
 }
 .header-phone-icon{flex:none}
 .header-phone:hover{background:#1a3a5c;color:#fff}
 .header-center{display:flex;justify-content:center;align-items:center;padding-top:8px;padding-bottom:8px;transition:padding .3s ease}
 .header-logo-link{display:block;line-height:0}
-.header-logo-img{display:block;max-width:500px;max-height:170px;width:auto;height:auto;transition:max-width .3s ease,max-height .3s ease}
+.header-logo-img{display:block;max-width:500px;max-height:170px;width:auto;height:auto;transition:max-width .3s ease,max-height .3s ease,filter .3s ease}
 /* Scrolled (compact) header */
-.header.scrolled{padding-top:6px;padding-bottom:8px}
+.header.scrolled{padding-top:6px;padding-bottom:8px;background:#fff;border-bottom-color:var(--border)}
 .header.scrolled .header-top{max-height:0;min-height:0;opacity:0}
 .header.scrolled .header-center{padding-top:4px;padding-bottom:4px}
 .header.scrolled .header-logo-img{max-width:200px;max-height:70px}
+/* Transparent header over hero (top, not scrolled) — white text/logo */
+.header:not(.scrolled) .nav-list a{color:#fff}
+.header:not(.scrolled) .nav-list a:hover{color:#fff}
+.header:not(.scrolled) .header-logo-img{filter:brightness(0) invert(1)}
+.header:not(.scrolled) .header-phone{color:#fff;border-color:rgba(255,255,255,.85)}
+.header:not(.scrolled) .header-phone:hover{background:#fff;color:#1a3a5c;border-color:#fff}
+.header:not(.scrolled) .nav-cta{background:transparent;color:#fff;border-color:#fff}
+.header:not(.scrolled) .nav-cta:hover{background:rgba(255,255,255,.15);opacity:1}
+.header:not(.scrolled) .hamburger span{background:#fff}
 .header-bottom{position:relative;display:flex;justify-content:center;align-items:center;padding-top:6px}
 .header-bottom .nav-cta{position:absolute;right:40px;top:50%;transform:translateY(-50%);font-size:.7rem;padding:6px 16px}
 .nav-list{display:flex;gap:24px}
@@ -41,7 +50,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .nav-list a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1.5px;background:var(--green);transition:width .35s ease}
 .nav-list a:hover{color:var(--text)}
 .nav-list a:hover::after{width:100%}
-.nav-cta{font-size:.75rem;font-weight:500;color:#fff;background:var(--green);padding:8px 22px;border-radius:24px;letter-spacing:.04em;transition:opacity .2s}
+.nav-cta{font-size:.75rem;font-weight:500;color:#fff;background:var(--green);padding:8px 22px;border:1.5px solid transparent;border-radius:24px;letter-spacing:.04em;transition:opacity .2s,background-color .3s ease,color .3s ease,border-color .3s ease}
 .nav-cta:hover{opacity:.85}
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
 .hamburger span{display:block;width:20px;height:1.5px;background:var(--text);transition:transform .3s,opacity .3s}
