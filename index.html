@@ -43,6 +43,7 @@
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
+<script>document.documentElement.classList.add("loading-lock");</script>
 
 <!-- ===== Loading Screen ===== -->
 <div id="loading">
@@ -120,29 +121,16 @@
 
 <!-- ===== Hero ===== -->
 <section class="hero">
-  <canvas class="hero-particles" id="heroParticles"></canvas>
-  <div class="hero-strip">
-    <div class="hero-strip-track">
-      <div class="hero-strip-img"><img src="/images/hero1.jpg" alt="お客さまとの笑顔のやりとり"></div>
-      <div class="hero-strip-img"><img src="/images/hero2.jpg" alt="松井山手祭りのブース全体"></div>
-      <div class="hero-strip-img"><img src="/images/hero3.jpg" alt="スタッフ集合写真"></div>
-      <div class="hero-strip-img"><img src="/images/hero1.jpg" alt="お客さまとの笑顔のやりとり"></div>
-      <div class="hero-strip-img"><img src="/images/hero2.jpg" alt="松井山手祭りのブース全体"></div>
-      <div class="hero-strip-img"><img src="/images/hero3.jpg" alt="スタッフ集合写真"></div>
-      <div class="hero-strip-img"><img src="/images/hero1.jpg" alt="お客さまとの笑顔のやりとり"></div>
-      <div class="hero-strip-img"><img src="/images/hero2.jpg" alt="松井山手祭りのブース全体"></div>
-      <div class="hero-strip-img"><img src="/images/hero1.jpg" alt="お客さまとの笑顔のやりとり"></div>
-      <div class="hero-strip-img"><img src="/images/hero2.jpg" alt="松井山手祭りのブース全体"></div>
-      <div class="hero-strip-img"><img src="/images/hero3.jpg" alt="スタッフ集合写真"></div>
-      <div class="hero-strip-img"><img src="/images/hero1.jpg" alt="お客さまとの笑顔のやりとり"></div>
-      <div class="hero-strip-img"><img src="/images/hero2.jpg" alt="松井山手祭りのブース全体"></div>
-      <div class="hero-strip-img"><img src="/images/hero3.jpg" alt="スタッフ集合写真"></div>
-      <div class="hero-strip-img"><img src="/images/hero1.jpg" alt="お客さまとの笑顔のやりとり"></div>
-      <div class="hero-strip-img"><img src="/images/hero2.jpg" alt="松井山手祭りのブース全体"></div>
-    </div>
+  <div class="hero-slideshow" id="heroSlideshow">
+    <div class="hero-slide is-active" style="background-image:url('/images/hero1.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('/images/hero2.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('/images/hero3.jpg')"></div>
   </div>
-  <h1 class="hero-catch" id="heroCatch">あなたのペースで、一歩ずつ。</h1>
-  <p class="hero-sub-copy" id="heroSubCopy">小さな一歩が、一番遠くまで連れてってくれる。</p>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-catch" id="heroCatch">あなたのペースで、一歩ずつ。</h1>
+    <p class="hero-sub-copy" id="heroSubCopy">小さな一歩が、一番遠くまで連れてってくれる。</p>
+  </div>
 </section>
 
 <!-- ===== About ===== -->
@@ -435,6 +423,9 @@
 </footer>
 
 <!-- Page top button -->
+<a class="to-contact" id="toContact" href="#contact" aria-label="お問い合わせへ">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+</a>
 <button class="to-top" id="toTop" aria-label="ページトップへ戻る">
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
 </button>
@@ -606,6 +597,41 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
   btn.addEventListener("click",function(){
     window.scrollTo({top:0,behavior:"smooth"});
   });
+})();
+
+// === 6b. Floating contact button ===
+(function(){
+  var btn=document.getElementById("toContact");
+  if(!btn)return;
+  window.addEventListener("scroll",function(){
+    btn.classList.toggle("show",window.scrollY>300);
+  },{passive:true});
+})();
+
+// === 6c. Hero fullscreen slideshow ===
+(function(){
+  var slides=document.querySelectorAll("#heroSlideshow .hero-slide");
+  if(slides.length<2)return;
+  var i=0;
+  setInterval(function(){
+    slides[i].classList.remove("is-active");
+    i=(i+1)%slides.length;
+    slides[i].classList.add("is-active");
+  },3500);
+})();
+
+// === 6d. Unlock scroll once loading finishes ===
+(function(){
+  var loadEl=document.getElementById("loading");
+  var html=document.documentElement;
+  function unlock(){html.classList.remove("loading-lock");}
+  if(!loadEl){unlock();return;}
+  if(loadEl.classList.contains("done")){unlock();return;}
+  var mo=new MutationObserver(function(){
+    if(loadEl.classList.contains("done")){unlock();mo.disconnect();}
+  });
+  mo.observe(loadEl,{attributes:true,attributeFilter:["class"]});
+  setTimeout(unlock,7000); // safety fallback
 })();
 
 // === 7. Active nav on scroll ===

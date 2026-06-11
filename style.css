@@ -64,14 +64,20 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .mobile-nav a:hover{color:var(--green)}
 
 /* ===== Hero ===== */
-.hero{margin-top:220px;height:calc(100vh - 220px);min-height:520px;background:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.hero{margin-top:0;width:100%;height:100vh;min-height:520px;background:#1a1a1a;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+/* Fullscreen fade slideshow */
+.hero-slideshow{position:absolute;inset:0;z-index:0}
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.5s ease;will-change:opacity}
+.hero-slide.is-active{opacity:1}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:rgba(0,0,0,.4)}
+.hero-content{position:relative;z-index:2;padding:0 24px;max-width:1100px}
 /* Hero text — hidden until animated */
-.hero-catch{font-size:clamp(1.6rem,4vw,3.5rem);font-weight:200;color:#111;letter-spacing:.1em;line-height:1.25;position:relative;z-index:2;margin-bottom:48px;visibility:hidden;white-space:nowrap}
+.hero-catch{font-size:clamp(1.6rem,4vw,3.5rem);font-weight:200;color:#fff;letter-spacing:.1em;line-height:1.25;position:relative;z-index:2;margin-bottom:36px;visibility:hidden;white-space:nowrap;text-shadow:0 2px 24px rgba(0,0,0,.35)}
 .hero-catch .char{display:inline-block;opacity:0;transform:translateY(20px);transition:none}
 .hero-catch.animate .char{animation:charIn .45s ease forwards}
 @keyframes charIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
-.hero-sub-copy{font-size:clamp(1rem,1.7vw,1.35rem);font-weight:300;color:rgba(17,17,17,.72);letter-spacing:.26em;position:relative;z-index:2;opacity:0;transform:translateY(12px);transition:opacity .7s ease,transform .7s ease}
+.hero-sub-copy{font-size:clamp(1rem,1.7vw,1.35rem);font-weight:300;color:rgba(255,255,255,.92);letter-spacing:.26em;position:relative;z-index:2;opacity:0;transform:translateY(12px);transition:opacity .7s ease,transform .7s ease;text-shadow:0 2px 20px rgba(0,0,0,.4)}
 .hero-sub-copy.animate{opacity:1;transform:translateY(0)}
 
 .hero-sub{position:absolute;bottom:40px;left:40px;font-size:.75rem;font-weight:300;color:rgba(17,17,17,.35);letter-spacing:.12em;z-index:2;opacity:0;transition:opacity .7s ease}
@@ -399,7 +405,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
   .hamburger{display:flex;position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:1001}
 
   /* Hero */
-  .hero{height:auto;min-height:calc(100vh - 110px);min-height:calc(100dvh - 110px);margin-top:110px;padding:48px 0 72px}
+  .hero{height:100vh;height:100dvh;min-height:520px;margin-top:0;padding:0}
   .hero-catch{font-size:clamp(2.2rem,11vw,4.2rem);letter-spacing:.04em;margin-bottom:24px;line-height:1.2;white-space:normal}
   .hero-sub-copy{font-size:.78rem;letter-spacing:.2em}
   .hero-sub{bottom:20px;left:20px;font-size:.65rem}
@@ -517,6 +523,16 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 }
 .to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
 .to-top:hover{transform:translateY(0) scale(1.1)}
+.to-contact{
+  position:fixed;bottom:32px;right:94px;z-index:900;
+  width:50px;height:50px;border-radius:50%;border:none;
+  background:var(--green);display:flex;align-items:center;justify-content:center;
+  opacity:0;visibility:hidden;transform:translateY(12px);
+  transition:opacity .3s,visibility .3s,transform .3s;
+  box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+.to-contact.show{opacity:1;visibility:visible;transform:translateY(0)}
+.to-contact:hover{transform:translateY(0) scale(1.1)}
 @media(pointer:coarse){.to-top{cursor:pointer!important}}
 
 /* ===== Page transition overlay (nav click) ===== */
@@ -680,7 +696,9 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .slide-in.visible{opacity:1;transform:translateX(0)}
 
 /* ===== Loading (KEEP) ===== */
-#loading{position:fixed;inset:0;z-index:9999;overflow:hidden;pointer-events:auto}
+#loading{position:fixed;inset:0;z-index:9999;overflow:hidden;pointer-events:auto;opacity:1;transition:opacity .6s ease}
+#loading.done{opacity:0}
+html.loading-lock,html.loading-lock body{overflow:hidden}
 #loading .loading-panel{
   position:absolute;top:0;width:50%;height:100%;background:#0a0a0a;
   transition:transform .8s cubic-bezier(.77,0,.18,1);z-index:3;
