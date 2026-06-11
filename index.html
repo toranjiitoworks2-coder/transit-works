@@ -136,6 +136,7 @@
     <span class="hero-scroll-text">SCROLL</span>
     <span class="hero-scroll-arrow"></span>
   </a>
+  <div class="hero-dots" id="heroDots" aria-hidden="true"></div>
 </section>
 
 <!-- ===== About ===== -->
@@ -635,12 +636,27 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
 (function(){
   var slides=document.querySelectorAll("#heroSlideshow .hero-slide");
   if(slides.length<2)return;
-  var i=0;
-  setInterval(function(){
+  var dotsWrap=document.getElementById("heroDots");
+  var i=0,timer,dots=[];
+  if(dotsWrap){
+    for(var d=0;d<slides.length;d++){
+      var dot=document.createElement("span");
+      dot.className="hero-dot"+(d===0?" active":"");
+      (function(idx){dot.addEventListener("click",function(){go(idx);restart();});})(d);
+      dotsWrap.appendChild(dot);
+      dots.push(dot);
+    }
+  }
+  function go(n){
     slides[i].classList.remove("is-active");
-    i=(i+1)%slides.length;
+    if(dots[i])dots[i].classList.remove("active");
+    i=(n+slides.length)%slides.length;
     slides[i].classList.add("is-active");
-  },3500);
+    if(dots[i])dots[i].classList.add("active");
+  }
+  function next(){go(i+1);}
+  function restart(){clearInterval(timer);timer=setInterval(next,3500);}
+  timer=setInterval(next,3500);
 })();
 
 // === 6d. Unlock scroll once loading finishes ===

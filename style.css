@@ -30,7 +30,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .header-logo-link{position:relative;display:inline-block;line-height:0}
 .header-logo-img{display:block;max-width:500px;max-height:170px;width:auto;height:auto;transition:max-width .3s ease,max-height .3s ease,opacity .3s ease}
 /* White logo overlays dark logo at its own size; crossfade with scrolled state */
-.header-logo-white{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+.header-logo-white{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);filter:drop-shadow(0 1px 6px rgba(0,0,0,.6))}
 .header-logo-dark{opacity:0}
 .header-logo-white{opacity:1}
 .header.scrolled .header-logo-dark{opacity:1}
@@ -90,6 +90,10 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .hero-scroll-text{font-size:.62rem;letter-spacing:.3em;font-weight:300;white-space:nowrap}
 .hero-scroll-arrow{width:12px;height:12px;border-right:1.5px solid rgba(255,255,255,.9);border-bottom:1.5px solid rgba(255,255,255,.9);transform:rotate(45deg);filter:drop-shadow(0 1px 4px rgba(0,0,0,.5))}
 .hero-scroll.hide{opacity:0;pointer-events:none}
+/* Slideshow dot indicator */
+.hero-dots{position:absolute;bottom:84px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:10px}
+.hero-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.45);box-shadow:0 1px 4px rgba(0,0,0,.4);cursor:pointer;transition:width .3s ease,height .3s ease,background .3s ease}
+.hero-dot.active{width:11px;height:11px;background:#fff}
 @keyframes heroScrollBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
 /* Hero text — hidden until animated */
 .hero-catch{font-size:clamp(1.6rem,4vw,3.5rem);font-weight:200;color:#fff;letter-spacing:.1em;line-height:1.25;position:relative;z-index:2;margin-bottom:36px;visibility:hidden;max-width:100%;overflow-wrap:break-word;text-shadow:0 2px 24px rgba(0,0,0,.35)}
@@ -779,7 +783,7 @@ html.loading-lock,html.loading-lock body{overflow:hidden}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact;box-shadow:none!important}
   html,body{background:#fff!important;color:#000!important}
   /* Hide chrome & interactive UI */
-  .header,.footer,.to-top,.to-contact,#loading,.scroll-progress,.hero-scroll,
+  .header,.footer,.to-top,.to-contact,#loading,.scroll-progress,.hero-scroll,.hero-dots,
   .cur-dot,.cur-ring,.hamburger,.mobile-nav,.works-modal,.page-trans-loading,
   .hero-slideshow,.hero-overlay{display:none!important}
   /* Hero collapses to plain text */
