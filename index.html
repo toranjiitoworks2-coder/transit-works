@@ -299,10 +299,10 @@
     <h2 class="sec-title-en slide-in">Check-in<span class="sec-title-ja">ご利用の流れ</span></h2>
     <p class="sec-lead">初めての方でも安心。4つのステップで利用を開始できます。</p>
     <div class="steps">
-      <div class="step sa"><span class="step-num"><svg class="step-icon" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="15" r="4"/><circle cx="17" cy="15" r="4"/><path d="M4.3 12.4 5.6 5.6a1.1 1.1 0 0 1 1.08-.9h.64a1.1 1.1 0 0 1 1.08.9L9.7 12"/><path d="M19.7 12.4 18.4 5.6a1.1 1.1 0 0 0-1.08-.9h-.64a1.1 1.1 0 0 0-1.08.9L14.3 12"/><path d="M9.6 8h4.8"/></svg>01</span><div class="step-body"><h3>見学</h3><p>まずは施設の雰囲気をご覧ください。</p></div></div>
-      <div class="step sa sa-d1"><span class="step-num"><svg class="step-icon" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><path d="M4 13h1.5a1.5 1.5 0 0 1 1.5 1.5v2.5a1.5 1.5 0 0 1-1.5 1.5H5a1 1 0 0 1-1-1z"/><path d="M20 13h-1.5a1.5 1.5 0 0 0-1.5 1.5v2.5a1.5 1.5 0 0 0 1.5 1.5H19a1 1 0 0 0 1-1z"/><path d="M18 18.5v.5a3 3 0 0 1-3 3h-3"/></svg>02</span><div class="step-body"><h3>相談</h3><p>ご希望をお聞きし、最適なプランをご提案します。</p></div></div>
-      <div class="step sa sa-d2"><span class="step-num"><svg class="step-icon" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.6 8.4 13.7 13.7 8.4 15.6 10.3 10.3z"/><circle cx="12" cy="12" r="1"/></svg>03</span><div class="step-body"><h3>体験</h3><p>実際の活動を体験していただけます。</p></div></div>
-      <div class="step sa sa-d3"><span class="step-num"><svg class="step-icon" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M5.5 16.2 3.8 12.6l1-.45a1.8 1.8 0 0 1 1.5 0l1.6.74L6.2 8.3l1.5-.3 3.4 3.1 4.8-1.9a2 2 0 0 1 1.6.05l2.1 1a1.2 1.2 0 0 1 .1 2.1L7.2 16.6a1.8 1.8 0 0 1-1.7-.4z"/></svg>04</span><div class="step-body"><h3>利用開始</h3><p>受給者証の取得後、正式にスタート。</p></div></div>
+      <div class="step sa"><span class="step-num">01</span><div class="step-body"><h3>見学</h3><p>まずは施設の雰囲気をご覧ください。</p></div></div>
+      <div class="step sa sa-d1"><span class="step-num">02</span><div class="step-body"><h3>相談</h3><p>ご希望をお聞きし、最適なプランをご提案します。</p></div></div>
+      <div class="step sa sa-d2"><span class="step-num">03</span><div class="step-body"><h3>体験</h3><p>実際の活動を体験していただけます。</p></div></div>
+      <div class="step sa sa-d3"><span class="step-num">04</span><div class="step-body"><h3>利用開始</h3><p>受給者証の取得後、正式にスタート。</p></div></div>
     </div>
   </div>
 </section>
@@ -465,42 +465,59 @@ var observer=new IntersectionObserver(function(entries){entries.forEach(function
 var fadeEls=document.querySelectorAll(".fade-in,.sa");
 for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
 
-// Hero text animation
+// Hero text animation (typewriter)
 (function(){
   var catch_el=document.getElementById("heroCatch");
   var sub_el=document.getElementById("heroSubCopy");
-  var sub2_el=document.getElementById("heroSub");
-  var text=catch_el.textContent;
-  catch_el.textContent="";
-  catch_el.style.visibility="visible";
-  for(var c=0;c<text.length;c++){
-    var s=document.createElement("span");
-    s.className="char";
-    s.textContent=text[c];
-    s.style.animationDelay=(c*0.05)+"s";
-    catch_el.appendChild(s);
-  }
+  var staticText=catch_el.textContent;
   var loadEl=document.getElementById("loading");
+  var started=false;
   function startHeroAnim(){
-    var curtain=document.getElementById("curtain");
-    if(curtain)curtain.classList.add("up");
-    catch_el.classList.add("animate");
-    var catchDuration=text.length*50+450;
-    setTimeout(function(){sub_el.classList.add("animate")},catchDuration);
-    setTimeout(function(){if(sub2_el)sub2_el.classList.add("animate")},catchDuration+500);
-  }
-  var mo=new MutationObserver(function(mutations){
-    mutations.forEach(function(m){
-      if(loadEl.classList.contains("done")){
-        mo.disconnect();
-        setTimeout(startHeroAnim,300);
-        setTimeout(function(){loadEl.classList.add("hidden")},1200);
+    if(started)return;
+    started=true;
+    // ローディング完了後＝CMS読込後に最新テキストでタイプライターを生成
+    var text=(window.__heroCatchText||staticText);
+    catch_el.textContent="";
+    catch_el.style.visibility="visible";
+    catch_el.classList.add("typing");
+    var spans=[];
+    for(var c=0;c<text.length;c++){
+      var s=document.createElement("span");
+      s.className="char";
+      s.textContent=text[c];
+      catch_el.appendChild(s);
+      spans.push(s);
+    }
+    var cursor=document.createElement("span");
+    cursor.className="type-cursor";
+    cursor.setAttribute("aria-hidden","true");
+    catch_el.appendChild(cursor);
+    var i=0;
+    var SPEED=90; // 1文字あたり約90ms
+    function step(){
+      if(i<spans.length){
+        spans[i].classList.add("show");
+        spans[i].after(cursor); // カーソルを入力位置に追従
+        i++;
+        setTimeout(step,SPEED);
+      }else{
+        // 完了：サブテキストをフェードイン、2秒後にカーソルをフェードアウト
+        sub_el.classList.add("animate");
+        setTimeout(function(){cursor.classList.add("fade")},2000);
       }
-    });
+    }
+    step();
+  }
+  var mo=new MutationObserver(function(){
+    if(loadEl.classList.contains("done")){
+      mo.disconnect();
+      setTimeout(startHeroAnim,300);
+      setTimeout(function(){loadEl.classList.add("hidden")},1200);
+    }
   });
   mo.observe(loadEl,{attributes:true,attributeFilter:["class"]});
   setTimeout(function(){
-    if(!catch_el.classList.contains("animate")){
+    if(!started){
       startHeroAnim();
       loadEl.classList.add("done");
       setTimeout(function(){loadEl.classList.add("hidden")},1200);
@@ -973,8 +990,10 @@ async function loadCMSData(){
     const res=await fetch('/_data/hero.json');
     const data=await res.json();
     if(data.catch){
+      // タイプライターが読む最新テキストを保存。開始前のみ下地テキストを更新（spanを壊さない）
+      window.__heroCatchText=data.catch;
       var el=document.getElementById('heroCatch');
-      if(el){el.textContent=data.catch;}
+      if(el&&!el.classList.contains('typing')){el.textContent=data.catch;}
     }
     if(data.sub){
       var el=document.getElementById('heroSubCopy');
