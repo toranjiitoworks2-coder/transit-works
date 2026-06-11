@@ -122,21 +122,28 @@
 
 <!-- ===== Hero ===== -->
 <section class="hero">
-  <div class="hero-slideshow" id="heroSlideshow">
-    <div class="hero-slide is-active" style="background-image:url('/images/hero1.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('/images/hero2.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('/images/hero3.jpg')"></div>
+  <!-- 上段：写真エリア -->
+  <div class="hero-photo">
+    <div class="hero-slideshow" id="heroSlideshow">
+      <div class="hero-slide is-active" style="background-image:url('/images/hero1.jpg')"></div>
+      <div class="hero-slide" style="background-image:url('/images/hero2.jpg')"></div>
+      <div class="hero-slide" style="background-image:url('/images/hero3.jpg')"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <img class="hero-logo" src="/images/logo-sign-white.png" alt="トランジットWorks 就労継続支援B型事業所">
+    <div class="hero-dots" id="heroDots" aria-hidden="true"></div>
   </div>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <h1 class="hero-catch" id="heroCatch">あなたのペースで、一歩ずつ。</h1>
-    <p class="hero-sub-copy" id="heroSubCopy">小さな一歩が、一番遠くまで連れてってくれる。</p>
+  <!-- 下段：テキストエリア -->
+  <div class="hero-text">
+    <div class="hero-content">
+      <h1 class="hero-catch" id="heroCatch">あなたのペースで、一歩ずつ。</h1>
+      <p class="hero-sub-copy" id="heroSubCopy">小さな一歩が、一番遠くまで連れてってくれる。</p>
+    </div>
+    <a href="#about" class="hero-scroll" id="heroScroll" aria-label="次のセクションへスクロール">
+      <span class="hero-scroll-text">SCROLL</span>
+      <span class="hero-scroll-arrow"></span>
+    </a>
   </div>
-  <a href="#about" class="hero-scroll" id="heroScroll" aria-label="次のセクションへスクロール">
-    <span class="hero-scroll-text">SCROLL</span>
-    <span class="hero-scroll-arrow"></span>
-  </a>
-  <div class="hero-dots" id="heroDots" aria-hidden="true"></div>
 </section>
 
 <!-- ===== About ===== -->
