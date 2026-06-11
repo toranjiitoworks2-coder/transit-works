@@ -57,7 +57,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .nav-list a:hover::after{width:100%}
 .nav-cta{font-size:.75rem;font-weight:500;color:#fff;background:var(--green);padding:8px 22px;border:1.5px solid transparent;border-radius:24px;letter-spacing:.04em;transition:opacity .2s,background-color .3s ease,color .3s ease,border-color .3s ease}
 .nav-cta:hover{opacity:.85}
-.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+.hamburger{display:none;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:12px;min-width:44px;min-height:44px;box-sizing:border-box}
 .hamburger span{display:block;width:20px;height:1.5px;background:var(--text);transition:transform .3s,opacity .3s}
 .hamburger.active span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
 .hamburger.active span:nth-child(2){opacity:0}
@@ -86,9 +86,9 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .hero-overlay{position:absolute;inset:0;z-index:1;background:rgba(0,0,0,.4)}
 .hero-content{position:relative;z-index:2;padding:0 24px;max-width:1100px}
 /* Scroll-down indicator */
-.hero-scroll{position:absolute;bottom:32px;left:50%;z-index:3;display:flex;flex-direction:column;align-items:center;gap:10px;color:rgba(255,255,255,.7);transition:opacity .4s ease;animation:heroScrollBounce 2s ease-in-out infinite}
-.hero-scroll-text{font-size:.62rem;letter-spacing:.3em;font-weight:300}
-.hero-scroll-arrow{width:12px;height:12px;border-right:1.5px solid rgba(255,255,255,.7);border-bottom:1.5px solid rgba(255,255,255,.7);transform:rotate(45deg)}
+.hero-scroll{position:absolute;bottom:32px;left:50%;z-index:3;display:flex;flex-direction:column;align-items:center;gap:10px;padding:10px 16px;border-radius:24px;background:rgba(0,0,0,.22);color:rgba(255,255,255,.9);white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.55);transition:opacity .4s ease;animation:heroScrollBounce 2s ease-in-out infinite}
+.hero-scroll-text{font-size:.62rem;letter-spacing:.3em;font-weight:300;white-space:nowrap}
+.hero-scroll-arrow{width:12px;height:12px;border-right:1.5px solid rgba(255,255,255,.9);border-bottom:1.5px solid rgba(255,255,255,.9);transform:rotate(45deg);filter:drop-shadow(0 1px 4px rgba(0,0,0,.5))}
 .hero-scroll.hide{opacity:0;pointer-events:none}
 @keyframes heroScrollBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
 /* Hero text — hidden until animated */
@@ -444,6 +444,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 
   /* Hero */
   .hero{height:100vh;height:100dvh;min-height:520px;margin-top:0;padding:0}
+  .hero-overlay{background:rgba(0,0,0,.5)}
   .hero-catch{font-size:clamp(2.2rem,11vw,4.2rem);letter-spacing:.04em;margin-bottom:24px;line-height:1.2;white-space:normal}
   .hero-sub-copy{font-size:.78rem;letter-spacing:.2em}
   .hero-sub{bottom:20px;left:20px;font-size:.65rem}
