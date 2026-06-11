@@ -819,7 +819,7 @@ initFaqAccordion();
           flown=true;obs.disconnect();
           plane.style.display="block";
           setTimeout(function(){plane.style.left="-150px"},100);
-          setTimeout(function(){plane.style.display="none"},2800);
+          setTimeout(function(){plane.style.display="none"},5200);
         }
       });
     },{threshold:0.3});
@@ -1063,7 +1063,7 @@ loadCMSData();
 
 }); // end DOMContentLoaded
 </script>
-<img id="flyingPlane" src="plane.png" alt="" style="position:fixed;top:20%;left:110%;width:80px;z-index:9999;pointer-events:none;transition:left 2.5s ease-in-out;display:none;filter:brightness(0.3);">
+<img id="flyingPlane" src="plane.png" alt="" style="position:fixed;top:20%;left:110%;width:80px;z-index:9999;pointer-events:none;transition:left 5s ease-in-out;display:none;filter:brightness(0) invert(1);">
 
 <!-- Netlify Identity Widget redirect -->
 <script>
