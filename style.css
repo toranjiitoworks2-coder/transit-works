@@ -221,7 +221,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 
 /* ===== Activities ===== */
 .activities{background:#fff}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
 .card{background:#fff;padding:44px 28px;border-radius:8px;position:relative;overflow:hidden;transition:transform .3s}
 .card::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
 .card:hover{transform:translateY(-3px)}

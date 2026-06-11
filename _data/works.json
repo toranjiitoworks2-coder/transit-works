@@ -1,8 +1,8 @@
 {
   "items": [
-    {"title": "軽作業", "description": "封入・検品・シール貼りなど、手先を使った作業を中心に取り組みます。無理のないペースで進められます。", "image": "", "category": "軽作業"},
-    {"title": "アロマ作品", "description": "アロマストーンやアロマワックスサシェなど、香りを楽しむハンドメイド作品。", "image": "/images/works-aroma.jpg", "category": "創作"},
-    {"title": "木工作品", "description": "木材を使ったロボット・一輪挿し・マグネットなど、手作りのオリジナル木工作品。", "image": "/images/works-wood.jpg", "category": "創作"},
-    {"title": "押し花シール", "description": "本物の花を使ったオリジナルシール。", "image": "/images/works-flower.jpg", "category": "創作"}
+    {"title": "軽作業", "description": "封入・検品・シール貼りなど、手先を使った作業を中心に取り組みます。無理のないペースで進められます。", "image": "", "category": "受託作業"},
+    {"title": "アロマ作品", "description": "アロマストーンやアロマワックスサシェなど、香りを楽しむハンドメイド作品。", "image": "/images/works-aroma.jpg", "category": "自主製品"},
+    {"title": "木工作品", "description": "木材を使ったロボット・一輪挿し・マグネットなど、手作りのオリジナル木工作品。", "image": "/images/works-wood.jpg", "category": "自主製品"},
+    {"title": "押し花シール", "description": "本物の花を使ったオリジナルシール。", "image": "/images/works-flower.jpg", "category": "自主製品"}
   ]
 }
