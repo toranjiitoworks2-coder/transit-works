@@ -85,6 +85,12 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .hero-slide.is-active{opacity:1}
 .hero-overlay{position:absolute;inset:0;z-index:1;background:rgba(0,0,0,.4)}
 .hero-content{position:relative;z-index:2;padding:0 24px;max-width:1100px}
+/* Scroll-down indicator */
+.hero-scroll{position:absolute;bottom:32px;left:50%;z-index:3;display:flex;flex-direction:column;align-items:center;gap:10px;color:rgba(255,255,255,.7);transition:opacity .4s ease;animation:heroScrollBounce 2s ease-in-out infinite}
+.hero-scroll-text{font-size:.62rem;letter-spacing:.3em;font-weight:300}
+.hero-scroll-arrow{width:12px;height:12px;border-right:1.5px solid rgba(255,255,255,.7);border-bottom:1.5px solid rgba(255,255,255,.7);transform:rotate(45deg)}
+.hero-scroll.hide{opacity:0;pointer-events:none}
+@keyframes heroScrollBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
 /* Hero text — hidden until animated */
 .hero-catch{font-size:clamp(1.6rem,4vw,3.5rem);font-weight:200;color:#fff;letter-spacing:.1em;line-height:1.25;position:relative;z-index:2;margin-bottom:36px;visibility:hidden;white-space:nowrap;text-shadow:0 2px 24px rgba(0,0,0,.35)}
 .hero-catch .char{display:inline-block;opacity:0;transform:translateY(20px);transition:none}
@@ -267,10 +273,13 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 
 /* ===== Gallery ===== */
 .gallery{background:var(--gray)}
-.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.gallery-item{overflow:hidden;border-radius:8px;aspect-ratio:4/3;background:#e0e0e0}
-.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;display:block}
+/* Masonry (Pinterest-style) via CSS columns */
+.gallery-grid{columns:3;column-gap:20px}
+.gallery-item{position:relative;overflow:hidden;border-radius:8px;background:#e0e0e0;break-inside:avoid;margin-bottom:20px}
+.gallery-item img{width:100%;height:auto;object-fit:cover;transition:transform .6s ease;display:block}
+.gallery-item::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,0);transition:background .4s ease;pointer-events:none}
 .gallery-item:hover img{transform:scale(1.06)}
+.gallery-item:hover::after{background:rgba(0,0,0,.18)}
 
 /* ===== Flow ===== */
 .flow{background:var(--gray)}
@@ -397,7 +406,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
   .container{padding:0 24px}
   .cards{grid-template-columns:1fr 1fr;gap:16px}
   .works-grid{grid-template-columns:1fr 1fr;gap:16px}
-  .gallery-grid{grid-template-columns:1fr 1fr;gap:16px}
+  .gallery-grid{columns:2;column-gap:16px}
   .news-grid{grid-template-columns:1fr 1fr;gap:20px}
   .step{gap:40px}
   .about-grid{gap:40px}
@@ -447,7 +456,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 
   /* Works / Gallery */
   .works-grid{grid-template-columns:1fr;gap:12px}
-  .gallery-grid{grid-template-columns:1fr;gap:12px}
+  .gallery-grid{columns:1}
 
   /* Steps */
   .steps{padding:8px 0 8px 32px;max-width:100%}
@@ -492,7 +501,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 }
 
 /* ===== Animation ===== */
-.fade-in{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;will-change:opacity,transform}
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;will-change:opacity,transform}
 .fade-in.visible{opacity:1;transform:translateY(0)}
 
 /* Scroll-triggered element animations */
@@ -706,8 +715,8 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 @keyframes rippleOut{to{width:300px;height:300px;opacity:0}}
 
 /* ===== Slide-in titles ===== */
-.slide-in{opacity:0;transform:translateX(-40px);transition:opacity .7s ease,transform .7s ease}
-.slide-in.visible{opacity:1;transform:translateX(0)}
+.slide-in{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.slide-in.visible{opacity:1;transform:translateY(0)}
 
 /* ===== Loading (KEEP) ===== */
 #loading{position:fixed;inset:0;z-index:9999;overflow:hidden;pointer-events:auto;opacity:1;transition:opacity .6s ease}
@@ -748,3 +757,31 @@ html.loading-lock,html.loading-lock body{overflow:hidden}
 .loading-sub{font-size:11px;letter-spacing:.25em;color:#FFD700;margin-top:10px;opacity:0;font-weight:100;animation:loadFadeIn 1s 1.5s forwards}
 .loading-plane-wrap{position:absolute;top:0;left:0;opacity:0;will-change:transform,opacity;z-index:1;display:none}
 @keyframes loadFadeIn{from{opacity:0}to{opacity:1}}
+
+/* ===== Print ===== */
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;box-shadow:none!important}
+  html,body{background:#fff!important;color:#000!important}
+  /* Hide chrome & interactive UI */
+  .header,.footer,.to-top,.to-contact,#loading,.scroll-progress,.hero-scroll,
+  .cur-dot,.cur-ring,.hamburger,.mobile-nav,.works-modal,.page-trans-loading,
+  .hero-slideshow,.hero-overlay{display:none!important}
+  /* Hero collapses to plain text */
+  .hero{height:auto!important;min-height:0!important;margin-top:0!important;display:block;padding:24px 0!important;background:#fff!important}
+  .hero-content{position:static}
+  .hero-catch,.hero-sub-copy{color:#000!important;text-shadow:none!important;visibility:visible!important;opacity:1!important;transform:none!important;white-space:normal!important}
+  .hero-catch .char{opacity:1!important;transform:none!important}
+  /* White background, black text everywhere */
+  .section,section{padding:24px 0!important;background:#fff!important;color:#000!important}
+  .about,.about *,.philosophy,.philosophy *{background:#fff!important;color:#000!important}
+  .sec-title-en,.sec-label,.sec-title-ja,h1,h2,h3,h4,p,li,td,th,span,a{color:#000!important}
+  /* No reveal animations — show everything */
+  .sa,.fade-in,.slide-in{opacity:1!important;transform:none!important}
+  /* Do not append URLs after links */
+  a[href]::after{content:""!important}
+  /* Page-break optimisation */
+  h1,h2,h3{page-break-after:avoid}
+  .faq-item,.works-card,.gallery-item,.card,.target-item,.about-stats,.rep-message,.news-card{page-break-inside:avoid}
+  img{max-width:100%!important}
+  .gallery-grid{columns:2}
+}

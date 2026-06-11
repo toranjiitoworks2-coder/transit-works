@@ -132,6 +132,10 @@
     <h1 class="hero-catch" id="heroCatch">あなたのペースで、一歩ずつ。</h1>
     <p class="hero-sub-copy" id="heroSubCopy">小さな一歩が、一番遠くまで連れてってくれる。</p>
   </div>
+  <a href="#about" class="hero-scroll" id="heroScroll" aria-label="次のセクションへスクロール">
+    <span class="hero-scroll-text">SCROLL</span>
+    <span class="hero-scroll-arrow"></span>
+  </a>
 </section>
 
 <!-- ===== About ===== -->
@@ -338,6 +342,22 @@
       <div class="faq-item sa sa-d5">
         <button class="faq-q" aria-expanded="false">精神障がいでも利用できますか？<span class="faq-icon"></span></button>
         <div class="faq-a"><p>はい、身体・知的・精神など様々な障がいのある方にご利用いただけます。</p></div>
+      </div>
+      <div class="faq-item sa sa-d6">
+        <button class="faq-q" aria-expanded="false">昼食はありますか？<span class="faq-icon"></span></button>
+        <div class="faq-a"><p>現在、昼食の提供は行っておりません。お弁当持参または近隣での購入をお願いしております。</p></div>
+      </div>
+      <div class="faq-item sa sa-d7">
+        <button class="faq-q" aria-expanded="false">工賃の支払い時期はいつですか？<span class="faq-icon"></span></button>
+        <div class="faq-a"><p>毎月末締め、翌月中旬にお支払いしております。詳しくはお問い合わせください。</p></div>
+      </div>
+      <div class="faq-item sa sa-d8">
+        <button class="faq-q" aria-expanded="false">見学の予約は必要ですか？<span class="faq-icon"></span></button>
+        <div class="faq-a"><p>事前にお電話またはお問い合わせフォームからご連絡いただけますとスムーズです。飛び込みでのご見学もできる限り対応いたします。</p></div>
+      </div>
+      <div class="faq-item sa sa-d8">
+        <button class="faq-q" aria-expanded="false">他の施設と掛け持ちはできますか？<span class="faq-icon"></span></button>
+        <div class="faq-a"><p>原則として他の就労継続支援事業所との併用はできません。ただし、就労移行支援との併用は可能な場合があります。詳しくはご相談ください。</p></div>
       </div>
     </div>
   </div>
@@ -633,6 +653,15 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
   });
   mo.observe(loadEl,{attributes:true,attributeFilter:["class"]});
   setTimeout(unlock,7000); // safety fallback
+})();
+
+// === 6e. Hero scroll indicator (hide once scrolling starts) ===
+(function(){
+  var el=document.getElementById("heroScroll");
+  if(!el)return;
+  window.addEventListener("scroll",function(){
+    el.classList.toggle("hide",window.scrollY>50);
+  },{passive:true});
 })();
 
 // === 7. Active nav on scroll ===
