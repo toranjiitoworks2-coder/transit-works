@@ -27,8 +27,14 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .header-phone-icon{flex:none}
 .header-phone:hover{background:#1a3a5c;color:#fff}
 .header-center{display:flex;justify-content:center;align-items:center;padding-top:8px;padding-bottom:8px;transition:padding .3s ease}
-.header-logo-link{display:block;line-height:0}
-.header-logo-img{display:block;max-width:500px;max-height:170px;width:auto;height:auto;transition:max-width .3s ease,max-height .3s ease,filter .3s ease}
+.header-logo-link{position:relative;display:inline-block;line-height:0}
+.header-logo-img{display:block;max-width:500px;max-height:170px;width:auto;height:auto;transition:max-width .3s ease,max-height .3s ease,opacity .3s ease}
+/* White logo overlays dark logo at its own size; crossfade with scrolled state */
+.header-logo-white{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+.header-logo-dark{opacity:0}
+.header-logo-white{opacity:1}
+.header.scrolled .header-logo-dark{opacity:1}
+.header.scrolled .header-logo-white{opacity:0}
 /* Scrolled (compact) header */
 .header.scrolled{padding-top:6px;padding-bottom:8px;background:#fff;border-bottom-color:var(--border)}
 .header.scrolled .header-top{max-height:0;min-height:0;opacity:0}
@@ -37,7 +43,6 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 /* Transparent header over hero (top, not scrolled) — white text/logo */
 .header:not(.scrolled) .nav-list a{color:#fff}
 .header:not(.scrolled) .nav-list a:hover{color:#fff}
-.header:not(.scrolled) .header-logo-img{filter:brightness(0) invert(1)}
 .header:not(.scrolled) .header-phone{color:#fff;border-color:rgba(255,255,255,.85)}
 .header:not(.scrolled) .header-phone:hover{background:#fff;color:#1a3a5c;border-color:#fff}
 .header:not(.scrolled) .nav-cta{background:transparent;color:#fff;border-color:#fff}
