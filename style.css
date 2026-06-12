@@ -184,7 +184,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .about .sec-title-en{color:#fff}
 .about .sec-lead{color:rgba(255,255,255,.45)}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
-.about-photo{aspect-ratio:4/3;background:#3a3a3a;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:rgba(255,255,255,.15);letter-spacing:.2em;will-change:transform;transition:transform .1s linear;overflow:hidden;border-radius:8px}
+.about-photo{aspect-ratio:4/3;background:linear-gradient(135deg,#414141 0%,#363636 50%,#2c2c2c 100%);display:flex;align-items:center;justify-content:center;will-change:transform;transition:transform .1s linear;overflow:hidden;border-radius:8px}
 .about-photo img{width:100%;height:100%;object-fit:cover;display:block}
 .about-body p{font-size:.88rem;color:rgba(255,255,255,.65);line-height:2.2;margin-bottom:16px}
 .about-body .link-arrow{color:var(--green)}
@@ -294,6 +294,9 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .works-thumb{aspect-ratio:4/3;background:#e0e0e0;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .works-thumb span{font-size:.7rem;letter-spacing:.2em;color:#aaa;transition:transform .5s ease}
 .works-card:hover .works-thumb span{transform:scale(1.08)}
+/* 画像なし時の控えめなグレーグラデーション・プレースホルダー（PHOTO文字は出さない） */
+.thumb-ph{display:block;width:100%;height:100%;background:linear-gradient(135deg,#ededea 0%,#e3e1dc 50%,#d8d6d0 100%)}
+.works-card:hover .works-thumb .thumb-ph{transform:none}
 .works-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s ease;display:block}
 .works-card:hover .works-thumb img{transform:scale(1.03)}
 .works-card h3{font-size:.88rem;font-weight:500;padding:16px 16px 4px;color:var(--text)}

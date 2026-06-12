@@ -185,7 +185,7 @@
 <section class="section about" id="about">
   <div class="container fade-in">
     <div class="about-grid">
-      <div class="about-photo sa"><span>PHOTO</span></div>
+      <div class="about-photo sa" aria-hidden="true"></div>
       <div class="about-body sa sa-d1">
         <span class="sec-label">施設紹介</span>
         <h2 class="sec-title-en slide-in">Terminal<span class="sec-title-ja">施設紹介</span></h2>
@@ -294,11 +294,11 @@
       <button class="works-filter-btn" type="button" data-filter="自主製品">自主製品</button>
     </div>
     <div class="works-grid" id="worksGrid">
-      <div class="works-card sa" data-category="受託作業"><div class="works-thumb"><span>PHOTO</span></div><h3>軽作業</h3><p>封入・検品・シール貼りなど、手先を使った作業を中心に取り組みます。無理のないペースで進められます。</p></div>
+      <div class="works-card sa" data-category="受託作業"><div class="works-thumb"><span class="thumb-ph" aria-hidden="true"></span></div><h3>軽作業</h3><p>封入・検品・シール貼りなど、手先を使った作業を中心に取り組みます。無理のないペースで進められます。</p></div>
       <div class="works-card sa sa-d1" data-category="自主製品"><div class="works-thumb"><img src="/images/works-aroma.jpg" alt="アロマ作品"></div><h3>アロマ作品</h3><p>アロマストーンやアロマワックスサシェなど、香りを楽しむハンドメイド作品。</p></div>
       <div class="works-card sa sa-d2" data-category="自主製品"><div class="works-thumb"><img src="/images/works-wood.jpg" alt="木工作品"></div><h3>木工作品</h3><p>木材を使ったロボット・一輪挿し・マグネットなど、手作りのオリジナル木工作品。</p></div>
       <div class="works-card sa sa-d3" data-category="自主製品"><div class="works-thumb"><img src="/images/works-flower.jpg" alt="押し花シール"></div><h3>押し花シール</h3><p>本物の花を使ったオリジナルシール。</p></div>
-      <div class="works-card sa sa-d4" data-category="自主製品"><div class="works-thumb"><span>PHOTO</span></div><h3>楽曲制作</h3><p>利用者さんの想いをもとに、職員と一緒に歌詞を考えてオリジナル楽曲を制作。AIを活用して、世界にひとつだけの音楽を作り上げます。</p><span class="works-soon-badge">準備中</span></div>
+      <div class="works-card sa sa-d4" data-category="自主製品"><div class="works-thumb"><span class="thumb-ph" aria-hidden="true"></span></div><h3>楽曲制作</h3><p>利用者さんの想いをもとに、職員と一緒に歌詞を考えてオリジナル楽曲を制作。AIを活用して、世界にひとつだけの音楽を作り上げます。</p><span class="works-soon-badge">準備中</span></div>
     </div>
     <div class="sec-cta sa"><a href="#contact" class="cta-btn">見学・体験のお問い合わせはこちら<span class="cta-btn-arrow" aria-hidden="true">&rarr;</span></a></div>
   </div>
@@ -1112,7 +1112,7 @@ async function loadCMSData(){
     if(list&&data.items&&data.items.length){
       list.innerHTML=data.items.map(function(item,i){
         var d=(i<3?' sa-d'+i:'');
-        var thumb=item.image?'<img src="'+item.image+'" alt="">':'<span>PHOTO</span>';
+        var thumb=item.image?'<img src="'+item.image+'" alt="">':'<span class="thumb-ph" aria-hidden="true"></span>';
         return '<a href="#" class="news-card sa'+d+'"><div class="news-card-thumb">'+thumb+'</div><div class="news-card-body"><div class="news-card-meta"><time>'+item.date+'</time><span class="news-card-cat">'+item.category+'</span></div><h3 class="news-card-title">'+item.text+'</h3></div></a>';
       }).join('');
       var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
@@ -1148,7 +1148,7 @@ async function loadCMSData(){
             ? '<button class="works-audio-btn" type="button" data-youtube="'+String(item.youtube_url).replace(/"/g,'&quot;')+'">▶ 試聴する</button>'
             : '<span class="works-soon-badge">準備中</span>';
         }
-        return '<div class="works-card sa'+(i>0?' sa-d'+(i%9):'')+'" data-category="'+cat+'"><div class="works-thumb">'+(item.image?'<img src="'+item.image+'" alt="'+item.title+'">':'<span>PHOTO</span>')+'</div><h3>'+item.title+'</h3><p>'+item.description+'</p>'+media+'</div>';
+        return '<div class="works-card sa'+(i>0?' sa-d'+(i%9):'')+'" data-category="'+cat+'"><div class="works-thumb">'+(item.image?'<img src="'+item.image+'" alt="'+item.title+'">':'<span class="thumb-ph" aria-hidden="true"></span>')+'</div><h3>'+item.title+'</h3><p>'+item.description+'</p>'+media+'</div>';
       }).join('');
       var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
       grid.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
