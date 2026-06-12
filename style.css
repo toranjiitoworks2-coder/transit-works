@@ -26,7 +26,9 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 }
 .header-phone-icon{flex:none}
 .header-phone:hover{background:#1a3a5c;color:#fff}
-.header-center{display:flex;justify-content:center;align-items:center;padding-top:8px;padding-bottom:8px;transition:padding .3s ease}
+.header-center{display:flex;justify-content:center;align-items:center;padding-top:8px;padding-bottom:8px;max-height:240px;overflow:hidden;transition:max-height .35s ease,padding .35s ease,opacity .3s ease}
+/* ヒーロー上ではヘッダーのロゴ帯を畳み、スリムな透過バーに（ヒーロー中央ロゴとの重複回避） */
+.header:not(.scrolled) .header-center{max-height:0;padding-top:0;padding-bottom:0;opacity:0;pointer-events:none}
 .header-logo-link{position:relative;display:inline-block;line-height:0}
 .header-logo-img{display:block;max-width:500px;max-height:170px;width:auto;height:auto;transition:max-width .3s ease,max-height .3s ease,opacity .3s ease}
 /* White logo overlays dark logo at its own size; crossfade with scrolled state */
@@ -77,39 +79,32 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 }
 .mobile-nav a:hover{color:var(--green)}
 
-/* ===== Hero（上下2段構成）===== */
-.hero{margin-top:0;width:100%;position:relative;display:flex;flex-direction:column}
-/* 上段：写真エリア */
-.hero-photo{position:relative;width:100%;height:62vh;min-height:360px;overflow:hidden;background:#1a1a1a}
+/* ===== Hero（フルスクリーン1枚構成）===== */
+.hero{margin-top:0;width:100%;height:100vh;min-height:560px;position:relative;overflow:hidden;background:#1a1a1a}
 .hero-slideshow{position:absolute;inset:0;z-index:0}
 .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.5s ease;will-change:opacity}
 .hero-slide.is-active{opacity:1}
-.hero-overlay{position:absolute;inset:0;z-index:1;background:rgba(0,0,0,.3)}
-/* 下段：テキストエリア */
-.hero-text{position:relative;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:72px 24px 76px;min-height:34vh}
-.hero-content{position:relative;z-index:2;padding:0 24px;max-width:1100px}
-/* Scroll-down indicator */
-.hero-scroll{position:absolute;bottom:24px;left:50%;z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;padding:6px 14px;border-radius:24px;background:transparent;color:var(--green);white-space:nowrap;transition:opacity .4s ease;animation:heroScrollBounce 2s ease-in-out infinite}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:rgba(0,0,0,.45)}
+/* 中央上寄り：タグライン＋ロゴ */
+.hero-top{position:absolute;top:27%;left:50%;transform:translate(-50%,-50%);z-index:2;width:100%;max-width:90%;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+.hero-tagline{font-size:.78rem;font-weight:300;color:rgba(255,255,255,.92);letter-spacing:.38em;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.hero-logo{width:auto;max-width:360px;max-height:140px;filter:drop-shadow(0 2px 16px rgba(0,0,0,.55))}
+/* 中央下寄り：キャッチ＋サブ（写真下部20%あたり） */
+.hero-bottom{position:absolute;bottom:20%;left:50%;transform:translateX(-50%);z-index:2;width:100%;padding:0 24px;text-align:center}
+.hero-catch{font-size:2.2rem;font-weight:300;color:#fff;letter-spacing:.1em;line-height:1.4;margin-bottom:16px;text-shadow:0 2px 16px rgba(0,0,0,.6);opacity:0;transform:translateY(16px);transition:opacity .9s ease,transform .9s ease}
+.hero-catch.animate{opacity:1;transform:translateY(0)}
+.hero-sub-copy{font-size:.95rem;font-weight:300;color:rgba(255,255,255,.85);letter-spacing:.18em;text-shadow:0 2px 12px rgba(0,0,0,.55);opacity:0;transform:translateY(12px);transition:opacity .8s ease,transform .8s ease}
+.hero-sub-copy.animate{opacity:1;transform:translateY(0)}
+/* Scroll-down indicator（最下部） */
+.hero-scroll{position:absolute;bottom:24px;left:50%;z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;padding:6px 14px;border-radius:24px;background:transparent;color:rgba(255,255,255,.9);white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.55);transition:opacity .4s ease;animation:heroScrollBounce 2s ease-in-out infinite}
 .hero-scroll-text{font-size:.62rem;letter-spacing:.3em;font-weight:400;white-space:nowrap}
-.hero-scroll-arrow{width:12px;height:12px;border-right:1.5px solid var(--green);border-bottom:1.5px solid var(--green);transform:rotate(45deg)}
+.hero-scroll-arrow{width:12px;height:12px;border-right:1.5px solid rgba(255,255,255,.9);border-bottom:1.5px solid rgba(255,255,255,.9);transform:rotate(45deg);filter:drop-shadow(0 1px 4px rgba(0,0,0,.5))}
 .hero-scroll.hide{opacity:0;pointer-events:none}
-/* Slideshow dot indicator（写真エリア下部） */
-.hero-dots{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:10px}
+/* Slideshow dot indicator */
+.hero-dots{position:absolute;bottom:70px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:10px}
 .hero-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.45);box-shadow:0 1px 4px rgba(0,0,0,.4);cursor:pointer;transition:width .3s ease,height .3s ease,background .3s ease}
 .hero-dot.active{width:11px;height:11px;background:#fff}
 @keyframes heroScrollBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
-/* Hero text — hidden until animated */
-.hero-catch{font-size:clamp(2rem,3.6vw,2.8rem);font-weight:300;color:var(--text);letter-spacing:.1em;line-height:1.3;position:relative;z-index:2;margin-bottom:20px;visibility:hidden;max-width:100%;overflow-wrap:break-word}
-/* 1行表示はPC幅のみ（スマホは折り返し） */
-@media(min-width:769px){.hero-catch{white-space:nowrap}}
-.hero-catch .char{display:inline-block;opacity:0;transition:opacity .12s ease}
-.hero-catch .char.show{opacity:1}
-.type-cursor{display:inline-block;width:2px;height:1em;margin-left:.06em;background:var(--green);vertical-align:-.1em;animation:cursorBlink 1s step-end infinite}
-.type-cursor.fade{opacity:0;transition:opacity .6s ease;animation:none}
-@keyframes cursorBlink{0%,49%{opacity:1}50%,100%{opacity:0}}
-
-.hero-sub-copy{font-size:clamp(.9rem,1.4vw,1rem);font-weight:300;color:var(--text-sub);letter-spacing:.2em;position:relative;z-index:2;opacity:0;transform:translateY(12px);transition:opacity .7s ease,transform .7s ease}
-.hero-sub-copy.animate{opacity:1;transform:translateY(0)}
 
 .hero-sub{position:absolute;bottom:40px;left:40px;font-size:.75rem;font-weight:300;color:rgba(17,17,17,.35);letter-spacing:.12em;z-index:2;opacity:0;transition:opacity .7s ease}
 .hero-sub.animate{opacity:1}
@@ -453,13 +448,15 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
   .header-bottom{display:none}
   .hamburger{display:flex;position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:1001}
 
-  /* Hero（2段構成） */
-  .hero{height:auto;min-height:0;margin-top:0;padding:0}
-  .hero-photo{height:48vh;min-height:300px}
-  .hero-overlay{background:rgba(0,0,0,.35)}
-  .hero-text{padding:52px 20px 66px;min-height:0}
-  .hero-catch{font-size:clamp(1.6rem,6.5vw,2.2rem);letter-spacing:.04em;margin-bottom:16px;line-height:1.35;white-space:normal}
-  .hero-sub-copy{font-size:.85rem;letter-spacing:.16em}
+  /* Hero（フルスクリーン1枚構成） */
+  .hero{height:100vh;height:100dvh;min-height:520px;margin-top:0;padding:0}
+  .hero-overlay{background:rgba(0,0,0,.45)}
+  .hero-top{top:26%;gap:14px}
+  .hero-tagline{font-size:.7rem;letter-spacing:.3em}
+  .hero-logo{max-width:240px;max-height:110px}
+  .hero-bottom{bottom:18%;padding:0 20px}
+  .hero-catch{font-size:1.7rem;letter-spacing:.04em;margin-bottom:14px;line-height:1.4}
+  .hero-sub-copy{font-size:.82rem;letter-spacing:.14em}
   .hero-sub{bottom:20px;left:20px;font-size:.65rem}
   .hero-strip{margin-bottom:28px}
   .hero-strip-img{width:180px;height:120px}
@@ -521,8 +518,9 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 
 /* ===== Responsive — Small phones ===== */
 @media(max-width:480px){
-  .hero-catch{font-size:clamp(1.5rem,7vw,2rem);max-width:100%}
-  .hero-photo{height:44vh;min-height:260px}
+  .hero-catch{font-size:1.5rem;max-width:100%}
+  .hero-tagline{font-size:.62rem;letter-spacing:.26em}
+  .hero-logo{max-width:200px;max-height:96px}
   .hero-strip-img{width:150px;height:100px}
   @keyframes stripScroll{0%{transform:translateX(0)}100%{transform:translateX(calc(-150px * 8 - 16px * 8))}}
   .sec-title-en{font-size:1.8rem}
@@ -705,16 +703,6 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
   .page-trans-loading{width:200px}
 }
 
-/* ===== Hero catch gradient text ===== */
-.hero-catch.typing .char.show{
-  background:linear-gradient(90deg,#2d6a4f,#111,#c8a45a,#2d6a4f);
-  background-size:300% 100%;
-  -webkit-background-clip:text;background-clip:text;
-  -webkit-text-fill-color:transparent;
-  animation:gradientFlow 4s 1.5s ease infinite;
-}
-@keyframes gradientFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-
 /* ===== Hero parallax ===== */
 .hero{will-change:auto}
 .hero-parallax-bg{position:absolute;inset:-20% 0 0 0;width:100%;height:120%;will-change:transform}
@@ -795,12 +783,11 @@ html.loading-lock,html.loading-lock body{overflow:hidden}
   /* Hide chrome & interactive UI */
   .header,.footer,.to-top,.to-contact,#loading,.scroll-progress,.hero-scroll,.hero-dots,
   .cur-dot,.cur-ring,.hamburger,.mobile-nav,.works-modal,.page-trans-loading,
-  .hero-slideshow,.hero-overlay,.hero-photo,.type-cursor{display:none!important}
+  .hero-slideshow,.hero-overlay,.hero-top{display:none!important}
   /* Hero collapses to plain text */
   .hero{height:auto!important;min-height:0!important;margin-top:0!important;display:block;padding:24px 0!important;background:#fff!important}
-  .hero-content{position:static}
+  .hero-bottom{position:static!important;transform:none!important;width:auto!important;padding:0!important}
   .hero-catch,.hero-sub-copy{color:#000!important;text-shadow:none!important;visibility:visible!important;opacity:1!important;transform:none!important;white-space:normal!important}
-  .hero-catch .char{opacity:1!important;transform:none!important}
   /* White background, black text everywhere */
   .section,section{padding:24px 0!important;background:#fff!important;color:#000!important}
   .about,.about *,.philosophy,.philosophy *{background:#fff!important;color:#000!important}

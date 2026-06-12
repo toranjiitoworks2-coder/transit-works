@@ -122,27 +122,27 @@
 
 <!-- ===== Hero ===== -->
 <section class="hero">
-  <!-- 上段：写真エリア -->
-  <div class="hero-photo">
-    <div class="hero-slideshow" id="heroSlideshow">
-      <div class="hero-slide is-active" style="background-image:url('/images/hero1.jpg')"></div>
-      <div class="hero-slide" style="background-image:url('/images/hero2.jpg')"></div>
-      <div class="hero-slide" style="background-image:url('/images/hero3.jpg')"></div>
-    </div>
-    <div class="hero-overlay"></div>
-    <div class="hero-dots" id="heroDots" aria-hidden="true"></div>
+  <div class="hero-slideshow" id="heroSlideshow">
+    <div class="hero-slide is-active" style="background-image:url('/images/hero1.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('/images/hero2.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('/images/hero3.jpg')"></div>
   </div>
-  <!-- 下段：テキストエリア -->
-  <div class="hero-text">
-    <div class="hero-content">
-      <h1 class="hero-catch" id="heroCatch">あなたのペースで、一歩ずつ。</h1>
-      <p class="hero-sub-copy" id="heroSubCopy">小さな一歩が、一番遠くまで連れてってくれる。</p>
-    </div>
-    <a href="#about" class="hero-scroll" id="heroScroll" aria-label="次のセクションへスクロール">
-      <span class="hero-scroll-text">SCROLL</span>
-      <span class="hero-scroll-arrow"></span>
-    </a>
+  <div class="hero-overlay"></div>
+  <!-- 中央上寄り：タグライン＋ロゴ -->
+  <div class="hero-top">
+    <p class="hero-tagline">就労継続支援B型事業所</p>
+    <img class="hero-logo" src="/images/logo-sign-white.png" alt="トランジットWorks">
   </div>
+  <!-- 中央下寄り：キャッチ＋サブ -->
+  <div class="hero-bottom">
+    <h1 class="hero-catch" id="heroCatch">あなたのペースで、一歩ずつ。</h1>
+    <p class="hero-sub-copy" id="heroSubCopy">小さな一歩が、一番遠くまで連れてってくれる。</p>
+  </div>
+  <a href="#about" class="hero-scroll" id="heroScroll" aria-label="次のセクションへスクロール">
+    <span class="hero-scroll-text">SCROLL</span>
+    <span class="hero-scroll-arrow"></span>
+  </a>
+  <div class="hero-dots" id="heroDots" aria-hidden="true"></div>
 </section>
 
 <!-- ===== About ===== -->
@@ -471,48 +471,18 @@ var observer=new IntersectionObserver(function(entries){entries.forEach(function
 var fadeEls=document.querySelectorAll(".fade-in,.sa");
 for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
 
-// Hero text animation (typewriter)
+// Hero text animation (fade-in)
 (function(){
   var catch_el=document.getElementById("heroCatch");
   var sub_el=document.getElementById("heroSubCopy");
-  var staticText=catch_el.textContent;
   var loadEl=document.getElementById("loading");
   var started=false;
   function startHeroAnim(){
     if(started)return;
     started=true;
-    // ローディング完了後＝CMS読込後に最新テキストでタイプライターを生成
-    var text=(window.__heroCatchText||staticText);
-    catch_el.textContent="";
-    catch_el.style.visibility="visible";
-    catch_el.classList.add("typing");
-    var spans=[];
-    for(var c=0;c<text.length;c++){
-      var s=document.createElement("span");
-      s.className="char";
-      s.textContent=text[c];
-      catch_el.appendChild(s);
-      spans.push(s);
-    }
-    var cursor=document.createElement("span");
-    cursor.className="type-cursor";
-    cursor.setAttribute("aria-hidden","true");
-    catch_el.appendChild(cursor);
-    var i=0;
-    var SPEED=90; // 1文字あたり約90ms
-    function step(){
-      if(i<spans.length){
-        spans[i].classList.add("show");
-        spans[i].after(cursor); // カーソルを入力位置に追従
-        i++;
-        setTimeout(step,SPEED);
-      }else{
-        // 完了：サブテキストをフェードイン、2秒後にカーソルをフェードアウト
-        sub_el.classList.add("animate");
-        setTimeout(function(){cursor.classList.add("fade")},2000);
-      }
-    }
-    step();
+    // キャッチをフェードイン → 少し遅れてサブをフェードイン
+    catch_el.classList.add("animate");
+    setTimeout(function(){sub_el.classList.add("animate")},700);
   }
   var mo=new MutationObserver(function(){
     if(loadEl.classList.contains("done")){
@@ -996,10 +966,8 @@ async function loadCMSData(){
     const res=await fetch('/_data/hero.json');
     const data=await res.json();
     if(data.catch){
-      // タイプライターが読む最新テキストを保存。開始前のみ下地テキストを更新（spanを壊さない）
-      window.__heroCatchText=data.catch;
       var el=document.getElementById('heroCatch');
-      if(el&&!el.classList.contains('typing')){el.textContent=data.catch;}
+      if(el)el.textContent=data.catch;
     }
     if(data.sub){
       var el=document.getElementById('heroSubCopy');
