@@ -27,8 +27,10 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .header-phone-icon{flex:none}
 .header-phone:hover{background:#1a3a5c;color:#fff}
 .header-center{display:flex;justify-content:center;align-items:center;padding-top:8px;padding-bottom:8px;max-height:240px;overflow:hidden;transition:max-height .35s ease,padding .35s ease,opacity .3s ease}
-/* ヒーロー上ではヘッダーのロゴ帯を畳み、スリムな透過バーに（ヒーロー中央ロゴとの重複回避） */
+/* ヒーロー上ではヘッダーのロゴ帯を畳み、スリムな透過バーに（ヒーロー中央ロゴ＋タグラインとの重複回避） */
 .header:not(.scrolled) .header-center{max-height:0;padding-top:0;padding-bottom:0;opacity:0;pointer-events:none}
+/* 絶対配置の白ロゴはoverflow:hiddenをすり抜けるため、リンクごと確実に非表示にする */
+.header:not(.scrolled) .header-logo-link{opacity:0;visibility:hidden;pointer-events:none}
 .header-logo-link{position:relative;display:inline-block;line-height:0}
 .header-logo-img{display:block;max-width:500px;max-height:170px;width:auto;height:auto;transition:max-width .3s ease,max-height .3s ease,opacity .3s ease}
 /* White logo overlays dark logo at its own size; crossfade with scrolled state */
