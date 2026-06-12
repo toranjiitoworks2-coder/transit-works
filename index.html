@@ -79,6 +79,7 @@
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
+<a class="skip-link" href="#about">本文へスキップ</a>
 <script>document.documentElement.classList.add("loading-lock");</script>
 
 <!-- ===== Loading Screen ===== -->
@@ -880,8 +881,15 @@ function wireFaqFilter(){
       var f=btn.getAttribute('data-filter');
       lst.querySelectorAll('.faq-item').forEach(function(item){
         var match=(f==='all'||item.getAttribute('data-category')===f);
-        item.style.display=match?'':'none';
-        if(!match){item.classList.remove('open');var q=item.querySelector('.faq-q');if(q)q.setAttribute('aria-expanded','false');}
+        if(match){
+          item.style.display='';
+          requestAnimationFrame(function(){item.classList.remove('faq-hide')}); // フェードイン
+        }else{
+          item.classList.add('faq-hide'); // フェードアウト
+          item.classList.remove('open');
+          var q=item.querySelector('.faq-q');if(q)q.setAttribute('aria-expanded','false');
+          setTimeout(function(){if(item.classList.contains('faq-hide'))item.style.display='none';},300);
+        }
       });
     });
   });
