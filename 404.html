@@ -4,27 +4,59 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ページが見つかりません｜トランジットWorks</title>
+<meta name="robots" content="noindex, follow">
 <meta name="theme-color" content="#2d6a4f">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans JP',sans-serif;font-weight:300;color:#111;background:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:40px 24px}
-.wrap{max-width:480px}
-.code{font-size:clamp(4rem,12vw,8rem);font-weight:100;color:#2d6a4f;letter-spacing:.08em;line-height:1;margin-bottom:16px}
-h1{font-size:1.2rem;font-weight:500;margin-bottom:12px}
-p{font-size:.88rem;color:#666;line-height:2;margin-bottom:32px}
-a{display:inline-block;padding:12px 36px;border:1px solid #2d6a4f;color:#2d6a4f;font-size:.82rem;font-weight:500;text-decoration:none;border-radius:6px;letter-spacing:.04em;transition:background .3s,color .3s}
-a:hover{background:#2d6a4f;color:#fff}
+:root{--green:#2d6a4f;--text:#111;--text-sub:#666;--border:#e5e5e5}
+html,body{height:100%}
+body{font-family:'Noto Sans JP',sans-serif;font-weight:300;color:var(--text);background:#fff;display:flex;flex-direction:column;min-height:100vh}
+/* Header */
+.nf-header{padding:20px 24px;text-align:center;border-bottom:1px solid var(--border)}
+.nf-logo img{height:64px;width:auto;display:inline-block}
+/* Main */
+.nf-main{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;padding:64px 24px}
+.nf-wrap{max-width:520px}
+.nf-code{font-size:clamp(4.5rem,14vw,9rem);font-weight:100;color:var(--green);letter-spacing:.08em;line-height:1;margin-bottom:8px}
+.nf-title{font-size:clamp(1.1rem,3.5vw,1.4rem);font-weight:500;letter-spacing:.04em;margin-bottom:16px}
+.nf-text{font-size:.9rem;color:var(--text-sub);line-height:2.1;margin-bottom:40px}
+.nf-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 44px;background:var(--green);color:#fff;font-size:.92rem;font-weight:500;text-decoration:none;border-radius:30px;letter-spacing:.06em;box-shadow:0 6px 20px rgba(45,106,79,.28);transition:transform .3s ease,box-shadow .3s ease,background-color .3s ease}
+.nf-btn:hover{transform:translateY(-3px);background:#245a42;box-shadow:0 12px 30px rgba(45,106,79,.38)}
+.nf-btn-arrow{transition:transform .3s ease}
+.nf-btn:hover .nf-btn-arrow{transform:translateX(4px)}
+/* Footer */
+.nf-footer{background:#1a1a1a;color:rgba(255,255,255,.7);text-align:center;padding:28px 24px;font-size:.74rem;letter-spacing:.04em;line-height:1.9}
+.nf-footer a{color:rgba(255,255,255,.85);text-decoration:none}
+.nf-footer a:hover{color:#fff}
+.nf-footer-name{font-size:.85rem;color:#fff;font-weight:500;letter-spacing:.1em;margin-bottom:8px}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="code">404</div>
-  <h1>ページが見つかりません</h1>
-  <p>お探しのページは移動または削除された可能性があります。<br>URLをご確認のうえ、再度お試しください。</p>
-  <a href="/">トップページへ戻る</a>
-</div>
+<header class="nf-header">
+  <a href="/" class="nf-logo" aria-label="トランジットWorks トップページ">
+    <img src="/images/logo-sign.png" alt="トランジットWorks｜大阪府交野市の就労継続支援B型事業所">
+  </a>
+</header>
+
+<main class="nf-main">
+  <div class="nf-wrap">
+    <div class="nf-code">404</div>
+    <h1 class="nf-title">お探しのページが見つかりません</h1>
+    <p class="nf-text">お探しのページは移動または削除された可能性があります。<br>お手数ですが、トップページから目的のページをお探しください。</p>
+    <a href="/" class="nf-btn">トップページに戻る<span class="nf-btn-arrow" aria-hidden="true">&rarr;</span></a>
+  </div>
+</main>
+
+<footer class="nf-footer">
+  <div class="nf-footer-name">トランジットWorks</div>
+  <div>大阪府交野市私部西１丁目１－１１ ウシオビル３階</div>
+  <div><a href="tel:0728607737">０７２－８６０－７７３７</a>（就労継続支援B型事業所）</div>
+  <div style="margin-top:10px;color:rgba(255,255,255,.45)">&copy; 2025 トランジットWorks / 合同会社ウェルフェア</div>
+</footer>
 </body>
 </html>

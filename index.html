@@ -374,6 +374,7 @@
   <div class="container fade-in">
     <span class="sec-label">よくある質問</span>
     <h2 class="sec-title-en slide-in">FAQ<span class="sec-title-ja">よくある質問</span></h2>
+    <div class="faq-filter" id="faqFilter"></div>
     <div class="faq-list" id="faqList">
       <div class="faq-item sa">
         <button class="faq-q" aria-expanded="false">利用するにはどんな条件が必要ですか？<span class="faq-icon"></span></button>
@@ -446,6 +447,7 @@
     <span class="sec-label">お問い合わせ</span>
     <h2 class="sec-title-en slide-in">Contact<span class="sec-title-ja">お問い合わせ</span></h2>
     <p class="sec-lead">見学・体験・ご質問など、お気軽にお問い合わせください。</p>
+    <p class="contact-note sa">下記フォームに、お名前・ご連絡先・ご希望の見学日時などをご記入ください。内容を確認のうえ、担当者より折り返しご連絡いたします。</p>
     <div class="contact-form-wrapper sa">
       <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdIH3hnSBJQCv5imjG9Grdm70E2EOk1XQbLjQOHdoackVtZrw/viewform?embedded=true" width="100%" height="900" frameborder="0" marginheight="0" marginwidth="0" title="お問い合わせフォーム" loading="lazy">読み込んでいます…</iframe>
     </div>
@@ -1125,10 +1127,35 @@ async function loadCMSData(){
     const data=await res.json();
     const list=document.getElementById('faqList');
     if(list&&data.items&&data.items.length){
+      // 出現順にカテゴリを収集してタブを生成
+      var cats=[];
+      data.items.forEach(function(it){if(it.category&&cats.indexOf(it.category)<0)cats.push(it.category);});
+      var filterWrap=document.getElementById('faqFilter');
+      if(filterWrap&&cats.length){
+        filterWrap.innerHTML='<button class="faq-filter-btn active" type="button" data-filter="all">すべて</button>'+
+          cats.map(function(c){var cc=c.replace(/"/g,'&quot;');return '<button class="faq-filter-btn" type="button" data-filter="'+cc+'">'+c+'</button>';}).join('');
+      }
       list.innerHTML=data.items.map(function(item,i){
-        return '<div class="faq-item sa'+(i>0?' sa-d'+i:'')+'"><button class="faq-q" aria-expanded="false">'+item.question+'<span class="faq-icon"></span></button><div class="faq-a"><p>'+item.answer+'</p></div></div>';
+        var cat=(item.category||'').replace(/"/g,'&quot;');
+        return '<div class="faq-item sa'+(i>0?' sa-d'+(i%9):'')+'" data-category="'+cat+'"><button class="faq-q" aria-expanded="false">'+item.question+'<span class="faq-icon"></span></button><div class="faq-a"><p>'+item.answer+'</p></div></div>';
       }).join('');
       initFaqAccordion();
+      // カテゴリタブのフィルタ動作
+      if(filterWrap){
+        var fbtns=filterWrap.querySelectorAll('.faq-filter-btn');
+        fbtns.forEach(function(btn){
+          btn.addEventListener('click',function(){
+            fbtns.forEach(function(b){b.classList.remove('active')});
+            btn.classList.add('active');
+            var f=btn.getAttribute('data-filter');
+            list.querySelectorAll('.faq-item').forEach(function(item){
+              var match=(f==='all'||item.getAttribute('data-category')===f);
+              item.style.display=match?'':'none';
+              if(!match){item.classList.remove('open');var q=item.querySelector('.faq-q');if(q)q.setAttribute('aria-expanded','false');}
+            });
+          });
+        });
+      }
       var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
       list.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
       injectFaqJsonLd(data.items);
