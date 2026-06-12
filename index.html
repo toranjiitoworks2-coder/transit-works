@@ -39,112 +39,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 
-<!-- FAQ構造化データ（schema.org FAQPage / JSON-LD） -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "利用するにはどんな条件が必要ですか？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "障がい者手帳（身体・知的・精神）をお持ちの方、または医師の診断書がある方が対象です。手帳をお持ちでない方もご利用いただける場合がありますので、まずはお気軽にご相談ください。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "工賃はどのくらいもらえますか？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "活動内容や出勤日数によって異なります。まずは見学・体験を通じてご自身のペースを確認してから、詳しくご説明いたします。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "工賃の支払い時期はいつですか？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "毎月末締め、翌月中旬にお支払いしております。詳しくはお問い合わせください。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "見学だけでもできますか？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "もちろんです。見学・体験は随時受け付けております。「まず雰囲気だけ見たい」という方も大歓迎です。お気軽にお電話ください。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "見学の予約は必要ですか？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "事前にお電話またはお問い合わせフォームからご連絡いただけますとスムーズです。飛び込みでのご見学もできる限り対応いたします。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "通い始めてから辞めることはできますか？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "はい、いつでも退所できます。無理に続ける必要はありませんので、気持ちが変わったときはいつでもご相談ください。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "送迎はありますか？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "はい、送迎を行っております。ただし、送迎できる範囲に限りがありますので、まずはお気軽にご相談ください。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "精神障がいでも利用できますか？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "はい、身体・知的・精神など様々な障がいのある方にご利用いただいています。一人ひとりの状態に合わせた支援を行っています。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "週に何日から通えますか？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "週1日から通うことができます。体調や生活リズムに合わせて、無理のないペースで通う日数を決められます。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "昼食はありますか？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "はい、昼食の提供を行っております。1食540円（味噌汁付き）で、業者委託の冷凍弁当をご用意しています。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "他の施設と掛け持ちはできますか？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "他の就労継続支援事業所との併用も可能です。その場合は月の来所日数を確認し、併用先の事業所と調整しながら曜日ごとの通所スケジュールを一緒に決めていきます。詳しくはお気軽にご相談ください。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "利用を始めるまでどのくらいかかりますか？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "受給者証をお持ちの方はすぐにご利用いただけます。お持ちでない方は、市区町村での申請が必要で、通常1〜2ヶ月程度かかります。申請のサポートもいたします。"
-      }
-    }
-  ]
-}
-</script>
-
 <!-- Netlify Identity Widget -->
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
@@ -904,6 +798,29 @@ function initFaqAccordion(){
     });
   }
 }
+
+// faq.jsonの内容からFAQPage構造化データ(JSON-LD)を動的生成してheadに挿入
+function injectFaqJsonLd(items){
+  if(!items||!items.length)return;
+  var old=document.getElementById("faq-jsonld");
+  if(old)old.remove();
+  var jsonld={
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":items.map(function(item){
+      return {
+        "@type":"Question",
+        "name":item.question,
+        "acceptedAnswer":{"@type":"Answer","text":item.answer}
+      };
+    })
+  };
+  var script=document.createElement("script");
+  script.type="application/ld+json";
+  script.id="faq-jsonld";
+  script.textContent=JSON.stringify(jsonld);
+  document.head.appendChild(script);
+}
 initFaqAccordion();
 
 // === 10b. Works category filter ===
@@ -1177,6 +1094,7 @@ async function loadCMSData(){
       initFaqAccordion();
       var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
       list.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
+      injectFaqJsonLd(data.items);
     }
   }catch(e){}
 
