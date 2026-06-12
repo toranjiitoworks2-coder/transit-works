@@ -374,45 +374,51 @@
   <div class="container fade-in">
     <span class="sec-label">よくある質問</span>
     <h2 class="sec-title-en slide-in">FAQ<span class="sec-title-ja">よくある質問</span></h2>
-    <div class="faq-filter" id="faqFilter"></div>
+    <div class="faq-filter" id="faqFilter">
+      <button class="faq-filter-btn active" type="button" data-filter="all">すべて</button>
+      <button class="faq-filter-btn" type="button" data-filter="利用について">利用について</button>
+      <button class="faq-filter-btn" type="button" data-filter="工賃について">工賃について</button>
+      <button class="faq-filter-btn" type="button" data-filter="見学・体験について">見学・体験について</button>
+      <button class="faq-filter-btn" type="button" data-filter="施設・サービスについて">施設・サービスについて</button>
+    </div>
     <div class="faq-list" id="faqList">
-      <div class="faq-item sa">
+      <div class="faq-item sa" data-category="利用について">
         <button class="faq-q" aria-expanded="false">利用するにはどんな条件が必要ですか？<span class="faq-icon"></span></button>
         <div class="faq-a"><p>障がい者手帳または療育手帳をお持ちの方、もしくは医師の診断書がある方が対象です。まずはお気軽にご相談ください。</p></div>
       </div>
-      <div class="faq-item sa sa-d1">
+      <div class="faq-item sa sa-d1" data-category="工賃について">
         <button class="faq-q" aria-expanded="false">工賃はどのくらいもらえますか？<span class="faq-icon"></span></button>
         <div class="faq-a"><p>活動内容や出勤日数によって異なりますが、月額数千円〜数万円程度です。詳しくはお問い合わせください。</p></div>
       </div>
-      <div class="faq-item sa sa-d2">
+      <div class="faq-item sa sa-d2" data-category="見学・体験について">
         <button class="faq-q" aria-expanded="false">見学だけでもできますか？<span class="faq-icon"></span></button>
         <div class="faq-a"><p>もちろんです。見学・体験は随時受け付けております。まずは雰囲気を見に来てください。</p></div>
       </div>
-      <div class="faq-item sa sa-d3">
+      <div class="faq-item sa sa-d3" data-category="利用について">
         <button class="faq-q" aria-expanded="false">通い始めてから辞めることはできますか？<span class="faq-icon"></span></button>
         <div class="faq-a"><p>はい、いつでも退所できます。無理に続ける必要はありません。</p></div>
       </div>
-      <div class="faq-item sa sa-d4">
+      <div class="faq-item sa sa-d4" data-category="施設・サービスについて">
         <button class="faq-q" aria-expanded="false">送迎はありますか？<span class="faq-icon"></span></button>
         <div class="faq-a"><p>現在送迎は行っておりません。公共交通機関でのアクセスをご確認ください。</p></div>
       </div>
-      <div class="faq-item sa sa-d5">
+      <div class="faq-item sa sa-d5" data-category="利用について">
         <button class="faq-q" aria-expanded="false">精神障がいでも利用できますか？<span class="faq-icon"></span></button>
         <div class="faq-a"><p>はい、身体・知的・精神など様々な障がいのある方にご利用いただけます。</p></div>
       </div>
-      <div class="faq-item sa sa-d6">
+      <div class="faq-item sa sa-d6" data-category="施設・サービスについて">
         <button class="faq-q" aria-expanded="false">昼食はありますか？<span class="faq-icon"></span></button>
         <div class="faq-a"><p>はい、昼食の提供を行っております。1食540円（味噌汁付き）で、業者委託の冷凍弁当をご用意しています。</p></div>
       </div>
-      <div class="faq-item sa sa-d7">
+      <div class="faq-item sa sa-d7" data-category="工賃について">
         <button class="faq-q" aria-expanded="false">工賃の支払い時期はいつですか？<span class="faq-icon"></span></button>
         <div class="faq-a"><p>毎月末締め、翌月中旬にお支払いしております。詳しくはお問い合わせください。</p></div>
       </div>
-      <div class="faq-item sa sa-d8">
+      <div class="faq-item sa sa-d8" data-category="見学・体験について">
         <button class="faq-q" aria-expanded="false">見学の予約は必要ですか？<span class="faq-icon"></span></button>
         <div class="faq-a"><p>事前にお電話またはお問い合わせフォームからご連絡いただけますとスムーズです。飛び込みでのご見学もできる限り対応いたします。</p></div>
       </div>
-      <div class="faq-item sa sa-d8">
+      <div class="faq-item sa sa-d8" data-category="利用について">
         <button class="faq-q" aria-expanded="false">他の施設と掛け持ちはできますか？<span class="faq-icon"></span></button>
         <div class="faq-a"><p>他の就労継続支援事業所との併用も可能です。その場合は月の来所日数を確認し、併用先の事業所と調整しながら曜日ごとの通所スケジュールを一緒に決めていきます。詳しくはお気軽にご相談ください。</p></div>
       </div>
@@ -860,7 +866,28 @@ function injectFaqJsonLd(items){
   script.textContent=JSON.stringify(jsonld);
   document.head.appendChild(script);
 }
+
+// FAQカテゴリタブのフィルタ配線（静的HTML・CMS再描画の両方で使用）
+function wireFaqFilter(){
+  var fw=document.getElementById('faqFilter');
+  var lst=document.getElementById('faqList');
+  if(!fw||!lst)return;
+  var fbtns=fw.querySelectorAll('.faq-filter-btn');
+  fbtns.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      fbtns.forEach(function(b){b.classList.remove('active')});
+      btn.classList.add('active');
+      var f=btn.getAttribute('data-filter');
+      lst.querySelectorAll('.faq-item').forEach(function(item){
+        var match=(f==='all'||item.getAttribute('data-category')===f);
+        item.style.display=match?'':'none';
+        if(!match){item.classList.remove('open');var q=item.querySelector('.faq-q');if(q)q.setAttribute('aria-expanded','false');}
+      });
+    });
+  });
+}
 initFaqAccordion();
+wireFaqFilter();
 
 // === 10b. Works category filter ===
 (function(){
@@ -1140,22 +1167,7 @@ async function loadCMSData(){
         return '<div class="faq-item sa'+(i>0?' sa-d'+(i%9):'')+'" data-category="'+cat+'"><button class="faq-q" aria-expanded="false">'+item.question+'<span class="faq-icon"></span></button><div class="faq-a"><p>'+item.answer+'</p></div></div>';
       }).join('');
       initFaqAccordion();
-      // カテゴリタブのフィルタ動作
-      if(filterWrap){
-        var fbtns=filterWrap.querySelectorAll('.faq-filter-btn');
-        fbtns.forEach(function(btn){
-          btn.addEventListener('click',function(){
-            fbtns.forEach(function(b){b.classList.remove('active')});
-            btn.classList.add('active');
-            var f=btn.getAttribute('data-filter');
-            list.querySelectorAll('.faq-item').forEach(function(item){
-              var match=(f==='all'||item.getAttribute('data-category')===f);
-              item.style.display=match?'':'none';
-              if(!match){item.classList.remove('open');var q=item.querySelector('.faq-q');if(q)q.setAttribute('aria-expanded','false');}
-            });
-          });
-        });
-      }
+      wireFaqFilter(); // 再生成したタブに配線（カテゴリタブのフィルタ動作）
       var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
       list.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
       injectFaqJsonLd(data.items);
