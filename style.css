@@ -13,6 +13,8 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .header.scrolled::before{opacity:0}
 .header-top,.header-center,.header-bottom{max-width:1100px;margin:0 auto;padding:0 40px}
 .header-top{display:flex;justify-content:flex-end;align-items:center;min-height:22px;overflow:hidden;transition:max-height .3s ease,min-height .3s ease,opacity .3s ease}
+/* 透過ヘッダー時、電話番号ボタンと「お問い合わせ」ボタンの縦の窮屈さを解消 */
+.header:not(.scrolled) .header-top{margin-bottom:14px}
 .header-phone{
   display:inline-flex;
   align-items:center;
