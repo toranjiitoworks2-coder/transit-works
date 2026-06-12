@@ -39,6 +39,42 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 
+<!-- 事業所情報の構造化データ（schema.org LocalBusiness / JSON-LD） -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "トランジットWorks",
+  "description": "大阪府交野市の就労継続支援B型事業所。障がいのある方が自分らしく働き、社会とつながるための場所です。",
+  "url": "https://transit-works.pages.dev/",
+  "telephone": "+81-72-860-7737",
+  "image": "https://transit-works.pages.dev/ogp.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "私部西1丁目1-11 ウシオビル3階",
+    "addressLocality": "交野市",
+    "addressRegion": "大阪府",
+    "postalCode": "576-0041",
+    "addressCountry": "JP"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "09:30",
+      "closes": "15:30"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "09:30",
+      "closes": "12:00",
+      "description": "第2・第4土曜、祝日のみ"
+    }
+  ]
+}
+</script>
+
 <!-- Netlify Identity Widget -->
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
@@ -175,6 +211,7 @@
         <span class="stat-label">作品種類</span>
       </div>
     </div>
+    <div class="sec-cta sa"><a href="#contact" class="cta-btn">見学・体験のお問い合わせはこちら<span class="cta-btn-arrow" aria-hidden="true">&rarr;</span></a></div>
   </div>
 </section>
 
@@ -263,6 +300,7 @@
       <div class="works-card sa sa-d3" data-category="自主製品"><div class="works-thumb"><img src="/images/works-flower.jpg" alt="押し花シール"></div><h3>押し花シール</h3><p>本物の花を使ったオリジナルシール。</p></div>
       <div class="works-card sa sa-d4" data-category="自主製品"><div class="works-thumb"><span>PHOTO</span></div><h3>楽曲制作</h3><p>利用者さんの想いをもとに、職員と一緒に歌詞を考えてオリジナル楽曲を制作。AIを活用して、世界にひとつだけの音楽を作り上げます。</p><span class="works-soon-badge">準備中</span></div>
     </div>
+    <div class="sec-cta sa"><a href="#contact" class="cta-btn">見学・体験のお問い合わせはこちら<span class="cta-btn-arrow" aria-hidden="true">&rarr;</span></a></div>
   </div>
 </section>
 

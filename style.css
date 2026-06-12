@@ -156,6 +156,14 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .link-arrow{display:inline-flex;align-items:center;gap:6px;margin-top:28px;font-size:.78rem;font-weight:500;color:var(--green);letter-spacing:.06em;transition:gap .3s}
 .link-arrow:hover{gap:12px}
 
+/* セクション内CTA（お問い合わせ誘導） */
+.sec-cta{margin-top:56px;text-align:center}
+.cta-btn{display:inline-flex;align-items:center;gap:10px;font-size:.9rem;font-weight:500;color:#fff;background:var(--green);padding:15px 38px;border:1.5px solid var(--green);border-radius:30px;letter-spacing:.06em;box-shadow:0 6px 20px rgba(45,106,79,.25);transition:transform .3s ease,box-shadow .3s ease,background-color .3s ease}
+.cta-btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(45,106,79,.35);background:#245a42}
+.cta-btn-arrow{transition:transform .3s ease}
+.cta-btn:hover .cta-btn-arrow{transform:translateX(4px)}
+@media(max-width:768px){.sec-cta{margin-top:40px}.cta-btn{font-size:.82rem;padding:13px 28px}}
+
 /* ===== About ===== */
 .about{background:#2a2a2a;color:#fff}
 .about .sec-label{color:rgba(255,255,255,.35)}
