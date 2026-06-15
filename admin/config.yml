@@ -55,6 +55,13 @@ collections:
           - {label: "統計3 値（例：20名）", name: "stat3_value", widget: "string"}
           - {label: "統計4 ラベル（例：作品種類）", name: "stat4_label", widget: "string"}
           - {label: "統計4 値（例：10種類以上）", name: "stat4_value", widget: "string"}
+          - {label: "理念キャッチ（改行可）", name: "philosophy_catch", widget: "text"}
+          - {label: "理念 本文1", name: "philosophy1", widget: "text"}
+          - {label: "理念 本文2", name: "philosophy2", widget: "text"}
+          - {label: "理念 本文3", name: "philosophy3", widget: "text"}
+          - {label: "理念 本文4", name: "philosophy4", widget: "text"}
+          - {label: "代表 役職（例：トランジットWorks 代表）", name: "rep_title", widget: "string"}
+          - {label: "代表 会社名（例：合同会社ウェルフェア）", name: "rep_company", widget: "string"}
 
   # ヒーロー
   - name: "hero"
@@ -138,6 +145,23 @@ collections:
               - {label: "補足", name: "detail", widget: "string", required: false}
           - {label: "注記", name: "note", widget: "text"}
 
+  # ご利用の流れ（Flow）
+  - name: "flow"
+    label: "ご利用の流れ（Flow）"
+    files:
+      - name: "flow"
+        label: "ご利用の流れ"
+        file: "_data/flow.json"
+        fields:
+          - {label: "リード文", name: "lead", widget: "text"}
+          - label: "ステップ一覧"
+            name: "steps"
+            widget: "list"
+            fields:
+              - {label: "番号", name: "num", widget: "string"}
+              - {label: "タイトル", name: "title", widget: "string"}
+              - {label: "説明", name: "description", widget: "text"}
+
   # よくある質問
   - name: "faq"
     label: "よくある質問"
@@ -167,3 +191,5 @@ collections:
           - {label: "利用時間（平日）", name: "hours_weekday", widget: "string"}
           - {label: "利用時間（土曜）", name: "hours_saturday", widget: "string"}
           - {label: "休業日", name: "closed", widget: "string"}
+          - {label: "お問い合わせ リード文", name: "contact_lead", widget: "text"}
+          - {label: "お問い合わせ 注記", name: "contact_note", widget: "text"}

@@ -223,13 +223,13 @@
       <div class="philosophy-left sa">
         <span class="sec-label">飛び立つために</span>
         <h2 class="sec-title-en slide-in">Departure<span class="sec-title-ja">私たちについて</span></h2>
-        <p class="philosophy-catch">なぜ、<br>トランジットなのか。</p>
+        <p class="philosophy-catch" id="cms-philosophy-catch">なぜ、<br>トランジットなのか。</p>
       </div>
       <div class="philosophy-right sa sa-d1">
-        <p>トランジット（Transit）とは、乗り継ぎを意味します。</p>
-        <p>社会という大きな旅へ出発する前の、大切な乗り継ぎ地点。ここでの時間が、あなたの次のステップへの準備になる。</p>
-        <p>急がなくていい。遠回りしてもいい。</p>
-        <p>トランジットWorksは、あなたの旅の途中に寄り添う場所でありたいと思っています。</p>
+        <p id="cms-philosophy1">トランジット（Transit）とは、乗り継ぎを意味します。</p>
+        <p id="cms-philosophy2">社会という大きな旅へ出発する前の、大切な乗り継ぎ地点。ここでの時間が、あなたの次のステップへの準備になる。</p>
+        <p id="cms-philosophy3">急がなくていい。遠回りしてもいい。</p>
+        <p id="cms-philosophy4">トランジットWorksは、あなたの旅の途中に寄り添う場所でありたいと思っています。</p>
       </div>
     </div>
 
@@ -247,8 +247,8 @@
             <img id="cms-rep-photo" src="/images/representative.jpg" alt="トランジットWorks（交野市の就労継続支援B型事業所）代表 西山真理子">
           </div>
           <div class="rep-sign-text">
-            <span>合同会社ウェルフェア</span>
-            <span>トランジットWorks 代表</span>
+            <span id="cms-rep-company">合同会社ウェルフェア</span>
+            <span id="cms-rep-title">トランジットWorks 代表</span>
             <span class="rep-name" id="cms-rep-name">西山真理子</span>
           </div>
         </div>
@@ -1135,6 +1135,18 @@ async function loadCMSData(){
       }
       if(l){var el2=document.getElementById('cms-stat'+n+'-label');if(el2)el2.textContent=l;}
     });
+    // 理念（Philosophy）
+    if(data.philosophy_catch){
+      var pc=document.getElementById('cms-philosophy-catch');
+      if(pc){pc.innerHTML='';String(data.philosophy_catch).split('\n').forEach(function(line,li){if(li>0)pc.appendChild(document.createElement('br'));pc.appendChild(document.createTextNode(line));});}
+    }
+    if(data.philosophy1){var p1=document.getElementById('cms-philosophy1');if(p1)p1.textContent=data.philosophy1;}
+    if(data.philosophy2){var p2=document.getElementById('cms-philosophy2');if(p2)p2.textContent=data.philosophy2;}
+    if(data.philosophy3){var p3=document.getElementById('cms-philosophy3');if(p3)p3.textContent=data.philosophy3;}
+    if(data.philosophy4){var p4=document.getElementById('cms-philosophy4');if(p4)p4.textContent=data.philosophy4;}
+    // 代表署名
+    if(data.rep_company){var rcp=document.getElementById('cms-rep-company');if(rcp)rcp.textContent=data.rep_company;}
+    if(data.rep_title){var rt=document.getElementById('cms-rep-title');if(rt)rt.textContent=data.rep_title;}
   }catch(e){}
 
   // お知らせ
@@ -1229,6 +1241,24 @@ async function loadCMSData(){
     }
   }catch(e){}
 
+  // ご利用の流れ（Flow）
+  try{
+    const res=await fetch('/_data/flow.json');
+    const data=await res.json();
+    if(data.lead){var ld=document.querySelector('#flow .sec-lead');if(ld)ld.textContent=data.lead;}
+    const steps=document.querySelector('#flow .steps');
+    if(steps&&data.steps&&data.steps.length){
+      steps.innerHTML=data.steps.map(function(item,i){
+        var num=String(item.num||'').replace(/</g,'&lt;');
+        var title=String(item.title||'').replace(/</g,'&lt;');
+        var desc=String(item.description||'').replace(/</g,'&lt;');
+        return '<div class="step sa'+(i>0?' sa-d'+i:'')+'"><span class="step-num">'+num+'</span><div class="step-body"><h3>'+title+'</h3><p>'+desc+'</p></div></div>';
+      }).join('');
+      var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
+      steps.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
+    }
+  }catch(e){}
+
   // よくある質問
   try{
     const res=await fetch('/_data/faq.json');
@@ -1265,6 +1295,8 @@ async function loadCMSData(){
     if(data.hours_saturday){var el=document.getElementById('cms-hours-saturday');if(el)el.textContent=data.hours_saturday;}
     if(data.closed){var el=document.getElementById('cms-closed');if(el)el.textContent=data.closed;}
     if(data.phone){var el=document.getElementById('cms-phone');if(el){el.textContent=data.phone;el.href='tel:'+data.phone.replace(/[^0-9]/g,'');}}
+    if(data.contact_lead){var cl=document.querySelector('#contact .sec-lead');if(cl)cl.textContent=data.contact_lead;}
+    if(data.contact_note){var cn=document.querySelector('#contact .contact-note');if(cn)cn.textContent=data.contact_note;}
   }catch(e){}
 }
 
