@@ -1114,9 +1114,10 @@ async function loadCMSData(){
         var d=(i<3?' sa-d'+i:'');
         var alt=(item.alt||'').replace(/"/g,'&quot;');
         var thumb=item.image?'<img src="'+item.image+'" alt="'+alt+'">':'<span class="thumb-ph" aria-hidden="true"></span>';
-        var title=item.title||item.text||'';
-        var body=item.body?'<p class="news-card-excerpt">'+item.body+'</p>':'';
-        return '<a href="#" class="news-card sa'+d+'"><div class="news-card-thumb">'+thumb+'</div><div class="news-card-body"><div class="news-card-meta"><time>'+item.date+'</time><span class="news-card-cat">'+item.category+'</span></div><h3 class="news-card-title">'+title+'</h3>'+body+'</div></a>';
+        var content=item.text||item.body||''; // 内容（後方互換でbodyも許容）
+        var title=item.title||content;        // タイトル未設定なら内容を見出しに
+        var excerpt=(item.title&&content)?'<p class="news-card-excerpt">'+content+'</p>':''; // タイトルがある時のみ内容を本文表示
+        return '<a href="#" class="news-card sa'+d+'"><div class="news-card-thumb">'+thumb+'</div><div class="news-card-body"><div class="news-card-meta"><time>'+item.date+'</time><span class="news-card-cat">'+item.category+'</span></div><h3 class="news-card-title">'+title+'</h3>'+excerpt+'</div></a>';
       }).join('');
       var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
       list.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
