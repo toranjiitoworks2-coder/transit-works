@@ -435,7 +435,7 @@
     <div class="access-grid">
       <div class="access-table">
         <div class="access-row"><div class="access-th">事業所名</div><div class="access-td" id="cms-name">トランジットWorks</div></div>
-        <div class="access-row"><div class="access-th">種別</div><div class="access-td">就労継続支援B型</div></div>
+        <div class="access-row"><div class="access-th">種別</div><div class="access-td" id="cms-facility-type">就労継続支援B型</div></div>
         <div class="access-row"><div class="access-th">所在地</div><div class="access-td" id="cms-address">大阪府交野市私部西１丁目１－１１ ウシオビル３階</div></div>
         <div class="access-row"><div class="access-th">利用時間</div><div class="access-td"><span id="cms-hours-weekday">9:30〜15:30（月〜金）</span><br><span id="cms-hours-saturday">9:30〜12:00（第2・第4土曜、祝日）※昼食なし</span></div></div>
         <div class="access-row"><div class="access-th">休業日</div><div class="access-td" id="cms-closed">日曜・第1土曜・第3土曜</div></div>
@@ -1297,6 +1297,20 @@ async function loadCMSData(){
     if(data.phone){var el=document.getElementById('cms-phone');if(el){el.textContent=data.phone;el.href='tel:'+data.phone.replace(/[^0-9]/g,'');}}
     if(data.contact_lead){var cl=document.querySelector('#contact .sec-lead');if(cl)cl.textContent=data.contact_lead;}
     if(data.contact_note){var cn=document.querySelector('#contact .contact-note');if(cn)cn.textContent=data.contact_note;}
+    // 施設種別
+    if(data.facility_type){var ft=document.getElementById('cms-facility-type');if(ft)ft.textContent=data.facility_type;}
+    // CTAボタン文言（矢印spanを保持し先頭テキストノードのみ更新／2箇所すべて）
+    if(data.cta_text){
+      document.querySelectorAll('.cta-btn').forEach(function(btn){
+        if(btn.firstChild&&btn.firstChild.nodeType===3){btn.firstChild.nodeValue=data.cta_text;}
+        else{btn.insertBefore(document.createTextNode(data.cta_text),btn.firstChild);}
+      });
+    }
+    // 各セクションのリード文（settings側で一元管理）
+    if(data.lead_activities){var la=document.querySelector('#activities .sec-lead');if(la)la.textContent=data.lead_activities;}
+    if(data.lead_works){var lw=document.querySelector('#works .sec-lead');if(lw)lw.textContent=data.lead_works;}
+    if(data.lead_gallery){var lg=document.querySelector('#gallery .sec-lead');if(lg)lg.textContent=data.lead_gallery;}
+    if(data.lead_target){var ltg=document.querySelector('#target .sec-lead');if(ltg)ltg.textContent=data.lead_target;}
   }catch(e){}
 }
 

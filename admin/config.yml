@@ -193,3 +193,9 @@ collections:
           - {label: "休業日", name: "closed", widget: "string"}
           - {label: "お問い合わせ リード文", name: "contact_lead", widget: "text"}
           - {label: "お問い合わせ 注記", name: "contact_note", widget: "text"}
+          - {label: "施設種別（例：就労継続支援B型）", name: "facility_type", widget: "string"}
+          - {label: "CTAボタン文言", name: "cta_text", widget: "string"}
+          - {label: "リード文：活動内容", name: "lead_activities", widget: "text"}
+          - {label: "リード文：作品紹介", name: "lead_works", widget: "text"}
+          - {label: "リード文：作品ギャラリー", name: "lead_gallery", widget: "text"}
+          - {label: "リード文：ご利用条件", name: "lead_target", widget: "text"}
