@@ -39,6 +39,7 @@ collections:
         label: "施設紹介・代表メッセージ"
         file: "_data/about.json"
         fields:
+          - {label: "施設紹介 写真", name: "about_photo", widget: "image", required: false}
           - {label: "施設紹介 本文1", name: "text1", widget: "text"}
           - {label: "施設紹介 本文2", name: "text2", widget: "text"}
           - {label: "代表メッセージ 本文1", name: "rep1", widget: "text"}

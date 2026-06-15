@@ -185,7 +185,7 @@
 <section class="section about" id="about">
   <div class="container fade-in">
     <div class="about-grid">
-      <div class="about-photo sa"><img src="/images/IMG_0626.jpeg" alt="トランジットWorksでの活動の様子"></div>
+      <div class="about-photo sa"><img id="cms-about-photo" src="/images/IMG_0626.jpeg" alt="トランジットWorksでの活動の様子"></div>
       <div class="about-body sa sa-d1">
         <span class="sec-label">施設紹介</span>
         <h2 class="sec-title-en slide-in">Terminal<span class="sec-title-ja">施設紹介</span></h2>
@@ -1097,6 +1097,7 @@ async function loadCMSData(){
     const data=await res.json();
     if(data.text1){var el=document.getElementById('cms-about-text1');if(el)el.textContent=data.text1;}
     if(data.text2){var el=document.getElementById('cms-about-text2');if(el)el.textContent=data.text2;}
+    if(data.about_photo){var el=document.getElementById('cms-about-photo');if(el)el.src=data.about_photo;}
     if(data.rep1){var el=document.getElementById('cms-rep1');if(el)el.textContent=data.rep1;}
     if(data.rep2){var el=document.getElementById('cms-rep2');if(el)el.textContent=data.rep2;}
     if(data.rep3){var el=document.getElementById('cms-rep3');if(el)el.textContent=data.rep3;}
