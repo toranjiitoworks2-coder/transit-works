@@ -47,6 +47,14 @@ collections:
           - {label: "代表メッセージ 本文3", name: "rep3", widget: "text"}
           - {label: "代表氏名", name: "rep_name", widget: "string"}
           - {label: "代表写真", name: "rep_photo", widget: "image", required: false}
+          - {label: "統計1 ラベル（例：開所）", name: "stat1_label", widget: "string"}
+          - {label: "統計1 値（例：2025年4月1日）", name: "stat1_value", widget: "string"}
+          - {label: "統計2 ラベル（例：利用時間）", name: "stat2_label", widget: "string"}
+          - {label: "統計2 値（例：9:30〜15:30）", name: "stat2_value", widget: "string"}
+          - {label: "統計3 ラベル（例：利用定員）", name: "stat3_label", widget: "string"}
+          - {label: "統計3 値（例：20名）", name: "stat3_value", widget: "string"}
+          - {label: "統計4 ラベル（例：作品種類）", name: "stat4_label", widget: "string"}
+          - {label: "統計4 値（例：10種類以上）", name: "stat4_value", widget: "string"}
 
   # ヒーロー
   - name: "hero"
@@ -111,6 +119,24 @@ collections:
             fields:
               - {label: "画像", name: "image", widget: "image", required: true}
               - {label: "説明文(alt)", name: "alt", widget: "string", required: false}
+
+  # ご利用条件（Target）
+  - name: "target"
+    label: "ご利用条件（Target）"
+    files:
+      - name: "target"
+        label: "ご利用条件"
+        file: "_data/target.json"
+        fields:
+          - {label: "リード文", name: "lead", widget: "text"}
+          - label: "条件一覧"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "番号", name: "num", widget: "string"}
+              - {label: "内容", name: "title", widget: "string"}
+              - {label: "補足", name: "detail", widget: "string", required: false}
+          - {label: "注記", name: "note", widget: "text"}
 
   # よくある質問
   - name: "faq"

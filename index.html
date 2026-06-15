@@ -196,20 +196,20 @@
     </div>
     <div class="about-stats sa">
       <div class="stat">
-        <div class="stat-value"><span class="stat-num" data-count="2025">0</span><span class="stat-unit">年4月1日</span></div>
-        <span class="stat-label">開所</span>
+        <div class="stat-value" id="cms-stat1-value"><span class="stat-num" data-count="2025">0</span><span class="stat-unit">年4月1日</span></div>
+        <span class="stat-label" id="cms-stat1-label">開所</span>
       </div>
       <div class="stat">
-        <div class="stat-value"><span class="stat-num">9:30〜15:30</span></div>
-        <span class="stat-label">利用時間</span>
+        <div class="stat-value" id="cms-stat2-value"><span class="stat-num">9:30〜15:30</span></div>
+        <span class="stat-label" id="cms-stat2-label">利用時間</span>
       </div>
       <div class="stat">
-        <div class="stat-value"><span class="stat-num" data-count="20">0</span><span class="stat-unit">名</span></div>
-        <span class="stat-label">利用定員</span>
+        <div class="stat-value" id="cms-stat3-value"><span class="stat-num" data-count="20">0</span><span class="stat-unit">名</span></div>
+        <span class="stat-label" id="cms-stat3-label">利用定員</span>
       </div>
       <div class="stat">
-        <div class="stat-value"><span class="stat-num" data-count="10">0</span><span class="stat-unit">種類以上</span></div>
-        <span class="stat-label">作品種類</span>
+        <div class="stat-value" id="cms-stat4-value"><span class="stat-num" data-count="10">0</span><span class="stat-unit">種類以上</span></div>
+        <span class="stat-label" id="cms-stat4-label">作品種類</span>
       </div>
     </div>
     <div class="sec-cta sa"><a href="#contact" class="cta-btn">見学・体験のお問い合わせはこちら<span class="cta-btn-arrow" aria-hidden="true">&rarr;</span></a></div>
@@ -385,27 +385,27 @@
     <div class="faq-list" id="faqList">
       <div class="faq-item sa" data-category="利用について">
         <button class="faq-q" aria-expanded="false">利用するにはどんな条件が必要ですか？<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>障がい者手帳または療育手帳をお持ちの方、もしくは医師の診断書がある方が対象です。まずはお気軽にご相談ください。</p></div>
+        <div class="faq-a"><p>障がい者手帳（身体・知的・精神）をお持ちの方、または医師の診断書がある方が対象です。手帳をお持ちでない方もご利用いただける場合がありますので、まずはお気軽にご相談ください。</p></div>
       </div>
       <div class="faq-item sa sa-d1" data-category="工賃について">
         <button class="faq-q" aria-expanded="false">工賃はどのくらいもらえますか？<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>活動内容や出勤日数によって異なりますが、月額数千円〜数万円程度です。詳しくはお問い合わせください。</p></div>
+        <div class="faq-a"><p>活動内容や出勤日数によって異なります。まずは見学・体験を通じてご自身のペースを確認してから、詳しくご説明いたします。</p></div>
       </div>
       <div class="faq-item sa sa-d2" data-category="見学・体験について">
         <button class="faq-q" aria-expanded="false">見学だけでもできますか？<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>もちろんです。見学・体験は随時受け付けております。まずは雰囲気を見に来てください。</p></div>
+        <div class="faq-a"><p>もちろんです。見学・体験は随時受け付けております。「まず雰囲気だけ見たい」という方も大歓迎です。お気軽にお電話ください。</p></div>
       </div>
       <div class="faq-item sa sa-d3" data-category="利用について">
         <button class="faq-q" aria-expanded="false">通い始めてから辞めることはできますか？<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>はい、いつでも退所できます。無理に続ける必要はありません。</p></div>
+        <div class="faq-a"><p>はい、いつでも退所できます。無理に続ける必要はありませんので、気持ちが変わったときはいつでもご相談ください。</p></div>
       </div>
       <div class="faq-item sa sa-d4" data-category="施設・サービスについて">
         <button class="faq-q" aria-expanded="false">送迎はありますか？<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>現在送迎は行っておりません。公共交通機関でのアクセスをご確認ください。</p></div>
+        <div class="faq-a"><p>はい、送迎を行っております。ただし、送迎できる範囲に限りがありますので、まずはお気軽にご相談ください。</p></div>
       </div>
       <div class="faq-item sa sa-d5" data-category="利用について">
         <button class="faq-q" aria-expanded="false">精神障がいでも利用できますか？<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>はい、身体・知的・精神など様々な障がいのある方にご利用いただけます。</p></div>
+        <div class="faq-a"><p>はい、身体・知的・精神など様々な障がいのある方にご利用いただいています。一人ひとりの状態に合わせた支援を行っています。</p></div>
       </div>
       <div class="faq-item sa sa-d6" data-category="施設・サービスについて">
         <button class="faq-q" aria-expanded="false">昼食はありますか？<span class="faq-icon"></span></button>
@@ -1120,6 +1120,21 @@ async function loadCMSData(){
     if(data.rep3){var el=document.getElementById('cms-rep3');if(el)el.textContent=data.rep3;}
     if(data.rep_name){var el=document.getElementById('cms-rep-name');if(el)el.textContent=data.rep_name;}
     if(data.rep_photo){var el=document.getElementById('cms-rep-photo');if(el){el.src=data.rep_photo;el.style.display='block';}}
+    // 統計値（数値部＋単位部に分解して既存デザインを維持。カウントアップ演出は静的値に置換）
+    [1,2,3,4].forEach(function(n){
+      var v=data['stat'+n+'_value'],l=data['stat'+n+'_label'];
+      if(v){
+        var ev=document.getElementById('cms-stat'+n+'-value');
+        if(ev){
+          var m=String(v).match(/^([0-9０-９:：〜～\.\-\/]+)([\s\S]*)$/);
+          var num=m?m[1]:v,unit=m?m[2]:'';
+          ev.innerHTML='';
+          var ns=document.createElement('span');ns.className='stat-num';ns.textContent=num;ev.appendChild(ns);
+          if(unit){var us=document.createElement('span');us.className='stat-unit';us.textContent=unit;ev.appendChild(us);}
+        }
+      }
+      if(l){var el2=document.getElementById('cms-stat'+n+'-label');if(el2)el2.textContent=l;}
+    });
   }catch(e){}
 
   // お知らせ
@@ -1189,6 +1204,25 @@ async function loadCMSData(){
         var alt=(item.alt||'').replace(/"/g,'&quot;');
         var url=String(item.image||'').replace(/"/g,'&quot;');
         return '<div class="gallery-item sa sa-d'+(i%9+1)+'"><img src="'+url+'" alt="'+alt+'" loading="lazy"></div>';
+      }).join('');
+      var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
+      grid.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
+    }
+  }catch(e){}
+
+  // ご利用条件（Target）
+  try{
+    const res=await fetch('/_data/target.json');
+    const data=await res.json();
+    if(data.lead){var ld=document.querySelector('#target .sec-lead');if(ld)ld.textContent=data.lead;}
+    if(data.note){var nt=document.querySelector('#target .target-note');if(nt)nt.textContent=data.note;}
+    const grid=document.querySelector('#target .target-grid');
+    if(grid&&data.items&&data.items.length){
+      grid.innerHTML=data.items.map(function(item,i){
+        var num=String(item.num||'').replace(/</g,'&lt;');
+        var title=String(item.title||'').replace(/</g,'&lt;');
+        var detail=item.detail?'<br><span class="target-detail">'+String(item.detail).replace(/</g,'&lt;')+'</span>':'';
+        return '<div class="target-item sa'+(i>0?' sa-d'+i:'')+'"><span class="target-num">'+num+'</span><p>'+title+detail+'</p></div>';
       }).join('');
       var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
       grid.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
