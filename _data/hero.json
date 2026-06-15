@@ -1,4 +1,9 @@
 {
   "catch": "あなたのペースで、一歩ずつ。",
-  "sub": "小さな一歩が、一番遠くまで連れてってくれる。"
+  "sub": "小さな一歩が、一番遠くまで連れてってくれる。",
+  "slides": [
+    { "image": "/images/hero1.jpg", "alt": "" },
+    { "image": "/images/hero2.jpg", "alt": "" },
+    { "image": "/images/hero3.jpg", "alt": "" }
+  ]
 }

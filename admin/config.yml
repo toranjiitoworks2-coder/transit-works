@@ -58,6 +58,12 @@ collections:
         fields:
           - {label: "キャッチコピー", name: "catch", widget: "string"}
           - {label: "サブコピー", name: "sub", widget: "string"}
+          - label: "ヒーロー画像（スライドショー）"
+            name: "slides"
+            widget: "list"
+            fields:
+              - {label: "画像", name: "image", widget: "image"}
+              - {label: "画像の代替テキスト", name: "alt", widget: "string", required: false}
 
   # 活動内容
   - name: "activities"

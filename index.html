@@ -691,11 +691,14 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
 })();
 
 // === 6c. Hero fullscreen slideshow ===
-(function(){
+var heroSlideTimer=null;
+function initHeroSlideshow(){
+  if(heroSlideTimer){clearInterval(heroSlideTimer);heroSlideTimer=null;}
+  var dotsWrap=document.getElementById("heroDots");
+  if(dotsWrap)dotsWrap.innerHTML="";
   var slides=document.querySelectorAll("#heroSlideshow .hero-slide");
   if(slides.length<2)return;
-  var dotsWrap=document.getElementById("heroDots");
-  var i=0,timer,dots=[];
+  var i=0,dots=[];
   if(dotsWrap){
     for(var d=0;d<slides.length;d++){
       var dot=document.createElement("span");
@@ -713,9 +716,11 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
     if(dots[i])dots[i].classList.add("active");
   }
   function next(){go(i+1);}
-  function restart(){clearInterval(timer);timer=setInterval(next,3500);}
-  timer=setInterval(next,3500);
-})();
+  function restart(){if(heroSlideTimer)clearInterval(heroSlideTimer);heroSlideTimer=setInterval(next,3500);}
+  heroSlideTimer=setInterval(next,3500);
+}
+window.initHeroSlideshow=initHeroSlideshow;
+initHeroSlideshow();
 
 // === 6d. Unlock scroll once loading finishes ===
 (function(){
@@ -1088,6 +1093,18 @@ async function loadCMSData(){
     if(data.sub){
       var el=document.getElementById('heroSubCopy');
       if(el)el.textContent=data.sub;
+    }
+    if(data.slides&&data.slides.length){
+      var heroSlides=data.slides.filter(function(s){return s&&s.image;});
+      var show=document.getElementById('heroSlideshow');
+      if(show&&heroSlides.length){
+        show.innerHTML=heroSlides.map(function(s,i){
+          var alt=(s.alt||'').replace(/"/g,'&quot;');
+          var url=String(s.image).replace(/'/g,'%27');
+          return '<div class="hero-slide'+(i===0?' is-active':'')+'" role="img" aria-label="'+alt+'" style="background-image:url(\''+url+'\')"></div>';
+        }).join('');
+        if(window.initHeroSlideshow)window.initHeroSlideshow();
+      }
     }
   }catch(e){}
 
