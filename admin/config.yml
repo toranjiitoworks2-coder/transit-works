@@ -97,6 +97,21 @@ collections:
               - {label: "説明", name: "description", widget: "text"}
               - {label: "画像", name: "image", widget: "image", required: false}
 
+  # 作品ギャラリー（Voyage）
+  - name: "gallery"
+    label: "作品ギャラリー（Voyage）"
+    files:
+      - name: "gallery"
+        label: "作品ギャラリー"
+        file: "_data/gallery.json"
+        fields:
+          - label: "ギャラリー画像一覧"
+            name: "items"
+            widget: "list"
+            fields:
+              - {label: "画像", name: "image", widget: "image", required: true}
+              - {label: "説明文(alt)", name: "alt", widget: "string", required: false}
+
   # よくある質問
   - name: "faq"
     label: "よくある質問"

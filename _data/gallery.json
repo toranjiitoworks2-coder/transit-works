@@ -1,0 +1,12 @@
+{
+  "items": [
+    {"image": "/images/works-aroma.jpg", "alt": "トランジットWorksの自主製品 サボテン型のアロマワックスサシェ"},
+    {"image": "/images/works-robot.jpg", "alt": "トランジットWorksの木工作品 手作りの木製ロボット"},
+    {"image": "/images/works-flower.jpg", "alt": "トランジットWorksの自主製品 本物の花を使った押し花シール"},
+    {"image": "/images/works-ikebana.jpg", "alt": "トランジットWorksの木工作品 手作りの一輪挿し"},
+    {"image": "/images/works-magnet.jpg", "alt": "トランジットWorksのオリジナルロゴ入りマグネット"},
+    {"image": "/images/works-booth.jpg", "alt": "交野市の就労継続支援B型事業所トランジットWorksの自主製品が並ぶ様子"},
+    {"image": "/images/works-robot-tall.jpg", "alt": "トランジットWorksの木工作品 手作りの木製ロボットのオブジェ"},
+    {"image": "/images/works-wood.jpg", "alt": "トランジットWorksの木工作品 顔を描いた木製の小物"}
+  ]
+}

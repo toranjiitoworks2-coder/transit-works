@@ -1179,6 +1179,22 @@ async function loadCMSData(){
     }
   }catch(e){}
 
+  // 作品ギャラリー（Voyage）
+  try{
+    const res=await fetch('/_data/gallery.json');
+    const data=await res.json();
+    const grid=document.querySelector('#gallery .gallery-grid');
+    if(grid&&data.items&&data.items.length){
+      grid.innerHTML=data.items.map(function(item,i){
+        var alt=(item.alt||'').replace(/"/g,'&quot;');
+        var url=String(item.image||'').replace(/"/g,'&quot;');
+        return '<div class="gallery-item sa sa-d'+(i%9+1)+'"><img src="'+url+'" alt="'+alt+'" loading="lazy"></div>';
+      }).join('');
+      var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
+      grid.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
+    }
+  }catch(e){}
+
   // よくある質問
   try{
     const res=await fetch('/_data/faq.json');
