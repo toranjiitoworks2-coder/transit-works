@@ -804,7 +804,7 @@ html.loading-lock,html.loading-lock body{overflow:hidden}
 #loading.done .loading-panel-l{transform:translateX(-100%)}
 #loading.done .loading-panel-r{transform:translateX(100%)}
 #loading .loading-brand{
-  position:absolute;top:55%;left:50%;transform:translateX(-50%);
+  position:absolute;top:50%;left:50%;transform:translateX(-50%);
   text-align:center;z-index:4;
   transition:opacity .5s ease;
 }
@@ -816,9 +816,11 @@ html.loading-lock,html.loading-lock body{overflow:hidden}
 #loading.hidden{visibility:hidden}
 #loading canvas{z-index:5}
 #loading .loading-plane-wrap{z-index:5}
-.loading-title{font-size:clamp(28px,5vw,48px);font-weight:100;letter-spacing:.35em;color:#fff;display:flex;justify-content:center}
-.loading-title span{display:inline-block;animation:waveLetter 1.2s ease-out forwards;animation-iteration-count:1}
+.loading-title{font-size:clamp(28px,5vw,48px);font-weight:100;letter-spacing:.35em;color:#fff;display:flex;justify-content:center;opacity:0;filter:blur(8px);animation:skywrite 1.5s 1.2s ease-out forwards;will-change:opacity,filter}
+.loading-title span{display:inline-block}
 .loading-title .lt-space{width:.35em}
+/* 手書きロゴ（煙の中から浮かび上がる）。skywriteはタイトルと同じ1.2s遅延 */
+.loading-logo{display:block;width:min(38vw,420px);height:auto;margin:0 auto;opacity:0;filter:blur(8px);animation:skywriteLogo 1.5s 1.2s ease-out forwards;will-change:opacity,filter}
 @keyframes waveLetter{
   0%{transform:translateY(0)}
   20%{transform:translateY(-20px)}
@@ -827,9 +829,17 @@ html.loading-lock,html.loading-lock body{overflow:hidden}
   80%{transform:translateY(4px)}
   100%{transform:translateY(0)}
 }
-.loading-sub{font-size:11px;letter-spacing:.25em;color:#FFD700;margin-top:10px;opacity:0;font-weight:100;animation:loadFadeIn 1s 1.5s forwards}
+.loading-sub{display:flex;align-items:center;justify-content:center;gap:.9em;font-size:11px;letter-spacing:.4em;color:#fff;margin-top:14px;opacity:0;font-weight:300;filter:blur(8px);animation:skywrite 1.4s 2.3s ease-out forwards;will-change:opacity,filter}
+.loading-sub::before,.loading-sub::after{content:"";width:28px;height:1px;background:rgba(255,255,255,.55);flex:none}
 .loading-plane-wrap{position:absolute;top:0;left:0;opacity:0;will-change:transform,opacity;z-index:1;display:none}
 @keyframes loadFadeIn{from{opacity:0}to{opacity:1}}
+/* スカイライティング風リビール：煙が晴れて文字がにじみ出る */
+@keyframes skywrite{0%{opacity:0;filter:blur(8px)}100%{opacity:1;filter:blur(0)}}
+/* ロゴ専用：最終状態をやや控えめ（opacity:.88）に。KATANO,OSAKAには影響させない */
+@keyframes skywriteLogo{0%{opacity:0;filter:blur(8px)}100%{opacity:.88;filter:blur(0)}}
+@media (prefers-reduced-motion:reduce){
+  .loading-title,.loading-logo,.loading-sub{animation:none!important;opacity:1!important;filter:none!important}
+}
 
 /* ===== Print ===== */
 @media print{
