@@ -75,8 +75,6 @@
 }
 </script>
 
-<!-- Netlify Identity Widget -->
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
 <a class="skip-link" href="#about">本文へスキップ</a>
@@ -1320,17 +1318,23 @@ loadCMSData();
 </script>
 <img id="flyingPlane" src="plane.png" alt="" style="position:fixed;top:12%;left:110%;width:80px;z-index:9999;pointer-events:none;transition:left 5s ease-in-out;display:none;filter:brightness(0) invert(1);">
 
-<!-- Netlify Identity Widget redirect -->
+<!-- Netlify Identity Widget：/admin アクセス時のみ遅延読み込み -->
 <script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", function(user) {
-      if (!user) {
-        window.netlifyIdentity.on("login", function() {
-          document.location.href = "/admin/";
+  (function(){
+    if(!window.location.pathname.startsWith('/admin')) return;
+    var s=document.createElement('script');
+    s.src='https://identity.netlify.com/v1/netlify-identity-widget.js';
+    s.onload=function(){
+      if(window.netlifyIdentity){
+        window.netlifyIdentity.on('init', function(user){
+          if(!user){
+            window.netlifyIdentity.on('login', function(){ document.location.href='/admin/'; });
+          }
         });
       }
-    });
-  }
+    };
+    document.head.appendChild(s);
+  })();
 </script>
 
 <script src="script.js"></script>
