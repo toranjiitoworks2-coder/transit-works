@@ -111,6 +111,9 @@ collections:
               - {label: "作品名", name: "title", widget: "string"}
               - {label: "説明", name: "description", widget: "text"}
               - {label: "画像", name: "image", widget: "image", required: false}
+              - {label: "カテゴリ", name: "category", widget: "select", options: ["受託作業", "自主製品"], required: false}
+              - {label: "YouTube URL（試聴・任意）", name: "youtube_url", widget: "string", required: false}
+              - {label: "画像の代替テキスト", name: "alt", widget: "string", required: false}
 
   # 作品ギャラリー（Voyage）
   - name: "gallery"
