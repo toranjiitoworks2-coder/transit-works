@@ -144,18 +144,6 @@
   });
 })();
 
-// カスタムカーソル
-const cursor=document.getElementById('cursor');
-let cx=0,cy=0;
-document.addEventListener('mousemove',e=>{
-  cx=e.clientX;cy=e.clientY;
-  cursor.style.left=cx+'px';cursor.style.top=cy+'px';
-});
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>cursor.classList.add('hover'));
-  el.addEventListener('mouseleave',()=>cursor.classList.remove('hover'));
-});
-
 // スクロールリビール（.reveal と .sa の両方を一度だけフェードイン）
 const reveals=document.querySelectorAll('.reveal, .sa');
 const obs=new IntersectionObserver(entries=>{
@@ -164,9 +152,3 @@ const obs=new IntersectionObserver(entries=>{
   });
 },{threshold:0.1});
 reveals.forEach(el=>obs.observe(el));
-
-// スクロール時ナビ
-window.addEventListener('scroll',()=>{
-  const nav=document.getElementById('nav');
-  nav.style.boxShadow=window.scrollY>20?'0 2px 20px rgba(0,0,0,0.06)':'none';
-});
