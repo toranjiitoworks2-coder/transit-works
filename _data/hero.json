@@ -2,8 +2,8 @@
   "catch": "あなたのペースで、一歩ずつ。",
   "sub": "小さな一歩が、一番遠くまで連れてってくれる。",
   "slides": [
-    { "image": "/images/hero1.jpg", "alt": "" },
-    { "image": "/images/hero2.jpg", "alt": "" },
-    { "image": "/images/hero3.jpg", "alt": "" }
+    { "image": "/images/hero1.jpg", "alt": "屋外イベントでトランジットWorksの自主製品を販売するブースと、来場者に対応するスタッフの様子" },
+    { "image": "/images/hero2.jpg", "alt": "トランジットWorksのアロマや木工などの自主製品が並ぶ販売ブースとスタッフ" },
+    { "image": "/images/hero3.jpg", "alt": "おそろいのユニフォームを着たトランジットWorksのスタッフが笑顔で並ぶ様子" }
   ]
 }
