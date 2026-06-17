@@ -143,12 +143,3 @@
     setTimeout(()=>requestAnimationFrame(animate), 200);
   });
 })();
-
-// スクロールリビール（.reveal と .sa の両方を一度だけフェードイン）
-const reveals=document.querySelectorAll('.reveal, .sa');
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
-  });
-},{threshold:0.1});
-reveals.forEach(el=>obs.observe(el));

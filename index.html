@@ -417,7 +417,7 @@
         <button class="faq-q" aria-expanded="false">見学の予約は必要ですか？<span class="faq-icon"></span></button>
         <div class="faq-a"><p>事前にお電話またはお問い合わせフォームからご連絡いただけますとスムーズです。飛び込みでのご見学もできる限り対応いたします。</p></div>
       </div>
-      <div class="faq-item sa sa-d8" data-category="利用について">
+      <div class="faq-item sa sa-d9" data-category="利用について">
         <button class="faq-q" aria-expanded="false">他の施設と掛け持ちはできますか？<span class="faq-icon"></span></button>
         <div class="faq-a"><p>他の就労継続支援事業所との併用も可能です。その場合は月の来所日数を確認し、併用先の事業所と調整しながら曜日ごとの通所スケジュールを一緒に決めていきます。詳しくはお気軽にご相談ください。</p></div>
       </div>
@@ -562,36 +562,6 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
       setTimeout(function(){loadEl.classList.add("hidden")},1200);
     }
   },6000);
-})();
-
-// === 1. Hero particles ===
-(function(){
-  var c=document.getElementById("heroParticles");
-  if(!c)return;
-  var ctx=c.getContext("2d");
-  var hero=c.parentElement;
-  var mx=0,my=0;
-  var dots=[];
-  var N=50;
-  function resize(){c.width=hero.offsetWidth;c.height=hero.offsetHeight}
-  resize();window.addEventListener("resize",resize);
-  hero.addEventListener("mousemove",function(e){var r=hero.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top});
-  for(var i=0;i<N;i++){dots.push({x:Math.random()*2000,y:Math.random()*1200,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*2+1})}
-  function draw(){
-    ctx.clearRect(0,0,c.width,c.height);
-    for(var i=0;i<dots.length;i++){
-      var d=dots[i];
-      var dx=mx-d.x,dy=my-d.y,dist=Math.sqrt(dx*dx+dy*dy);
-      if(dist<150){d.vx+=dx*0.00008;d.vy+=dy*0.00008}
-      d.x+=d.vx;d.y+=d.vy;
-      if(d.x<0)d.x=c.width;if(d.x>c.width)d.x=0;
-      if(d.y<0)d.y=c.height;if(d.y>c.height)d.y=0;
-      ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
-      ctx.fillStyle="rgba(200,200,200,.35)";ctx.fill();
-    }
-    requestAnimationFrame(draw);
-  }
-  draw();
 })();
 
 // === 2. Scroll progress bar ===
@@ -990,13 +960,11 @@ wireFaqFilter();
 // === 14. Hero parallax ===
 (function(){
   var hero=document.querySelector(".hero");
-  var particles=document.getElementById("heroParticles");
   if(!hero)return;
   window.addEventListener("scroll",function(){
     var y=window.scrollY;
     if(y>hero.offsetHeight*1.2)return;
     hero.style.backgroundPositionY=(y*0.5)+"px";
-    if(particles)particles.style.transform="translateY("+(y*0.35)+"px)";
   },{passive:true});
 })();
 

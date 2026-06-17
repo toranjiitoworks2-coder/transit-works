@@ -27,7 +27,7 @@ collections:
               - {label: "日付", name: "date", widget: "string"}
               - {label: "カテゴリ", name: "category", widget: "select", options: ["お知らせ", "イベント", "活動報告"]}
               - {label: "タイトル", name: "title", widget: "string", required: false}
-              - {label: "内容", name: "text", widget: "string"}
+              - {label: "内容", name: "text", widget: "text"}
               - {label: "画像", name: "image", widget: "image", required: false}
               - {label: "画像の代替テキスト", name: "alt", widget: "string", required: false}
 
