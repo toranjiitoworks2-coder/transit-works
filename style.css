@@ -109,7 +109,6 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .hero-overlay{position:absolute;inset:0;z-index:1;background:rgba(0,0,0,.45)}
 /* 中央上寄り：タグライン＋ロゴ */
 .hero-top{position:absolute;top:27%;left:50%;transform:translate(-50%,-50%);z-index:2;width:100%;max-width:90%;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
-.hero-tagline{font-size:.66rem;font-weight:300;color:rgba(255,255,255,.6);letter-spacing:.38em;text-shadow:0 2px 12px rgba(0,0,0,.5);margin-top:32px}
 .hero-logo{width:auto;max-width:360px;max-height:140px;filter:drop-shadow(0 2px 16px rgba(0,0,0,.55))}
 /* 中央下寄り：キャッチ＋サブ（写真下部20%あたり） */
 .hero-bottom{position:absolute;bottom:20%;left:50%;transform:translateX(-50%);z-index:2;width:100%;padding:0 24px;text-align:center}
@@ -458,7 +457,6 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
   .hero{height:100vh;height:100dvh;min-height:520px;margin-top:0;padding:0}
   .hero-overlay{background:rgba(0,0,0,.45)}
   .hero-top{top:26%;gap:14px}
-  .hero-tagline{font-size:.7rem;letter-spacing:.3em}
   .hero-logo{max-width:240px;max-height:110px}
   .hero-bottom{bottom:18%;padding:0 20px}
   .hero-catch{font-size:1.7rem;letter-spacing:.04em;margin-bottom:14px;line-height:1.4}
@@ -519,7 +517,6 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 /* ===== Responsive — Small phones ===== */
 @media(max-width:480px){
   .hero-catch{font-size:1.5rem;max-width:100%}
-  .hero-tagline{font-size:.62rem;letter-spacing:.26em}
   .hero-logo{max-width:200px;max-height:96px}
   .sec-title-en{font-size:1.8rem}
   .footer-right{flex-direction:column;gap:12px}
