@@ -45,6 +45,7 @@ collections:
           - {label: "代表メッセージ 本文1", name: "rep1", widget: "text"}
           - {label: "代表メッセージ 本文2", name: "rep2", widget: "text"}
           - {label: "代表メッセージ 本文3", name: "rep3", widget: "text"}
+          - {label: "代表メッセージ 本文4", name: "rep4", widget: "text"}
           - {label: "代表氏名", name: "rep_name", widget: "string"}
           - {label: "代表写真", name: "rep_photo", widget: "image", required: false}
           - {label: "統計1 ラベル（例：開所）", name: "stat1_label", widget: "string"}

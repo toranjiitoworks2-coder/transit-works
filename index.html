@@ -241,9 +241,10 @@
       <span class="rep-label">代表より</span>
       <div class="rep-layout">
         <div class="rep-body">
-          <p id="cms-rep1">福祉の現場に長く携わってきた中で、ずっと感じていたことがあります。それは、障がいのある方が社会とつながり、自分らしく力を発揮できる場が、まだまだ少ないということです。</p>
-          <p id="cms-rep2">「就職は難しい」と感じている方でも、その人だけの強みは必ずあります。私たちはその強みを一緒に見つけ、地域の企業との橋渡しをしながら、一人ひとりが活躍できる場をつくっていきたいと思っています。</p>
-          <p id="cms-rep3">事業所名の「トランジットWorks」は、飛行機の乗り継ぎ地点「トランジット」から生まれた言葉です。ここは終点ではなく、次のステージへと向かうための中間地点。焦らなくていい。遠回りしてもいい。あなたのペースで、いつでも。</p>
+          <p id="cms-rep1">誰のなかにも、まだ知らない強みがある。</p>
+          <p id="cms-rep2">長く福祉の現場に立ってきて、ずっと思ってきたことがあります。社会へ飛び立つ前に、安心して翼を整えられる場所が、まだまだ少ない。</p>
+          <p id="cms-rep3">Transit Worksという名前は、飛行機の「乗り継ぎ」から生まれました。ここは終着点じゃない。次のステージへ向かう、ただの中継地点です。</p>
+          <p id="cms-rep4">急がなくていい。遠回りしてもいい。あなたのペースで。ここから、また。</p>
         </div>
         <div class="rep-side">
           <div class="rep-photo">
@@ -1089,6 +1090,7 @@ async function loadCMSData(){
     if(data.rep1){var el=document.getElementById('cms-rep1');if(el)el.textContent=data.rep1;}
     if(data.rep2){var el=document.getElementById('cms-rep2');if(el)el.textContent=data.rep2;}
     if(data.rep3){var el=document.getElementById('cms-rep3');if(el)el.textContent=data.rep3;}
+    if(data.rep4){var el=document.getElementById('cms-rep4');if(el)el.textContent=data.rep4;}
     if(data.rep_name){var el=document.getElementById('cms-rep-name');if(el)el.textContent=data.rep_name;}
     if(data.rep_photo){var el=document.getElementById('cms-rep-photo');if(el){el.src=data.rep_photo;el.style.display='block';}}
     // 統計値（数値部＋単位部に分解して既存デザインを維持。カウントアップ演出は静的値に置換）
