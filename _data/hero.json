@@ -2,8 +2,8 @@
   "catch": "乗り継ぎの先へ。未来は、ここで動き出す。",
   "sub": "小さな一歩が、一番遠くまで連れてってくれる。",
   "slides": [
-    { "image": "/images/hero1.jpg", "alt": "屋外イベントでトランジットWorksの自主製品を販売するブースと、来場者に対応するスタッフの様子" },
-    { "image": "/images/hero2.jpg", "alt": "トランジットWorksのアロマや木工などの自主製品が並ぶ販売ブースとスタッフ" },
-    { "image": "/images/hero3.jpg", "alt": "おそろいのユニフォームを着たトランジットWorksのスタッフが笑顔で並ぶ様子" }
+    { "image": "/images/hero1.jpg", "alt": "作業前にストレッチ体操を行うトランジットWorksの利用者とスタッフの様子" },
+    { "image": "/images/hero2.jpg", "alt": "身振りを交えて利用者に丁寧に説明するトランジットWorksのスタッフ" },
+    { "image": "/images/hero3.jpg", "alt": "部品の検品作業に取り組むトランジットWorksの利用者の様子" }
   ]
 }
