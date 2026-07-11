@@ -2,9 +2,9 @@
   "catch": "乗り継ぎの先へ。未来は、ここで動き出す。",
   "sub": "小さな一歩が、一番遠くまで連れてってくれる。",
   "slides": [
-    { "image": "/images/hero1.jpg", "alt": "屋外イベントに並ぶトランジットWorksの木工ロボット雑貨" },
-    { "image": "/images/hero2.jpg", "alt": "屋外イベントでトランジットWorksの自主製品を販売するブースの様子" },
-    { "image": "/images/hero3.jpg", "alt": "表情豊かな木工雑貨や小物が並ぶトランジットWorksの物販棚" },
-    { "image": "/images/hero4.jpg", "alt": "アロマストーンや一輪挿しなど、トランジットWorksの手作り雑貨" }
+    { "image": "/images/hero1.jpg", "alt": "「人気No.1」の札とともに並ぶ、トランジットWorksのアロマストーン多肉植物" },
+    { "image": "/images/hero2.jpg", "alt": "木工ロボットや小さな家の置物が並ぶトランジットWorksの物販棚" },
+    { "image": "/images/hero3.jpg", "alt": "「Best Friend」の木材に並んで座る、トランジットWorksの木工ロボット雑貨" },
+    { "image": "/images/hero4.jpg", "alt": "TRANSIT WORKSのロゴが入った木箱の上に立つ木工ロボット雑貨" }
   ]
 }
