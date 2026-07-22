@@ -487,6 +487,17 @@
   </div>
 </div>
 
+<!-- ===== Song modal ===== -->
+<div class="song-modal" id="songModal" aria-hidden="true">
+  <div class="song-modal-overlay" data-close></div>
+  <div class="song-modal-box" role="dialog" aria-modal="true" aria-labelledby="songModalTitle">
+    <button class="song-modal-close" type="button" aria-label="閉じる" data-close>&times;</button>
+    <span class="song-modal-eyebrow">SOUND WORKS</span>
+    <h3 class="song-modal-title" id="songModalTitle">楽曲制作</h3>
+    <div class="song-list" id="songList"></div>
+  </div>
+</div>
+
 <footer class="footer">
   <div class="container">
     <div class="footer-brand"><img src="/images/logo-sign-white.png" alt="トランジットWorks｜大阪府交野市の就労継続支援B型事業所" class="footer-logo-img"></div>
@@ -1052,6 +1063,131 @@ wireFaqFilter();
   });
 })();
 
+// === 14d. Song modal ===
+(function(){
+  var grid=document.getElementById("worksGrid");
+  var modal=document.getElementById("songModal");
+  if(!grid||!modal)return;
+  var listEl=document.getElementById("songList");
+  var loaded=false,songs=[],allMedia=[];
+
+  function escapeAttr(s){return String(s||"").replace(/"/g,"&quot;")}
+  function formatTime(sec){
+    if(!isFinite(sec)||sec<0)sec=0;
+    var m=Math.floor(sec/60),s=Math.floor(sec%60);
+    return m+":"+(s<10?"0":"")+s;
+  }
+
+  function renderList(){
+    listEl.innerHTML=songs.map(function(s,i){
+      var media = s.type==="video"
+        ? '<video class="song-media" preload="metadata" muted playsinline src="'+escapeAttr(s.src)+'"></video>'
+        : '<img class="song-tile-cover" src="'+escapeAttr(s.cover)+'" alt="'+escapeAttr(s.title)+' ジャケット"><audio class="song-media" preload="metadata" src="'+escapeAttr(s.src)+'"></audio>';
+      return '<div class="song-tile" data-index="'+i+'">'
+        +'<div class="song-tile-media">'+media+'<button class="song-tile-play" type="button" aria-label="再生">&#9654;</button></div>'
+        +'<div class="song-tile-info"><h4 class="song-tile-title">'+escapeAttr(s.title)+'</h4><p class="song-tile-credit">'+escapeAttr(s.credit)+'</p></div>'
+        +'<div class="song-player-bar">'
+          +'<button class="song-player-toggle" type="button" aria-label="再生">&#9654;</button>'
+          +'<span class="song-player-time song-player-current">0:00</span>'
+          +'<input class="song-player-seek" type="range" min="0" max="100" value="0" step="0.1">'
+          +'<span class="song-player-time song-player-duration">0:00</span>'
+        +'</div>'
+        +'</div>';
+    }).join('');
+  }
+
+  function wirePlayer(tile){
+    var media=tile.querySelector(".song-media");
+    var toggle=tile.querySelector(".song-player-toggle");
+    var overlay=tile.querySelector(".song-tile-play");
+    var seek=tile.querySelector(".song-player-seek");
+    var curEl=tile.querySelector(".song-player-current");
+    var durEl=tile.querySelector(".song-player-duration");
+    var seeking=false;
+
+    function syncPlayState(){
+      var playing=!media.paused&&!media.ended;
+      var icon=playing?"&#10074;&#10074;":"&#9654;";
+      toggle.innerHTML=icon;
+      overlay.innerHTML=icon;
+      toggle.setAttribute("aria-label",playing?"一時停止":"再生");
+      overlay.setAttribute("aria-label",playing?"一時停止":"再生");
+      tile.classList.toggle("playing",playing);
+    }
+    function syncSeek(){
+      if(seeking)return;
+      var d=media.duration||0;
+      seek.value=d?(media.currentTime/d*100):0;
+      curEl.textContent=formatTime(media.currentTime);
+    }
+    function togglePlay(){
+      if(media.paused){media.muted=false;media.play();}
+      else{media.pause();}
+    }
+
+    media.addEventListener("loadedmetadata",function(){durEl.textContent=formatTime(media.duration);});
+    media.addEventListener("timeupdate",syncSeek);
+    media.addEventListener("play",function(){
+      allMedia.forEach(function(m){if(m!==media&&!m.paused)m.pause();});
+      syncPlayState();
+    });
+    media.addEventListener("pause",syncPlayState);
+    media.addEventListener("ended",syncPlayState);
+    toggle.addEventListener("click",function(e){e.stopPropagation();togglePlay();});
+    overlay.addEventListener("click",function(e){e.stopPropagation();togglePlay();});
+    seek.addEventListener("input",function(){
+      seeking=true;
+      var d=media.duration||0;
+      curEl.textContent=formatTime(d*seek.value/100);
+    });
+    seek.addEventListener("change",function(){
+      var d=media.duration||0;
+      media.currentTime=d*seek.value/100;
+      seeking=false;
+    });
+    syncPlayState();
+    allMedia.push(media);
+  }
+
+  async function ensureSongs(){
+    if(loaded)return;
+    const res=await fetch('/_data/songs.json');
+    const data=await res.json();
+    songs=data.songs||[];
+    renderList();
+    listEl.querySelectorAll(".song-tile").forEach(wirePlayer);
+    loaded=true;
+  }
+
+  function pauseAll(){allMedia.forEach(function(m){if(!m.paused)m.pause();});}
+
+  function openModal(){
+    ensureSongs().then(function(){
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden","false");
+      document.body.style.overflow="hidden";
+    });
+  }
+  function closeModal(){
+    pauseAll();
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden","true");
+    document.body.style.overflow="";
+  }
+
+  grid.addEventListener("click",function(e){
+    if(!e.target.closest("[data-songs]"))return;
+    e.stopPropagation();
+    openModal();
+  });
+  modal.addEventListener("click",function(e){
+    if(e.target.hasAttribute("data-close"))closeModal();
+  });
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"&&modal.classList.contains("open"))closeModal();
+  });
+})();
+
 // === 15. CMS データ読み込み ===
 async function loadCMSData(){
 
@@ -1165,14 +1301,17 @@ async function loadCMSData(){
     if(grid&&data.items&&data.items.length){
       grid.innerHTML=data.items.map(function(item,i){
         var cat=(item.category||'創作').replace(/"/g,'&quot;');
-        var media='';
-        if(item.youtube_url!==undefined){
-          media = item.youtube_url
-            ? '<button class="works-audio-btn" type="button" data-youtube="'+String(item.youtube_url).replace(/"/g,'&quot;')+'">▶ 試聴する</button>'
-            : '<span class="works-soon-badge">準備中</span>';
-        }
         var alt=(item.alt||item.title||'').replace(/"/g,'&quot;');
-        return '<div class="works-card sa'+(i>0?' sa-d'+(i%9):'')+'" data-category="'+cat+'"><div class="works-thumb">'+(item.image?'<img src="'+item.image+'" alt="'+alt+'" width="800" height="600">':'<span class="thumb-ph" aria-hidden="true"></span>')+'</div><h3>'+item.title+'</h3><p>'+item.description+'</p>'+media+'</div>';
+        var media='';
+        if(item.youtube_url){
+          media = '<button class="works-audio-btn" type="button" data-youtube="'+String(item.youtube_url).replace(/"/g,'&quot;')+'">▶ 試聴する</button>';
+        }else if(item.songs){
+          media = '<button class="works-audio-btn" type="button" data-songs="1">▶ 試聴する</button>';
+        }else if(item.youtube_url!==undefined){
+          media = '<span class="works-soon-badge">準備中</span>';
+        }
+        var thumb = item.image?'<img src="'+item.image+'" alt="'+alt+'" width="800" height="600">':'<span class="thumb-ph" aria-hidden="true"></span>';
+        return '<div class="works-card sa'+(i>0?' sa-d'+(i%9):'')+'" data-category="'+cat+'"><div class="works-thumb">'+thumb+'</div><h3>'+item.title+'</h3><p>'+item.description+'</p>'+media+'</div>';
       }).join('');
       var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
       grid.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});

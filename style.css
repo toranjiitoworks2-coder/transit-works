@@ -290,6 +290,38 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .yt-modal-close{position:absolute;top:-44px;right:0;z-index:2;width:36px;height:36px;border:none;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;font-size:1.6rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
 .yt-modal-close:hover{background:rgba(255,255,255,.3)}
 
+/* Song modal (Sound Works) */
+.song-modal{position:fixed;inset:0;z-index:2100;display:none;align-items:center;justify-content:center;padding:24px}
+.song-modal.open{display:flex;animation:worksModalFade .3s ease}
+.song-modal-overlay{position:absolute;inset:0;background:rgba(4,8,20,.82)}
+.song-modal-box{position:relative;z-index:1;width:100%;max-width:640px;max-height:88vh;overflow:auto;background:linear-gradient(160deg,#0c1224 0%,#111b33 55%,#0a1020 100%);border:1px solid rgba(255,255,255,.08);border-radius:16px;box-shadow:0 30px 80px rgba(0,0,10,.55);animation:worksModalPop .3s ease;padding:32px 28px 24px}
+.song-modal-close{position:absolute;top:14px;right:14px;z-index:2;width:36px;height:36px;border:none;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;font-size:1.5rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.song-modal-close:hover{background:rgba(255,255,255,.22)}
+.song-modal-eyebrow{display:block;font-size:.68rem;letter-spacing:.22em;color:#7f9adf;margin-bottom:8px}
+.song-modal-title{font-size:1.15rem;font-weight:500;color:#fff;margin:0 0 24px;letter-spacing:.04em}
+.song-list{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.song-tile{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:hidden;cursor:pointer;transition:border-color .25s ease,transform .25s ease}
+.song-tile:hover{border-color:rgba(255,255,255,.25);transform:translateY(-3px)}
+.song-tile.playing{border-color:#7f9adf}
+.song-tile-media{position:relative;aspect-ratio:1/1;background:#05070f;overflow:hidden}
+.song-tile-media video,.song-tile-media img{width:100%;height:100%;object-fit:cover;display:block}
+audio.song-media{display:none}
+.song-tile-play{position:absolute;inset:0;width:100%;border:none;display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#fff;background:rgba(4,8,20,.35);cursor:pointer;transition:background .2s}
+.song-tile:hover .song-tile-play{background:rgba(4,8,20,.5)}
+.song-tile.playing .song-tile-play{background:rgba(4,8,20,.55)}
+.song-tile-info{padding:12px 14px 2px}
+.song-tile-title{font-size:.85rem;font-weight:500;color:#fff;margin:0 0 2px}
+.song-tile-credit{font-size:.7rem;color:#8b93ad;letter-spacing:.03em;margin:0}
+.song-player-bar{display:flex;align-items:center;gap:9px;padding:10px 14px 14px}
+.song-player-toggle{flex:none;width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;font-size:.62rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s}
+.song-player-toggle:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.4)}
+.song-player-time{flex:none;min-width:30px;font-size:.65rem;color:#8b93ad;text-align:center}
+.song-player-seek{flex:1;-webkit-appearance:none;appearance:none;height:3px;border-radius:999px;background:rgba(255,255,255,.15);outline:none;cursor:pointer}
+.song-player-seek::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;border-radius:50%;background:#7f9adf;cursor:pointer;transition:transform .15s ease}
+.song-player-seek::-webkit-slider-thumb:hover{transform:scale(1.2)}
+.song-player-seek::-moz-range-thumb{width:11px;height:11px;border:none;border-radius:50%;background:#7f9adf;cursor:pointer}
+.song-player-seek::-moz-range-track{height:3px;border-radius:999px;background:rgba(255,255,255,.15)}
+
 /* ===== Gallery ===== */
 .gallery{background:var(--gray)}
 /* Masonry (Pinterest-style) via CSS columns */
@@ -484,6 +516,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
   /* Works / Gallery */
   .works-grid{grid-template-columns:1fr;gap:12px}
   .gallery-grid{columns:1}
+  .song-list{grid-template-columns:1fr}
 
   /* Steps */
   .steps{padding:8px 0 8px 32px;max-width:100%}

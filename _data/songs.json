@@ -1,0 +1,6 @@
+{
+  "songs": [
+    {"title": "Mirror", "credit": "トランジットsound works", "type": "video", "src": "/music/Mirror.mp4"},
+    {"title": "アンブレラ", "credit": "トランジットsound works", "type": "audio", "src": "/music/umbrella.mp3", "cover": "/music/umbrella.png"}
+  ]
+}
