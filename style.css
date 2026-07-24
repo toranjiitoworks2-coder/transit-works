@@ -25,10 +25,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 /* 透過ヘッダー上部の暗幕グラデーション（ヒーロー写真上でナビを読みやすく） */
 .header::before{content:"";position:absolute;top:0;left:0;width:100%;height:120px;z-index:-1;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 100%);transition:opacity .3s ease}
 .header.scrolled::before{opacity:0}
-.header-top,.header-center,.header-bottom{max-width:1100px;margin:0 auto;padding:0 40px}
-.header-top{display:flex;justify-content:flex-end;align-items:center;min-height:22px;overflow:hidden;transition:max-height .3s ease,min-height .3s ease,opacity .3s ease}
-/* 透過ヘッダー時、電話番号ボタンと「お問い合わせ」ボタンの縦の窮屈さを解消 */
-.header:not(.scrolled) .header-top{margin-bottom:14px}
+.header-center,.header-bottom{max-width:1100px;margin:0 auto;padding:0 40px}
 .header-phone{
   display:inline-flex;
   align-items:center;
@@ -57,7 +54,6 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .header.scrolled .header-logo-dark{opacity:1}
 /* Scrolled (compact) header */
 .header.scrolled{padding-top:6px;padding-bottom:3px;background:#fff;border-bottom-color:var(--border)}
-.header.scrolled .header-top{max-height:0;min-height:0;opacity:0}
 .header.scrolled .header-center{padding-top:0;padding-bottom:0}
 .header.scrolled .header-logo-img{max-width:200px;max-height:90px}
 .header.scrolled .header-bottom{padding-top:0}
@@ -69,8 +65,10 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .header:not(.scrolled) .nav-cta{background:transparent;color:#fff;border-color:#fff}
 .header:not(.scrolled) .nav-cta:hover{background:rgba(255,255,255,.15);opacity:1}
 .header:not(.scrolled) .hamburger span{background:#fff}
-.header-bottom{position:relative;display:flex;justify-content:center;align-items:center;padding-top:6px;transition:padding .3s ease}
-.header-bottom .nav-cta{position:absolute;right:40px;top:50%;transform:translateY(-50%);font-size:.7rem;padding:6px 16px}
+.header-bottom{display:flex;align-items:center;padding-top:6px;transition:padding .3s ease}
+.header-bottom nav{flex:1;display:flex;justify-content:center}
+.header-actions{flex:none;display:flex;align-items:center;gap:10px}
+.header-actions .nav-cta{font-size:.7rem;padding:6px 16px}
 .nav-list{display:flex;gap:24px}
 .nav-list a{display:flex;flex-direction:column;align-items:center;gap:1px;font-size:.78rem;font-weight:400;color:var(--text-sub);letter-spacing:.04em;transition:color .2s;position:relative;padding-bottom:5px;white-space:nowrap;line-height:1.2}
 .nav-ja{font-size:.78rem;line-height:1.25}
@@ -106,7 +104,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .hero-slideshow{position:absolute;inset:0;z-index:0}
 .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.5s ease;will-change:opacity}
 .hero-slide.is-active{opacity:1}
-.hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(0,0,0,.36) 0%,rgba(0,0,0,.16) 34%,rgba(0,0,0,.14) 55%,rgba(0,0,0,.4) 80%,rgba(0,0,0,.48) 100%)}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(0,0,0,.31) 0%,rgba(0,0,0,.14) 34%,rgba(0,0,0,.12) 55%,rgba(0,0,0,.35) 80%,rgba(0,0,0,.42) 100%)}
 /* 中央上寄り：タグライン＋ロゴ */
 .hero-top{position:absolute;top:27%;left:50%;transform:translate(-50%,-50%);z-index:2;width:100%;max-width:90%;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
 .hero-logo{width:auto;max-width:360px;max-height:140px;filter:drop-shadow(0 2px 16px rgba(0,0,0,.55))}
@@ -464,6 +462,12 @@ audio.song-media{display:none}
 /* ===== Responsive — Tablet ===== */
 @media(max-width:1024px){
   .container{padding:0 24px}
+  /* ヘッダー: 電話番号・CONTACTボタンをナビに寄せて省スペース化 */
+  .header-center,.header-bottom{padding:0 24px}
+  .header-actions{gap:6px}
+  .nav-list{gap:14px}
+  .header-phone span{display:none}
+  .header-phone{padding:8px;gap:0}
   .cards{grid-template-columns:1fr 1fr;gap:16px}
   .works-grid{grid-template-columns:1fr 1fr;gap:16px}
   .gallery-grid{columns:2;column-gap:16px}
@@ -481,7 +485,6 @@ audio.song-media{display:none}
 
   /* Header */
   .header{padding:0}
-  .header-top{display:none}
   .header-center{padding:12px 16px 8px}
   .header-logo-img{max-width:250px;max-height:100px}
   .header-bottom{display:none}
