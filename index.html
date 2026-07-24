@@ -163,10 +163,11 @@
 <!-- ===== Hero ===== -->
 <section class="hero">
   <div class="hero-slideshow" id="heroSlideshow">
-    <div class="hero-slide is-active" style="background-image:url('/images/hero1.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('/images/hero2.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('/images/hero3.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('/images/hero4.jpg')"></div>
+    <div class="hero-slide is-active" style="background-image:url('/images/hero-signage-vertical.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('/images/hero-pressed-flowers.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('/images/hero-robots-shelf.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('/images/hero-seesaw-bestfriend.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('/images/hero-handmade-table.jpg')"></div>
   </div>
   <div class="hero-overlay"></div>
   <!-- 中央上寄り：ロゴ -->
@@ -1268,11 +1269,12 @@ async function loadCMSData(){
       list.innerHTML=data.items.map(function(item,i){
         var d=(i<3?' sa-d'+i:'');
         var alt=(item.alt||'').replace(/"/g,'&quot;');
-        var thumb=item.image?'<img src="'+item.image+'" alt="'+alt+'">':'<span class="thumb-ph" aria-hidden="true"></span>';
+        var thumbBlock=item.image?'<div class="news-card-thumb"><img src="'+item.image+'" alt="'+alt+'"></div>':'';
+        var cardClass='news-card sa'+d+(item.image?'':' news-card-noimg');
         var content=item.text||item.body||''; // 内容（後方互換でbodyも許容）
         var title=item.title||content;        // タイトル未設定なら内容を見出しに
         var excerpt=(item.title&&content)?'<p class="news-card-excerpt">'+content+'</p>':''; // タイトルがある時のみ内容を本文表示
-        return '<a href="#" class="news-card sa'+d+'"><div class="news-card-thumb">'+thumb+'</div><div class="news-card-body"><div class="news-card-meta"><time>'+item.date+'</time><span class="news-card-cat">'+item.category+'</span></div><h3 class="news-card-title">'+title+'</h3>'+excerpt+'</div></a>';
+        return '<a href="#" class="'+cardClass+'">'+thumbBlock+'<div class="news-card-body"><div class="news-card-meta"><time>'+item.date+'</time><span class="news-card-cat">'+item.category+'</span></div><h3 class="news-card-title">'+title+'</h3>'+excerpt+'</div></a>';
       }).join('');
       var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
       list.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});

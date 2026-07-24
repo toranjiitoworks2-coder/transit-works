@@ -106,7 +106,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .hero-slideshow{position:absolute;inset:0;z-index:0}
 .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.5s ease;will-change:opacity}
 .hero-slide.is-active{opacity:1}
-.hero-overlay{position:absolute;inset:0;z-index:1;background:rgba(0,0,0,.45)}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(0,0,0,.36) 0%,rgba(0,0,0,.16) 34%,rgba(0,0,0,.14) 55%,rgba(0,0,0,.4) 80%,rgba(0,0,0,.48) 100%)}
 /* 中央上寄り：タグライン＋ロゴ */
 .hero-top{position:absolute;top:27%;left:50%;transform:translate(-50%,-50%);z-index:2;width:100%;max-width:90%;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
 .hero-logo{width:auto;max-width:360px;max-height:140px;filter:drop-shadow(0 2px 16px rgba(0,0,0,.55))}
@@ -215,6 +215,8 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .news-card-cat{font-size:.62rem;border:1px solid var(--border);padding:2px 10px;border-radius:3px;color:var(--text-sub);white-space:nowrap;letter-spacing:.04em}
 .news-card-title{font-size:.85rem;font-weight:400;color:var(--text);line-height:1.7;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin:0}
 .news-card-excerpt{font-size:.76rem;font-weight:300;color:var(--text-sub);line-height:1.8;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:0}
+.news-card-noimg{border-top:2px solid var(--green)}
+.news-card-noimg .news-card-body{justify-content:flex-start}
 
 
 /* ===== Activities ===== */
@@ -487,7 +489,6 @@ audio.song-media{display:none}
 
   /* Hero（フルスクリーン1枚構成） */
   .hero{height:100vh;height:100dvh;min-height:520px;margin-top:0;padding:0}
-  .hero-overlay{background:rgba(0,0,0,.45)}
   .hero-top{top:26%;gap:14px}
   .hero-logo{max-width:240px;max-height:110px}
   .hero-bottom{bottom:18%;padding:0 20px}

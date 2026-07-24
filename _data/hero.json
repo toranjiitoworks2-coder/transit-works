@@ -2,9 +2,10 @@
   "catch": "乗り継ぎの先へ。未来は、ここで動き出す。",
   "sub": "小さな一歩が、一番遠くまで連れてってくれる。",
   "slides": [
-    { "image": "/images/hero1.jpg", "alt": "「人気No.1」の札とともに並ぶ、トランジットWorksのアロマストーン多肉植物" },
-    { "image": "/images/hero2.jpg", "alt": "木工ロボットや小さな家の置物が並ぶトランジットWorksの物販棚" },
-    { "image": "/images/hero3.jpg", "alt": "「Best Friend」の木材に並んで座る、トランジットWorksの木工ロボット雑貨" },
-    { "image": "/images/hero4.jpg", "alt": "TRANSIT WORKSのロゴが入った木箱の上に立つ木工ロボット雑貨" }
+    { "image": "/images/hero-signage-vertical.jpg", "alt": "「TRANSIT WORKS」の看板が縦アングルで写る松井山手祭り出店ブース" },
+    { "image": "/images/hero-pressed-flowers.jpg", "alt": "押し花シールと多肉植物の鉢植え、木彫り人形が並ぶ物販ブースの陳列アップ" },
+    { "image": "/images/hero-robots-shelf.jpg", "alt": "目玉ボタンが特徴の木製ロボット雑貨2体と雑貨陳列棚" },
+    { "image": "/images/hero-seesaw-bestfriend.jpg", "alt": "「Best Friend」の焼き文字が入ったシーソーに乗る木工ロボット雑貨" },
+    { "image": "/images/hero-handmade-table.jpg", "alt": "「手作り」カードとアロマストーン、押し花シールが並ぶ物販ブースの陳列全体" }
   ]
 }
