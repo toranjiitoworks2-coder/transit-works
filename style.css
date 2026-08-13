@@ -317,7 +317,7 @@ audio.song-media{display:none}
 .song-player-toggle{flex:none;width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;font-size:.62rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s}
 .song-player-toggle:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.4)}
 .song-player-time{flex:none;min-width:30px;font-size:.65rem;color:#8b93ad;text-align:center}
-.song-player-seek{flex:1;-webkit-appearance:none;appearance:none;height:3px;border-radius:999px;background:rgba(255,255,255,.15);outline:none;cursor:pointer}
+.song-player-seek{flex:1;min-width:0;-webkit-appearance:none;appearance:none;height:3px;border-radius:999px;background:rgba(255,255,255,.15);outline:none;cursor:pointer}
 .song-player-seek::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;border-radius:50%;background:#7f9adf;cursor:pointer;transition:transform .15s ease}
 .song-player-seek::-webkit-slider-thumb:hover{transform:scale(1.2)}
 .song-player-seek::-moz-range-thumb{width:11px;height:11px;border:none;border-radius:50%;background:#7f9adf;cursor:pointer}
