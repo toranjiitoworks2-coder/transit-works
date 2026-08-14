@@ -251,6 +251,9 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .faq-list .faq-item.faq-hide{opacity:0;transform:translateY(8px)}
 .works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 #contractWorksGrid{grid-template-columns:repeat(2,1fr);margin-top:20px}
+@media(min-width:769px){
+  #contractWorksGrid:has(.works-card:only-child){grid-template-columns:minmax(0,calc(50% - 10px));justify-content:center}
+}
 .works-card{overflow:hidden;border-radius:8px;background:var(--gray);transition:opacity .3s ease,transform .3s ease,box-shadow .3s ease}
 .works-card.hide{opacity:0;transform:scale(.96)}
 .works-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.18)}
