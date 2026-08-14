@@ -479,6 +479,18 @@
   </div>
 </div>
 
+<!-- ===== News modal ===== -->
+<div class="news-modal" id="newsModal" aria-hidden="true">
+  <div class="news-modal-overlay" data-close></div>
+  <div class="news-modal-box" role="dialog" aria-modal="true" aria-labelledby="newsModalTitle">
+    <button class="news-modal-close" type="button" aria-label="閉じる" data-close>&times;</button>
+    <div class="news-modal-img" id="newsModalImgWrap"><img id="newsModalImg" src="" alt=""></div>
+    <div class="news-modal-meta"><time id="newsModalDate"></time><span class="news-modal-cat" id="newsModalCat"></span></div>
+    <h3 class="news-modal-title" id="newsModalTitle"></h3>
+    <p class="news-modal-desc" id="newsModalDesc"></p>
+  </div>
+</div>
+
 <!-- ===== YouTube audio modal ===== -->
 <div class="yt-modal" id="ytModal" aria-hidden="true">
   <div class="yt-modal-overlay" data-close></div>
@@ -1180,6 +1192,58 @@ wireFaqFilter();
     if(!e.target.closest("[data-songs]"))return;
     e.stopPropagation();
     openModal();
+  });
+  modal.addEventListener("click",function(e){
+    if(e.target.hasAttribute("data-close"))closeModal();
+  });
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"&&modal.classList.contains("open"))closeModal();
+  });
+})();
+
+// === 14e. News modal ===
+(function(){
+  var list=document.getElementById("newsList");
+  var modal=document.getElementById("newsModal");
+  if(!list||!modal)return;
+  var imgWrap=document.getElementById("newsModalImgWrap");
+  var imgEl=document.getElementById("newsModalImg");
+  var dateEl=document.getElementById("newsModalDate");
+  var catEl=document.getElementById("newsModalCat");
+  var titleEl=document.getElementById("newsModalTitle");
+  var descEl=document.getElementById("newsModalDesc");
+  function openModal(card){
+    var img=card.querySelector(".news-card-thumb img");
+    if(img){
+      imgEl.setAttribute("src",img.getAttribute("src"));
+      imgEl.setAttribute("alt",img.getAttribute("alt")||"");
+      imgWrap.style.display="";
+    }else{
+      imgEl.setAttribute("src","");
+      imgWrap.style.display="none";
+    }
+    var time=card.querySelector(".news-card-meta time");
+    var cat=card.querySelector(".news-card-cat");
+    var title=card.querySelector(".news-card-title");
+    var excerpt=card.querySelector(".news-card-excerpt");
+    dateEl.textContent=time?time.textContent:"";
+    catEl.textContent=cat?cat.textContent:"";
+    titleEl.textContent=title?title.textContent:"";
+    descEl.textContent=excerpt?excerpt.textContent:(title?title.textContent:"");
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden","false");
+    document.body.style.overflow="hidden";
+  }
+  function closeModal(){
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden","true");
+    document.body.style.overflow="";
+  }
+  list.addEventListener("click",function(e){
+    var card=e.target.closest(".news-card");
+    if(!card)return;
+    e.preventDefault();
+    openModal(card);
   });
   modal.addEventListener("click",function(e){
     if(e.target.hasAttribute("data-close"))closeModal();
