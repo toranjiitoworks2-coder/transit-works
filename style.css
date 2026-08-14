@@ -250,10 +250,9 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .faq-list .faq-item{transition:opacity .3s ease,transform .3s ease}
 .faq-list .faq-item.faq-hide{opacity:0;transform:translateY(8px)}
 .works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-#contractWorksGrid,#originalWorksGrid{grid-template-columns:repeat(2,1fr);margin-top:20px}
-@media(min-width:769px){
-  #contractWorksGrid:has(.works-card:only-child),#originalWorksGrid:has(.works-card:only-child){grid-template-columns:minmax(0,calc(50% - 10px));justify-content:center}
-}
+/* Works概要セクション内：受託作業/自主製品カードギャラリーを説明カードと同じ2列で横並びに */
+.works-gallery-row{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:20px}
+.works-gallery-row .works-grid{grid-template-columns:1fr;margin-top:0}
 .works-card{overflow:hidden;border-radius:8px;background:var(--gray);transition:opacity .3s ease,transform .3s ease,box-shadow .3s ease}
 .works-card.hide{opacity:0;transform:scale(.96)}
 .works-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.18)}
@@ -488,6 +487,7 @@ audio.song-media{display:none}
   .header-phone span{display:none}
   .header-phone{padding:8px;gap:0}
   .cards{grid-template-columns:1fr 1fr;gap:16px}
+  .works-gallery-row{gap:16px}
   .works-grid{grid-template-columns:1fr 1fr;gap:16px}
   .gallery-grid{columns:2;column-gap:16px}
   .news-grid{grid-template-columns:1fr 1fr;gap:20px}
@@ -536,7 +536,7 @@ audio.song-media{display:none}
   .cards{grid-template-columns:1fr;gap:12px}
   .card{padding:28px 20px}
   .card h3{font-size:.9rem}
-  #contractWorksGrid,#originalWorksGrid{grid-template-columns:1fr;gap:12px;margin-top:12px}
+  .works-gallery-row{grid-template-columns:1fr;gap:12px;margin-top:12px}
 
   /* Works / Gallery */
   .works-grid{grid-template-columns:1fr;gap:12px}
