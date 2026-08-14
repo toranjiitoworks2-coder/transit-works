@@ -288,6 +288,9 @@
     <div class="works-grid" id="contractWorksGrid">
       <div class="works-card sa" data-category="受託作業"><div class="works-thumb"><img src="/images/light-work.png" alt="電動ドリルやねじ、ダンボール箱を使った封入・組み立て作業の様子" width="800" height="600"></div><h3>軽作業</h3><p>封入・検品・シール貼りなど、手先を使った作業を中心に取り組みます。無理のないペースで進められます。</p></div>
     </div>
+    <div class="works-grid" id="originalWorksGrid">
+      <div class="works-card sa" data-category="自主製品"><div class="works-thumb"><img src="/images/0606-003.JPG" alt="木工雑貨やアロマストーン、押し花シールなど、トランジットWorksの自主製品が並ぶ様子" width="800" height="600"></div><h3>自主製品</h3><p>木工雑貨やアロマなど、メンバーの個性を活かしたオリジナル作品を制作・販売しています。</p></div>
+    </div>
   </div>
 </section>
 
@@ -1002,7 +1005,7 @@ wireFaqFilter();
 
 // === 14b. Works modal ===
 (function(){
-  var grids=[document.getElementById("worksGrid"),document.getElementById("contractWorksGrid")].filter(Boolean);
+  var grids=[document.getElementById("worksGrid"),document.getElementById("contractWorksGrid"),document.getElementById("originalWorksGrid")].filter(Boolean);
   var modal=document.getElementById("worksModal");
   if(!grids.length||!modal)return;
   var imgEl=document.getElementById("worksModalImg");
@@ -1042,7 +1045,7 @@ wireFaqFilter();
 
 // === 14c. YouTube audio modal ===
 (function(){
-  var grids=[document.getElementById("worksGrid"),document.getElementById("contractWorksGrid")].filter(Boolean);
+  var grids=[document.getElementById("worksGrid"),document.getElementById("contractWorksGrid"),document.getElementById("originalWorksGrid")].filter(Boolean);
   var modal=document.getElementById("ytModal");
   if(!grids.length||!modal)return;
   var frame=document.getElementById("ytFrame");
@@ -1083,7 +1086,7 @@ wireFaqFilter();
 
 // === 14d. Song modal ===
 (function(){
-  var grids=[document.getElementById("worksGrid"),document.getElementById("contractWorksGrid")].filter(Boolean);
+  var grids=[document.getElementById("worksGrid"),document.getElementById("contractWorksGrid"),document.getElementById("originalWorksGrid")].filter(Boolean);
   var modal=document.getElementById("songModal");
   if(!grids.length||!modal)return;
   var listEl=document.getElementById("songList");
@@ -1400,6 +1403,13 @@ async function loadCMSData(){
     const res=await fetch('/_data/works-contract.json');
     const data=await res.json();
     renderWorksGrid(document.getElementById('contractWorksGrid'),data.items);
+  }catch(e){}
+
+  // 自主製品カードギャラリー（Works概要セクション内）
+  try{
+    const res=await fetch('/_data/works-original.json');
+    const data=await res.json();
+    renderWorksGrid(document.getElementById('originalWorksGrid'),data.items);
   }catch(e){}
 
   // 作品ギャラリー（Voyage）
