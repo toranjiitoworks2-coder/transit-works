@@ -285,6 +285,9 @@
       <div class="card sa"><span class="card-num">CONTRACT WORK</span><h3>受託作業</h3><p>企業から依頼を受けた仕事を丁寧に仕上げます。封入・検品・計量・シール貼り・梱包・組み立てなど、正確さと集中力が求められる作業に取り組んでいます。</p></div>
       <div class="card sa sa-d1"><span class="card-num">ORIGINAL WORK</span><h3>自主製品</h3><p>木工・アロマ・楽曲制作など、メンバーそれぞれの個性と得意を活かしたオリジナル作品を制作・販売しています。</p></div>
     </div>
+    <div class="works-grid" id="contractWorksGrid">
+      <div class="works-card sa" data-category="受託作業"><div class="works-thumb"><img src="/images/light-work.png" alt="電動ドリルやねじ、ダンボール箱を使った封入・組み立て作業の様子" width="800" height="600"></div><h3>軽作業</h3><p>封入・検品・シール貼りなど、手先を使った作業を中心に取り組みます。無理のないペースで進められます。</p></div>
+    </div>
   </div>
 </section>
 
@@ -296,15 +299,13 @@
     <p class="sec-lead">トランジットWorksで生まれたオリジナル作品たち</p>
     <div class="works-filter" id="worksFilter">
       <button class="works-filter-btn active" type="button" data-filter="all">すべて</button>
-      <button class="works-filter-btn" type="button" data-filter="受託作業">受託作業</button>
       <button class="works-filter-btn" type="button" data-filter="自主製品">自主製品</button>
     </div>
     <div class="works-grid" id="worksGrid">
-      <div class="works-card sa" data-category="受託作業"><div class="works-thumb"><img src="/images/PXL_20251120_013302297.jpg" alt="封入・検品・キーホルダー組み立て作業の様子" width="4080" height="3072"></div><h3>軽作業</h3><p>封入・検品・シール貼りなど、手先を使った作業を中心に取り組みます。無理のないペースで進められます。</p><span class="works-soon-badge">準備中</span></div>
-      <div class="works-card sa sa-d1" data-category="自主製品"><div class="works-thumb"><img src="/images/works-aroma.jpg" alt="アロマ作品" width="1333" height="2000"></div><h3>アロマ作品</h3><p>アロマストーンやアロマワックスサシェなど、香りを楽しむハンドメイド作品。</p></div>
-      <div class="works-card sa sa-d2" data-category="自主製品"><div class="works-thumb"><img src="/images/works-wood.jpg" alt="木工作品" width="2000" height="1333"></div><h3>木工作品</h3><p>木材を使ったロボット・一輪挿し・マグネットなど、手作りのオリジナル木工作品。</p></div>
-      <div class="works-card sa sa-d3" data-category="自主製品"><div class="works-thumb"><img src="/images/works-flower.jpg" alt="押し花シール" width="2000" height="1333"></div><h3>押し花シール</h3><p>本物の花を使ったオリジナルシール。</p></div>
-      <div class="works-card sa sa-d4" data-category="自主製品"><div class="works-thumb"><span class="thumb-ph" aria-hidden="true"></span></div><h3>楽曲制作</h3><p>利用者さんの想いをもとに、職員と一緒に歌詞を考えてオリジナル楽曲を制作。AIを活用して、世界にひとつだけの音楽を作り上げます。</p><span class="works-soon-badge">準備中</span></div>
+      <div class="works-card sa" data-category="自主製品"><div class="works-thumb"><img src="/images/works-aroma.jpg" alt="アロマ作品" width="1333" height="2000"></div><h3>アロマ作品</h3><p>アロマストーンやアロマワックスサシェなど、香りを楽しむハンドメイド作品。</p></div>
+      <div class="works-card sa sa-d1" data-category="自主製品"><div class="works-thumb"><img src="/images/works-wood.jpg" alt="木工作品" width="2000" height="1333"></div><h3>木工作品</h3><p>木材を使ったロボット・一輪挿し・マグネットなど、手作りのオリジナル木工作品。</p></div>
+      <div class="works-card sa sa-d2" data-category="自主製品"><div class="works-thumb"><img src="/images/works-flower.jpg" alt="押し花シール" width="2000" height="1333"></div><h3>押し花シール</h3><p>本物の花を使ったオリジナルシール。</p></div>
+      <div class="works-card sa sa-d3" data-category="自主製品"><div class="works-thumb"><span class="thumb-ph" aria-hidden="true"></span></div><h3>楽曲制作</h3><p>利用者さんの想いをもとに、職員と一緒に歌詞を考えてオリジナル楽曲を制作。AIを活用して、世界にひとつだけの音楽を作り上げます。</p><span class="works-soon-badge">準備中</span></div>
     </div>
     <div class="sec-cta sa"><a href="#contact" class="cta-btn">見学のお問い合わせ<span class="cta-btn-arrow" aria-hidden="true">&rarr;</span></a></div>
   </div>
@@ -1001,9 +1002,9 @@ wireFaqFilter();
 
 // === 14b. Works modal ===
 (function(){
-  var grid=document.getElementById("worksGrid");
+  var grids=[document.getElementById("worksGrid"),document.getElementById("contractWorksGrid")].filter(Boolean);
   var modal=document.getElementById("worksModal");
-  if(!grid||!modal)return;
+  if(!grids.length||!modal)return;
   var imgEl=document.getElementById("worksModalImg");
   var titleEl=document.getElementById("worksModalTitle");
   var descEl=document.getElementById("worksModalDesc");
@@ -1024,10 +1025,12 @@ wireFaqFilter();
     modal.setAttribute("aria-hidden","true");
     document.body.style.overflow="";
   }
-  grid.addEventListener("click",function(e){
-    if(e.target.closest(".works-audio-btn"))return;
-    var card=e.target.closest(".works-card");
-    if(card)openModal(card);
+  grids.forEach(function(grid){
+    grid.addEventListener("click",function(e){
+      if(e.target.closest(".works-audio-btn"))return;
+      var card=e.target.closest(".works-card");
+      if(card)openModal(card);
+    });
   });
   modal.addEventListener("click",function(e){
     if(e.target.hasAttribute("data-close"))closeModal();
@@ -1039,9 +1042,9 @@ wireFaqFilter();
 
 // === 14c. YouTube audio modal ===
 (function(){
-  var grid=document.getElementById("worksGrid");
+  var grids=[document.getElementById("worksGrid"),document.getElementById("contractWorksGrid")].filter(Boolean);
   var modal=document.getElementById("ytModal");
-  if(!grid||!modal)return;
+  if(!grids.length||!modal)return;
   var frame=document.getElementById("ytFrame");
   function toId(url){
     if(!url)return "";
@@ -1062,11 +1065,13 @@ wireFaqFilter();
     modal.setAttribute("aria-hidden","true");
     document.body.style.overflow="";
   }
-  grid.addEventListener("click",function(e){
-    var btn=e.target.closest(".works-audio-btn");
-    if(!btn)return;
-    e.stopPropagation();
-    open(btn.getAttribute("data-youtube"));
+  grids.forEach(function(grid){
+    grid.addEventListener("click",function(e){
+      var btn=e.target.closest(".works-audio-btn");
+      if(!btn)return;
+      e.stopPropagation();
+      open(btn.getAttribute("data-youtube"));
+    });
   });
   modal.addEventListener("click",function(e){
     if(e.target.hasAttribute("data-close"))close();
@@ -1078,9 +1083,9 @@ wireFaqFilter();
 
 // === 14d. Song modal ===
 (function(){
-  var grid=document.getElementById("worksGrid");
+  var grids=[document.getElementById("worksGrid"),document.getElementById("contractWorksGrid")].filter(Boolean);
   var modal=document.getElementById("songModal");
-  if(!grid||!modal)return;
+  if(!grids.length||!modal)return;
   var listEl=document.getElementById("songList");
   var loaded=false,songs=[],allMedia=[];
 
@@ -1188,10 +1193,12 @@ wireFaqFilter();
     document.body.style.overflow="";
   }
 
-  grid.addEventListener("click",function(e){
-    if(!e.target.closest("[data-songs]"))return;
-    e.stopPropagation();
-    openModal();
+  grids.forEach(function(grid){
+    grid.addEventListener("click",function(e){
+      if(!e.target.closest("[data-songs]"))return;
+      e.stopPropagation();
+      openModal();
+    });
   });
   modal.addEventListener("click",function(e){
     if(e.target.hasAttribute("data-close"))closeModal();
@@ -1252,6 +1259,27 @@ wireFaqFilter();
     if(e.key==="Escape"&&modal.classList.contains("open"))closeModal();
   });
 })();
+
+// === 14f. Works card grid renderer（作品紹介・受託作業カードギャラリー共通） ===
+function renderWorksGrid(grid,items){
+  if(!grid||!items||!items.length)return;
+  grid.innerHTML=items.map(function(item,i){
+    var cat=(item.category||'創作').replace(/"/g,'&quot;');
+    var alt=(item.alt||item.title||'').replace(/"/g,'&quot;');
+    var media='';
+    if(item.youtube_url){
+      media = '<button class="works-audio-btn" type="button" data-youtube="'+String(item.youtube_url).replace(/"/g,'&quot;')+'">▶ 試聴する</button>';
+    }else if(item.songs){
+      media = '<button class="works-audio-btn" type="button" data-songs="1">▶ 試聴する</button>';
+    }else if(item.youtube_url!==undefined){
+      media = '<span class="works-soon-badge">準備中</span>';
+    }
+    var thumb = item.image?'<img src="'+item.image+'" alt="'+alt+'" width="800" height="600">':'<span class="thumb-ph" aria-hidden="true"></span>';
+    return '<div class="works-card sa'+(i>0?' sa-d'+(i%9):'')+'" data-category="'+cat+'"><div class="works-thumb">'+thumb+'</div><h3>'+item.title+'</h3><p>'+item.description+'</p>'+media+'</div>';
+  }).join('');
+  var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
+  grid.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
+}
 
 // === 15. CMS データ読み込み ===
 async function loadCMSData(){
@@ -1363,26 +1391,15 @@ async function loadCMSData(){
   try{
     const res=await fetch('/_data/works.json');
     const data=await res.json();
-    const grid=document.getElementById('worksGrid');
-    if(grid&&data.items&&data.items.length){
-      grid.innerHTML=data.items.map(function(item,i){
-        var cat=(item.category||'創作').replace(/"/g,'&quot;');
-        var alt=(item.alt||item.title||'').replace(/"/g,'&quot;');
-        var media='';
-        if(item.youtube_url){
-          media = '<button class="works-audio-btn" type="button" data-youtube="'+String(item.youtube_url).replace(/"/g,'&quot;')+'">▶ 試聴する</button>';
-        }else if(item.songs){
-          media = '<button class="works-audio-btn" type="button" data-songs="1">▶ 試聴する</button>';
-        }else if(item.youtube_url!==undefined){
-          media = '<span class="works-soon-badge">準備中</span>';
-        }
-        var thumb = item.image?'<img src="'+item.image+'" alt="'+alt+'" width="800" height="600">':'<span class="thumb-ph" aria-hidden="true"></span>';
-        return '<div class="works-card sa'+(i>0?' sa-d'+(i%9):'')+'" data-category="'+cat+'"><div class="works-thumb">'+thumb+'</div><h3>'+item.title+'</h3><p>'+item.description+'</p>'+media+'</div>';
-      }).join('');
-      var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
-      grid.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
-      if(window.applyWorksFilter)window.applyWorksFilter();
-    }
+    renderWorksGrid(document.getElementById('worksGrid'),data.items);
+    if(window.applyWorksFilter)window.applyWorksFilter();
+  }catch(e){}
+
+  // 受託作業カードギャラリー（Works概要セクション内）
+  try{
+    const res=await fetch('/_data/works-contract.json');
+    const data=await res.json();
+    renderWorksGrid(document.getElementById('contractWorksGrid'),data.items);
   }catch(e){}
 
   // 作品ギャラリー（Voyage）
