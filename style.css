@@ -250,6 +250,7 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .faq-list .faq-item{transition:opacity .3s ease,transform .3s ease}
 .faq-list .faq-item.faq-hide{opacity:0;transform:translateY(8px)}
 .works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+#contractWorksGrid{grid-template-columns:repeat(2,1fr);margin-top:20px}
 .works-card{overflow:hidden;border-radius:8px;background:var(--gray);transition:opacity .3s ease,transform .3s ease,box-shadow .3s ease}
 .works-card.hide{opacity:0;transform:scale(.96)}
 .works-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.18)}
@@ -532,6 +533,7 @@ audio.song-media{display:none}
   .cards{grid-template-columns:1fr;gap:12px}
   .card{padding:28px 20px}
   .card h3{font-size:.9rem}
+  #contractWorksGrid{grid-template-columns:1fr;gap:12px;margin-top:12px}
 
   /* Works / Gallery */
   .works-grid{grid-template-columns:1fr;gap:12px}
