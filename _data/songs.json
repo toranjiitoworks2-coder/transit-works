@@ -2,6 +2,7 @@
   "songs": [
     {"title": "Mirror", "credit": "トランジットsound works", "type": "video", "src": "/music/Mirror.mp4"},
     {"title": "アンブレラ", "credit": "トランジットsound works", "type": "audio", "src": "/music/umbrella.mp3", "cover": "/music/umbrella.png"},
-    {"title": "残響", "credit": "トランジットsound works", "type": "audio", "src": "/music/残響 (1).mp3", "cover": "/images/ChatGPT Image 2026年8月21日 15_52_16.png"}
+    {"title": "残響", "credit": "トランジットsound works", "type": "audio", "src": "/music/残響 (1).mp3", "cover": "/images/ChatGPT Image 2026年8月21日 15_52_16.png"},
+    {"title": "After Light", "credit": "トランジットsound works", "type": "audio", "src": "/music/After Light.mp3", "cover": "/images/ChatGPT Image 2026年8月22日 08_41_37.png"}
   ]
 }
