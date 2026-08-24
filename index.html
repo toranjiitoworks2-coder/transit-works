@@ -1363,6 +1363,30 @@ async function loadCMSData(){
     const data=await res.json();
     const list=document.getElementById('newsList');
     if(list&&data.items&&data.items.length){
+      // イベント開催日(複数日の場合は最終日)を取得し、過ぎていれば「出店します」を「出店しました」に変換
+      function getEventEndDate(item){
+        var parts=(item.date||'').split('-');
+        var year=parseInt(parts[0],10), month=parts[1]?parseInt(parts[1],10):null, day=parts[2]?parseInt(parts[2],10):null;
+        var text=(item.title||'')+' '+(item.text||'');
+        var m=text.match(/出店します\s*[（(]([^）)]+)[）)]/);
+        if(m){
+          var inner=m[1];
+          var md=inner.match(/(\d{1,2})\/(\d{1,2})/);
+          if(md){
+            var mm=parseInt(md[1],10);
+            var days=[parseInt(md[2],10)];
+            var rest=inner.slice(inner.indexOf(md[0])+md[0].length);
+            var dayMatches=rest.match(/\d{1,2}(?=日)/g);
+            if(dayMatches)dayMatches.forEach(function(dm){days.push(parseInt(dm,10))});
+            return new Date(year,mm-1,Math.max.apply(null,days),23,59,59);
+          }
+        }
+        if(month&&day)return new Date(year,month-1,day,23,59,59);
+        return new Date(NaN);
+      }
+      function toPastTense(str,isPast){
+        return isPast?str.split('出店します').join('出店しました'):str;
+      }
       list.innerHTML=data.items.map(function(item,i){
         var d=(i<3?' sa-d'+i:'');
         var alt=(item.alt||'').replace(/"/g,'&quot;');
@@ -1370,6 +1394,10 @@ async function loadCMSData(){
         var cardClass='news-card sa'+d+(item.image?'':' news-card-noimg');
         var content=item.text||item.body||''; // 内容（後方互換でbodyも許容）
         var title=item.title||content;        // タイトル未設定なら内容を見出しに
+        var endDate=getEventEndDate(item);
+        var isPast=!isNaN(endDate.getTime())&&endDate.getTime()<Date.now();
+        title=toPastTense(title,isPast);
+        content=toPastTense(content,isPast);
         var excerpt=(item.title&&content)?'<p class="news-card-excerpt">'+content+'</p>':''; // タイトルがある時のみ内容を本文表示
         return '<a href="#" class="'+cardClass+'">'+thumbBlock+'<div class="news-card-body"><div class="news-card-meta"><time>'+item.date+'</time><span class="news-card-cat">'+item.category+'</span></div><h3 class="news-card-title">'+title+'</h3>'+excerpt+'</div></a>';
       }).join('');
