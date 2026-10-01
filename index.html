@@ -1387,9 +1387,11 @@ async function loadCMSData(){
       function toPastTense(str,isPast){
         return isPast?str.split('出店します').join('出店しました'):str;
       }
+      // 固定表示は日付に関係なく先頭に表示し、件数ルールには数えない
       // 今日以降は全件(日付の近い順)、過去は新しい順に最低3件・合計6件になるまで表示
-      var now=Date.now(),upcoming=[],past=[];
+      var now=Date.now(),pinned=[],upcoming=[],past=[];
       data.items.forEach(function(item){
+        if(item.pinned===true){pinned.push(item);return;}
         var t=getEventEndDate(item).getTime();
         if(isNaN(t))t=-Infinity;
         (t>=now?upcoming:past).push({item:item,t:t});
@@ -1397,7 +1399,7 @@ async function loadCMSData(){
       upcoming.sort(function(a,b){return a.t-b.t});
       past.sort(function(a,b){return b.t-a.t});
       var pastCount=Math.max(3,6-upcoming.length);
-      var shown=upcoming.concat(past.slice(0,pastCount)).map(function(e){return e.item});
+      var shown=pinned.concat(upcoming.concat(past.slice(0,pastCount)).map(function(e){return e.item}));
       list.innerHTML=shown.map(function(item,i){
         var d=(i<3?' sa-d'+i:'');
         var alt=(item.alt||'').replace(/"/g,'&quot;');
