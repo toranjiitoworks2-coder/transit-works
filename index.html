@@ -453,8 +453,11 @@
         <div class="access-row"><div class="access-th">休業日</div><div class="access-td" id="cms-closed">日曜・第1土曜・第3土曜</div></div>
         <div class="access-row"><div class="access-th">電話</div><div class="access-td"><a href="tel:0728607737" id="cms-phone">０７２－８６０－７７３７</a></div></div>
       </div>
-      <div class="access-map">
-        <iframe title="トランジットWorksの所在地" src="https://maps.google.com/maps?q=34.78969322384322,135.68901823265415&z=17&output=embed" width="100%" height="400" style="border:0;border-radius:8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div>
+        <div class="access-map">
+          <iframe title="トランジットWorksの所在地" src="https://maps.google.com/maps?q=34.78969322384322,135.68901823265415&z=17&output=embed" width="100%" height="400" style="border:0;border-radius:8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div style="margin-top:24px;text-align:center"><a href="https://www.google.com/maps/dir/?api=1&amp;destination=34.78969322384322,135.68901823265415" class="cta-btn" target="_blank" rel="noopener noreferrer">Googleマップで経路を見る<span class="cta-btn-arrow" aria-hidden="true">&rarr;</span></a></div>
       </div>
     </div>
   </div>
@@ -1554,9 +1557,9 @@ async function loadCMSData(){
     if(data.contact_note){var cn=document.querySelector('#contact .contact-note');if(cn)cn.textContent=data.contact_note;}
     // 施設種別
     if(data.facility_type){var ft=document.getElementById('cms-facility-type');if(ft)ft.textContent=data.facility_type;}
-    // CTAボタン文言（矢印spanを保持し先頭テキストノードのみ更新／2箇所すべて）
+    // CTAボタン文言（矢印spanを保持し先頭テキストノードのみ更新／お問い合わせへのボタンのみ）
     if(data.cta_text){
-      document.querySelectorAll('.cta-btn').forEach(function(btn){
+      document.querySelectorAll('.cta-btn[href="#contact"]').forEach(function(btn){
         if(btn.firstChild&&btn.firstChild.nodeType===3){btn.firstChild.nodeValue=data.cta_text;}
         else{btn.insertBefore(document.createTextNode(data.cta_text),btn.firstChild);}
       });
