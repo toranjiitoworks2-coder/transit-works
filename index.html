@@ -491,7 +491,7 @@
   <div class="news-modal-box" role="dialog" aria-modal="true" aria-labelledby="newsModalTitle">
     <button class="news-modal-close" type="button" aria-label="閉じる" data-close>&times;</button>
     <div class="news-modal-img" id="newsModalImgWrap"><img id="newsModalImg" src="" alt=""></div>
-    <div class="news-modal-meta"><time id="newsModalDate"></time><span class="news-modal-cat" id="newsModalCat"></span></div>
+    <div class="news-modal-meta"><time id="newsModalDate"></time><span class="news-modal-cat" id="newsModalStatus" hidden></span><span class="news-modal-cat" id="newsModalCat"></span></div>
     <h3 class="news-modal-title" id="newsModalTitle"></h3>
     <p class="news-modal-desc" id="newsModalDesc"></p>
   </div>
@@ -1221,6 +1221,7 @@ wireFaqFilter();
   var imgWrap=document.getElementById("newsModalImgWrap");
   var imgEl=document.getElementById("newsModalImg");
   var dateEl=document.getElementById("newsModalDate");
+  var statusEl=document.getElementById("newsModalStatus");
   var catEl=document.getElementById("newsModalCat");
   var titleEl=document.getElementById("newsModalTitle");
   var descEl=document.getElementById("newsModalDesc");
@@ -1235,10 +1236,14 @@ wireFaqFilter();
       imgWrap.style.display="none";
     }
     var time=card.querySelector(".news-card-meta time");
-    var cat=card.querySelector(".news-card-cat");
+    var status=card.querySelector(".news-card-status");
+    var cat=card.querySelector(".news-card-cat:not(.news-card-status)");
     var title=card.querySelector(".news-card-title");
     var excerpt=card.querySelector(".news-card-excerpt");
     dateEl.textContent=time?time.textContent:"";
+    dateEl.hidden=!time;
+    statusEl.textContent=status?status.textContent:"";
+    statusEl.hidden=!status;
     catEl.textContent=cat?cat.textContent:"";
     titleEl.textContent=title?title.textContent:"";
     descEl.textContent=excerpt?excerpt.textContent:(title?title.textContent:"");
@@ -1412,7 +1417,8 @@ async function loadCMSData(){
         title=toPastTense(title,isPast);
         content=toPastTense(content,isPast);
         var excerpt=(item.title&&content)?'<p class="news-card-excerpt">'+content+'</p>':''; // タイトルがある時のみ内容を本文表示
-        return '<a href="#" class="'+cardClass+'">'+thumbBlock+'<div class="news-card-body"><div class="news-card-meta"><time>'+item.date+'</time><span class="news-card-cat">'+item.category+'</span></div><h3 class="news-card-title">'+title+'</h3>'+excerpt+'</div></a>';
+        var dateBlock=item.pinned===true?'<span class="news-card-cat news-card-status">受付中</span>':'<time>'+item.date+'</time>'; // 固定表示は日付の代わりに「受付中」
+        return '<a href="#" class="'+cardClass+'">'+thumbBlock+'<div class="news-card-body"><div class="news-card-meta">'+dateBlock+'<span class="news-card-cat">'+item.category+'</span></div><h3 class="news-card-title">'+title+'</h3>'+excerpt+'</div></a>';
       }).join('');
       var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
       list.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
