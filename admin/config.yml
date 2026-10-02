@@ -90,13 +90,16 @@ collections:
         label: "活動内容ページ"
         file: "_data/activities.json"
         fields:
-          - label: "活動一覧"
+          - label: "作業内容カード（Works：写真つきカード）"
             name: "items"
             widget: "list"
             fields:
-              - {label: "番号", name: "num", widget: "string"}
+              - {label: "英字ラベル（例：CONTRACT WORK）", name: "num", widget: "string", required: false}
               - {label: "タイトル", name: "title", widget: "string"}
               - {label: "説明", name: "description", widget: "text"}
+              - {label: "画像", name: "image", widget: "image", required: false}
+              - {label: "画像の代替テキスト", name: "alt", widget: "string", required: false}
+              - {label: "「作品紹介を見る →」のリンク先（例：#works。空欄ならリンクなし）", name: "link", widget: "string", required: false}
 
   # 作品紹介
   - name: "works"
