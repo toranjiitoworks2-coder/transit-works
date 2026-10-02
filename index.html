@@ -44,6 +44,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<!-- オープニングの複葉機と雲を最優先で読み込む（「視差効果を減らす」設定の人はオープニングを出さないので読み込まない） -->
+<link rel="preload" as="image" href="/images/loading-plane.png" media="(prefers-reduced-motion: no-preference)">
+<link rel="preload" as="image" href="/images/loading-cloud.png" media="(prefers-reduced-motion: no-preference)">
 
 <!-- 事業所情報の構造化データ（schema.org LocalBusiness / JSON-LD） -->
 <script type="application/ld+json">
@@ -595,13 +598,17 @@ for(var j=0;j<fadeEls.length;j++){if(prefersReducedMotion())fadeEls[j].classList
     }
   });
   mo.observe(loadEl,{attributes:true,attributeFilter:["class"]});
-  setTimeout(function(){
-    if(!started){
-      startHeroAnim();
-      loadEl.classList.add("done");
-      setTimeout(function(){loadEl.classList.add("hidden")},1200);
-    }
-  },6000);
+  // 安全装置：6秒たってもオープニングが終わらなければ閉じる。
+  // ただし複葉機が飛んでいる最中なら、飛び終わるまで待つ（最大12秒）
+  var openedAt=Date.now();
+  function forceClose(){
+    if(started)return;
+    if(window.__openingStarted&&Date.now()-openedAt<12000){setTimeout(forceClose,300);return;}
+    startHeroAnim();
+    loadEl.classList.add("done");
+    setTimeout(function(){loadEl.classList.add("hidden")},1200);
+  }
+  setTimeout(forceClose,6000);
 })();
 
 // === 2. Scroll progress bar ===

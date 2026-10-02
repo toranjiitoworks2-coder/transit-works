@@ -141,7 +141,14 @@
     }
   }
 
-  window.addEventListener('load', ()=>{
-    setTimeout(()=>requestAnimationFrame(animate), 200);
+  // ページ全体（重い写真を含む）の読み込み完了を待つと、スマホの回線では index.html の
+  // 6秒の安全装置で閉じられて複葉機が出ないため、オープニング用の画像がそろった時点で始める
+  const ready = img => (img.complete && img.naturalWidth) ? Promise.resolve()
+    : new Promise(r => { img.addEventListener('load', r, {once:true}); img.addEventListener('error', r, {once:true}); });
+  Promise.all([ready(planeImg), ready(cloudImg)]).then(()=>{
+    setTimeout(()=>{
+      window.__openingStarted = true; // 飛行中は index.html の安全装置が待つ
+      requestAnimationFrame(animate);
+    }, 200);
   });
 })();
