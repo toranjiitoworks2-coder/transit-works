@@ -576,10 +576,14 @@ audio.song-media{display:none}
   .footer-info{margin-bottom:20px}
   .footer-social{justify-content:center}
   .footer-right{justify-content:center;gap:24px}
-  .footer-nav-col{align-items:center}
+  .footer-nav-col{align-items:center;gap:20px}
 
-  /* Page-top button */
-  .to-top{bottom:20px;right:20px;width:44px;height:44px}
+  /* タップしやすさ：押せる範囲を高さ44px以上に（見た目の位置は変えない） */
+  .link-arrow{padding:11px 0;margin-top:17px;margin-bottom:-11px}
+  .access-td a{display:inline-block;padding:12px 0;margin:-12px 0}
+  .footer-nav-col a{display:inline-block;min-width:44px;text-align:center;padding:10px 0;margin:-10px 0}
+  .footer-social a{width:44px;height:44px}
+  .works-filter-btn,.faq-filter-btn,.works-audio-btn{min-height:44px}
 }
 
 /* ===== Responsive — Small phones ===== */
@@ -589,7 +593,7 @@ audio.song-media{display:none}
   .hero-logo{max-width:200px;max-height:96px}
   .sec-title-en{font-size:1.8rem}
   .footer-right{flex-direction:column;gap:12px}
-  .footer-nav-col{flex-direction:row;flex-wrap:wrap;gap:12px;justify-content:center}
+  .footer-nav-col{flex-direction:row;flex-wrap:wrap;gap:20px 12px;justify-content:center}
 }
 
 /* ===== Animation ===== */
@@ -649,6 +653,14 @@ audio.song-media{display:none}
 .to-contact.show{opacity:1;visibility:visible;transform:translateY(0)}
 .to-contact:hover{transform:translateY(0) scale(1.1)}
 @media(pointer:coarse){.to-top{cursor:pointer!important}}
+/* スマホ：小さめにして画面端に寄せ、iPhoneのホームバー分だけ持ち上げる（基本指定より後に置く） */
+@media(max-width:768px){
+  .to-top,.to-contact{width:44px;height:44px;bottom:calc(20px + env(safe-area-inset-bottom))}
+  .to-top{right:20px}
+  .to-contact{right:72px}
+  /* 最下部までスクロールしてもフッターの文字がボタンに隠れないよう余白を確保 */
+  .footer{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+}
 
 /* ===== Page transition overlay (nav click) ===== */
 .page-trans{
