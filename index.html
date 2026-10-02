@@ -96,7 +96,7 @@
   <canvas id="main-canvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5;"></canvas>
   <div class="loading-plane-wrap" style="display:none;z-index:5;"></div>
   <div class="loading-brand">
-    <img src="/images/logo-hero-white.png" class="loading-logo" alt="トランジットWorks">
+    <picture><source type="image/webp" srcset="/images/logo-hero-white.webp"><img src="/images/logo-hero-white.png" class="loading-logo" alt="トランジットWorks"></picture>
     <div class="loading-sub">KATANO, OSAKA</div>
   </div>
 </div>
@@ -113,7 +113,7 @@
         <line x1="50" y1="2" x2="50" y2="98" stroke="rgba(45,106,79,.18)" stroke-width=".5"/>
       </svg>
       <div class="page-trans-radar-sweep"></div>
-      <img class="page-trans-plane" src="plane.png" alt="" width="32" height="32">
+      <picture><source type="image/webp" srcset="/plane.webp"><img class="page-trans-plane" src="plane.png" alt="" width="32" height="32"></picture>
     </div>
     <div class="page-trans-logo">TRANSIT WORKS</div>
     <div class="page-trans-loading">
@@ -139,7 +139,7 @@
 <header class="header">
   <div class="header-center">
     <a href="#" class="header-logo-link" aria-label="トランジットWorks">
-      <img src="/images/logo-sign.png" alt="トランジットWorks" class="header-logo-img header-logo-dark" width="1702" height="924">
+      <picture><source type="image/webp" srcset="/images/logo-sign.webp"><img src="/images/logo-sign.png" alt="トランジットWorks" class="header-logo-img header-logo-dark" width="1702" height="924"></picture>
     </a>
   </div>
   <div class="header-bottom">
@@ -166,21 +166,21 @@
 <!-- ===== Hero ===== -->
 <section class="hero">
   <div class="hero-slideshow" id="heroSlideshow">
-    <div class="hero-slide is-active" style="background-image:url('/images/hero-signage-vertical.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('/images/hero-pressed-flowers.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('/images/hero-robots-shelf.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('/images/hero-seesaw-bestfriend.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('/images/hero-handmade-table.jpg')"></div>
+    <div class="hero-slide is-active" style="background-image:url('/images/hero-signage-vertical.jpg');background-image:image-set(url('/images/hero-signage-vertical.webp') type('image/webp'),url('/images/hero-signage-vertical.jpg') type('image/jpeg'))"></div>
+    <div class="hero-slide" style="background-image:url('/images/hero-pressed-flowers.jpg');background-image:image-set(url('/images/hero-pressed-flowers.webp') type('image/webp'),url('/images/hero-pressed-flowers.jpg') type('image/jpeg'))"></div>
+    <div class="hero-slide" style="background-image:url('/images/hero-robots-shelf.jpg');background-image:image-set(url('/images/hero-robots-shelf.webp') type('image/webp'),url('/images/hero-robots-shelf.jpg') type('image/jpeg'))"></div>
+    <div class="hero-slide" style="background-image:url('/images/hero-seesaw-bestfriend.jpg');background-image:image-set(url('/images/hero-seesaw-bestfriend.webp') type('image/webp'),url('/images/hero-seesaw-bestfriend.jpg') type('image/jpeg'))"></div>
+    <div class="hero-slide" style="background-image:url('/images/hero-handmade-table.jpg');background-image:image-set(url('/images/hero-handmade-table.webp') type('image/webp'),url('/images/hero-handmade-table.jpg') type('image/jpeg'))"></div>
   </div>
   <div class="hero-overlay"></div>
   <!-- 横切る飛行機と飛行機雲（暗幕の上・ロゴやキャッチコピーの下の層） -->
   <div class="hero-flight" aria-hidden="true">
     <span class="hero-contrail" id="heroContrail"></span>
-    <img class="hero-plane" id="flyingPlane" src="plane.png" alt="" width="80" height="80">
+    <picture><source type="image/webp" srcset="/plane.webp"><img class="hero-plane" id="flyingPlane" src="plane.png" alt="" width="80" height="80"></picture>
   </div>
   <!-- 中央上寄り：ロゴ -->
   <div class="hero-top">
-    <img class="hero-logo" src="/images/logo-hero-white.png" alt="Transit Works" width="1536" height="450">
+    <picture><source type="image/webp" srcset="/images/logo-hero-white.webp"><img class="hero-logo" src="/images/logo-hero-white.png" alt="Transit Works" width="1536" height="450"></picture>
   </div>
   <!-- 中央下寄り：キャッチ＋サブ -->
   <div class="hero-bottom">
@@ -258,7 +258,7 @@
         </div>
         <div class="rep-side">
           <div class="rep-photo">
-            <img id="cms-rep-photo" src="/images/representative.jpg" alt="トランジットWorks（交野市の就労継続支援B型事業所）代表 西山真理子" width="2000" height="1333">
+            <picture><source type="image/webp" srcset="/images/representative.webp"><img id="cms-rep-photo" src="/images/representative.jpg" alt="トランジットWorks（交野市の就労継続支援B型事業所）代表 西山真理子" width="2000" height="1333"></picture>
           </div>
           <div class="rep-sign-text">
             <span id="cms-rep-company">合同会社ウェルフェア</span>
@@ -290,8 +290,8 @@
     <h2 class="sec-title-en slide-in">Works<span class="sec-title-ja">制作・作業内容</span></h2>
     <p class="sec-lead">利用者さんが作り上げた作品と、日々の仕事をご紹介します。</p>
     <div class="works-gallery-row" id="activitiesCards">
-      <div class="works-card sa"><div class="works-thumb"><img src="/images/light-work.png" alt="電動ドリルやねじ、ダンボール箱を使った封入・組み立て作業の様子" width="800" height="600"></div><span class="works-card-label">CONTRACT WORK</span><h3>軽作業</h3><p>企業から依頼を受けた仕事を、一つひとつ丁寧に仕上げます。封入・検品・計量・シール貼り・梱包・組み立てなど、手先を使う作業が中心です。正確さと集中力が求められる仕事ですが、無理のないペースで進められます。</p></div>
-      <div class="works-card sa sa-d1"><div class="works-thumb"><img src="/images/0606-003.JPG" alt="木工雑貨やアロマストーン、押し花シールなど、トランジットWorksの自主製品が並ぶ様子" width="800" height="600"></div><span class="works-card-label">ORIGINAL WORK</span><h3>自主製品</h3><p>木工雑貨・アロマ・押し花シール・楽曲制作など、メンバーそれぞれの個性と得意を活かしたオリジナル作品を制作・販売しています。</p><a class="works-card-link" href="#works">作品紹介を見る<span aria-hidden="true">&rarr;</span></a></div>
+      <div class="works-card sa"><div class="works-thumb"><picture><source type="image/webp" srcset="/images/light-work.webp"><img src="/images/light-work.jpg" alt="電動ドリルやねじ、ダンボール箱を使った封入・組み立て作業の様子" width="800" height="600"></picture></div><span class="works-card-label">CONTRACT WORK</span><h3>軽作業</h3><p>企業から依頼を受けた仕事を、一つひとつ丁寧に仕上げます。封入・検品・計量・シール貼り・梱包・組み立てなど、手先を使う作業が中心です。正確さと集中力が求められる仕事ですが、無理のないペースで進められます。</p></div>
+      <div class="works-card sa sa-d1"><div class="works-thumb"><picture><source type="image/webp" srcset="/images/0606-003.webp"><img src="/images/0606-003.JPG" alt="木工雑貨やアロマストーン、押し花シールなど、トランジットWorksの自主製品が並ぶ様子" width="800" height="600"></picture></div><span class="works-card-label">ORIGINAL WORK</span><h3>自主製品</h3><p>木工雑貨・アロマ・押し花シール・楽曲制作など、メンバーそれぞれの個性と得意を活かしたオリジナル作品を制作・販売しています。</p><a class="works-card-link" href="#works">作品紹介を見る<span aria-hidden="true">&rarr;</span></a></div>
     </div>
   </div>
 </section>
@@ -303,9 +303,9 @@
     <h2 class="sec-title-en slide-in">Hangar<span class="sec-title-ja">作品紹介</span></h2>
     <p class="sec-lead">トランジットWorksで生まれたオリジナル作品たち</p>
     <div class="works-grid" id="worksGrid">
-      <div class="works-card sa" data-category="自主製品"><div class="works-thumb"><img src="/images/works-aroma.jpg" alt="アロマ作品" width="1333" height="2000"></div><h3>アロマ作品</h3><p>アロマストーンやアロマワックスサシェなど、香りを楽しむハンドメイド作品。</p></div>
-      <div class="works-card sa sa-d1" data-category="自主製品"><div class="works-thumb"><img src="/images/works-wood.jpg" alt="木工作品" width="2000" height="1333"></div><h3>木工作品</h3><p>木材を使ったロボット・一輪挿し・マグネットなど、手作りのオリジナル木工作品。</p></div>
-      <div class="works-card sa sa-d2" data-category="自主製品"><div class="works-thumb"><img src="/images/works-flower.jpg" alt="押し花シール" width="2000" height="1333"></div><h3>押し花シール</h3><p>本物の花を使ったオリジナルシール。</p></div>
+      <div class="works-card sa" data-category="自主製品"><div class="works-thumb"><picture><source type="image/webp" srcset="/images/works-aroma.webp"><img src="/images/works-aroma.jpg" alt="アロマ作品" width="1333" height="2000"></picture></div><h3>アロマ作品</h3><p>アロマストーンやアロマワックスサシェなど、香りを楽しむハンドメイド作品。</p></div>
+      <div class="works-card sa sa-d1" data-category="自主製品"><div class="works-thumb"><picture><source type="image/webp" srcset="/images/works-wood.webp"><img src="/images/works-wood.jpg" alt="木工作品" width="2000" height="1333"></picture></div><h3>木工作品</h3><p>木材を使ったロボット・一輪挿し・マグネットなど、手作りのオリジナル木工作品。</p></div>
+      <div class="works-card sa sa-d2" data-category="自主製品"><div class="works-thumb"><picture><source type="image/webp" srcset="/images/works-flower.webp"><img src="/images/works-flower.jpg" alt="押し花シール" width="2000" height="1333"></picture></div><h3>押し花シール</h3><p>本物の花を使ったオリジナルシール。</p></div>
       <div class="works-card sa sa-d3" data-category="自主製品"><div class="works-thumb"><span class="thumb-ph" aria-hidden="true"></span></div><h3>楽曲制作</h3><p>利用者さんの想いをもとに、職員と一緒に歌詞を考えてオリジナル楽曲を制作。AIを活用して、世界にひとつだけの音楽を作り上げます。</p><span class="works-soon-badge">準備中</span></div>
     </div>
     <div class="sec-cta sa"><a href="#contact" class="cta-btn">見学のお問い合わせ<span class="cta-btn-arrow" aria-hidden="true">&rarr;</span></a></div>
@@ -319,14 +319,14 @@
     <h2 class="sec-title-en slide-in">Voyage<span class="sec-title-ja">作品ギャラリー</span></h2>
     <p class="sec-lead">メンバーが心を込めて手がけた自主製品・<span class="sp-nowrap">作品たち</span></p>
     <div class="gallery-grid">
-      <div class="gallery-item sa"><img src="/images/works-aroma.jpg" width="1824" height="2736" loading="lazy" alt="トランジットWorksの自主製品 サボテン型のアロマワックスサシェ"></div>
-      <div class="gallery-item sa sa-d1"><img src="/images/works-robot.jpg" width="2736" height="1824" loading="lazy" alt="トランジットWorksの木工作品 手作りの木製ロボット"></div>
-      <div class="gallery-item sa sa-d2"><img src="/images/works-flower.jpg" width="2736" height="1824" loading="lazy" alt="トランジットWorksの自主製品 本物の花を使った押し花シール"></div>
-      <div class="gallery-item sa sa-d3"><img src="/images/works-ikebana.jpg" width="1824" height="2736" loading="lazy" alt="トランジットWorksの木工作品 手作りの一輪挿し"></div>
-      <div class="gallery-item sa sa-d4"><img src="/images/works-magnet.jpg" width="2736" height="1824" loading="lazy" alt="トランジットWorksのオリジナルロゴ入りマグネット"></div>
-      <div class="gallery-item sa sa-d5"><img src="/images/works-booth.jpg" width="2736" height="1824" loading="lazy" alt="交野市の就労継続支援B型事業所トランジットWorksの自主製品が並ぶ様子"></div>
-      <div class="gallery-item sa sa-d6"><img src="/images/works-robot-tall.jpg" width="1216" height="1824" loading="lazy" alt="トランジットWorksの木工作品 手作りの木製ロボットのオブジェ"></div>
-      <div class="gallery-item sa sa-d7"><img src="/images/works-wood.jpg" width="2736" height="1824" loading="lazy" alt="トランジットWorksの木工作品 顔を描いた木製の小物"></div>
+      <div class="gallery-item sa"><picture><source type="image/webp" srcset="/images/works-aroma.webp"><img src="/images/works-aroma.jpg" width="1824" height="2736" loading="lazy" alt="トランジットWorksの自主製品 サボテン型のアロマワックスサシェ"></picture></div>
+      <div class="gallery-item sa sa-d1"><picture><source type="image/webp" srcset="/images/works-robot.webp"><img src="/images/works-robot.jpg" width="2736" height="1824" loading="lazy" alt="トランジットWorksの木工作品 手作りの木製ロボット"></picture></div>
+      <div class="gallery-item sa sa-d2"><picture><source type="image/webp" srcset="/images/works-flower.webp"><img src="/images/works-flower.jpg" width="2736" height="1824" loading="lazy" alt="トランジットWorksの自主製品 本物の花を使った押し花シール"></picture></div>
+      <div class="gallery-item sa sa-d3"><picture><source type="image/webp" srcset="/images/works-ikebana.webp"><img src="/images/works-ikebana.jpg" width="1824" height="2736" loading="lazy" alt="トランジットWorksの木工作品 手作りの一輪挿し"></picture></div>
+      <div class="gallery-item sa sa-d4"><picture><source type="image/webp" srcset="/images/works-magnet.webp"><img src="/images/works-magnet.jpg" width="2736" height="1824" loading="lazy" alt="トランジットWorksのオリジナルロゴ入りマグネット"></picture></div>
+      <div class="gallery-item sa sa-d5"><picture><source type="image/webp" srcset="/images/works-booth.webp"><img src="/images/works-booth.jpg" width="2736" height="1824" loading="lazy" alt="交野市の就労継続支援B型事業所トランジットWorksの自主製品が並ぶ様子"></picture></div>
+      <div class="gallery-item sa sa-d6"><picture><source type="image/webp" srcset="/images/works-robot-tall.webp"><img src="/images/works-robot-tall.jpg" width="1216" height="1824" loading="lazy" alt="トランジットWorksの木工作品 手作りの木製ロボットのオブジェ"></picture></div>
+      <div class="gallery-item sa sa-d7"><picture><source type="image/webp" srcset="/images/works-wood.webp"><img src="/images/works-wood.jpg" width="2736" height="1824" loading="lazy" alt="トランジットWorksの木工作品 顔を描いた木製の小物"></picture></div>
     </div>
   </div>
 </section>
@@ -518,7 +518,7 @@
 
 <footer class="footer">
   <div class="container">
-    <div class="footer-brand"><img src="/images/logo-sign-white.png" alt="トランジットWorks｜大阪府交野市の就労継続支援B型事業所" class="footer-logo-img"></div>
+    <div class="footer-brand"><picture><source type="image/webp" srcset="/images/logo-sign-white.webp"><img src="/images/logo-sign-white.png" alt="トランジットWorks｜大阪府交野市の就労継続支援B型事業所" class="footer-logo-img"></picture></div>
     <div class="footer-grid">
       <div class="footer-left">
         <div class="footer-logo">トランジットWorks</div>
@@ -560,6 +560,35 @@
 </button>
 
 <script>
+// WebP版がある画像の一覧（_data/webp.json）。一覧にない画像（CMSで新しく上げた画像など）は元の形式のまま表示する
+var WEBP_FILES={};
+function webpOf(src){
+  var p=String(src||'');try{p=decodeURI(p)}catch(e){}
+  if(p.charAt(0)!=='/')p='/'+p;
+  return WEBP_FILES[p]?p.replace(/\.(jpe?g|png)$/i,'.webp'):'';
+}
+// <img> のHTML。WebP版があれば <picture> で包み、対応ブラウザにはWebPを出す（srcsetは空白を含むファイル名のためエンコード）
+function pictureHTML(src,imgAttrs){
+  var img='<img src="'+src+'"'+(imgAttrs?' '+imgAttrs:'')+'>';
+  var w=webpOf(src);
+  return w?'<picture><source type="image/webp" srcset="'+encodeURI(w)+'">'+img+'</picture>':img;
+}
+// 背景画像のstyle。WebP版があれば image-set で出し分け（未対応のブラウザは1つ目の指定を使う）
+function bgImageStyle(src){
+  var s="background-image:url('"+src+"')";
+  var w=webpOf(src);
+  if(!w)return s;
+  var type=/\.png$/i.test(src)?'image/png':'image/jpeg';
+  return s+";background-image:image-set(url('"+w+"') type('image/webp'),url('"+src+"') type('"+type+"'))";
+}
+// 既存の <img> の画像を差し替える（<picture> の WebP 指定も合わせて更新）
+function setImgSrc(img,src){
+  var pic=img.parentElement&&img.parentElement.tagName==='PICTURE'?img.parentElement:null;
+  var w=webpOf(src);
+  if(pic){var so=pic.querySelector('source');if(w){if(so)so.srcset=encodeURI(w)}else if(so){so.remove()}}
+  else if(w){pic=document.createElement('picture');var so2=document.createElement('source');so2.type='image/webp';so2.srcset=encodeURI(w);img.parentNode.insertBefore(pic,img);pic.appendChild(so2);pic.appendChild(img);}
+  img.src=src;
+}
 // 「視差効果を減らす」（prefers-reduced-motion）がオンか
 function prefersReducedMotion(){return !!(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches);}
 document.addEventListener("DOMContentLoaded",function(){
@@ -1035,7 +1064,7 @@ wireFaqFilter();
   function openModal(card){
     var img=card.querySelector(".works-thumb img");
     if(!img)return; // PHOTOプレースホルダーは表示しない
-    imgEl.setAttribute("src",img.getAttribute("src"));
+    imgEl.setAttribute("src",img.currentSrc||img.getAttribute("src"));
     imgEl.setAttribute("alt",img.getAttribute("alt")||"");
     var h=card.querySelector("h3"),p=card.querySelector("p");
     titleEl.textContent=h?h.textContent:"";
@@ -1125,7 +1154,7 @@ wireFaqFilter();
     listEl.innerHTML=songs.map(function(s,i){
       var media = s.type==="video"
         ? '<video class="song-media" preload="metadata" muted playsinline src="'+escapeAttr(s.src)+'"></video>'
-        : '<img class="song-tile-cover" src="'+escapeAttr(s.cover)+'" alt="'+escapeAttr(s.title)+' ジャケット"><audio class="song-media" preload="metadata" src="'+escapeAttr(s.src)+'"></audio>';
+        : pictureHTML(escapeAttr(s.cover),'class="song-tile-cover" alt="'+escapeAttr(s.title)+' ジャケット"')+'<audio class="song-media" preload="metadata" src="'+escapeAttr(s.src)+'"></audio>';
       return '<div class="song-tile" data-index="'+i+'">'
         +'<div class="song-tile-media">'+media+'<button class="song-tile-play" type="button" aria-label="再生">&#9654;</button></div>'
         +'<div class="song-tile-info"><h4 class="song-tile-title">'+escapeAttr(s.title)+'</h4><p class="song-tile-credit">'+escapeAttr(s.credit)+'</p></div>'
@@ -1248,7 +1277,7 @@ wireFaqFilter();
   function openModal(card){
     var img=card.querySelector(".news-card-thumb img");
     if(img){
-      imgEl.setAttribute("src",img.getAttribute("src"));
+      imgEl.setAttribute("src",img.currentSrc||img.getAttribute("src"));
       imgEl.setAttribute("alt",img.getAttribute("alt")||"");
       imgWrap.style.display="";
     }else{
@@ -1304,7 +1333,7 @@ function renderWorksGrid(grid,items){
     }else if(item.youtube_url!==undefined){
       media = '<span class="works-soon-badge">準備中</span>';
     }
-    var thumb = item.image?'<img src="'+item.image+'" alt="'+alt+'" width="800" height="600">':'<span class="thumb-ph" aria-hidden="true"></span>';
+    var thumb = item.image?pictureHTML(item.image,'alt="'+alt+'" width="800" height="600"'):'<span class="thumb-ph" aria-hidden="true"></span>';
     return '<div class="works-card sa'+(i>0?' sa-d'+(i%9):'')+'" data-category="'+cat+'"><div class="works-thumb">'+thumb+'</div><h3>'+item.title+'</h3><p>'+item.description+'</p>'+media+'</div>';
   }).join('');
   var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
@@ -1313,6 +1342,7 @@ function renderWorksGrid(grid,items){
 
 // === 15. CMS データ読み込み ===
 async function loadCMSData(){
+  try{const r=await fetch('/_data/webp.json');const d=await r.json();(d.files||[]).forEach(function(f){WEBP_FILES[f]=1;});}catch(e){}
   // 文末のまとまり（「※」以降／意味の切れ目で4〜12文字になる最短の部分／見つからなければ末尾6文字）を分けて返す
   // スマホで最終行が1〜2文字だけにならないよう、末尾をsp-nowrapで包むために使う
   function splitTail(text){
@@ -1370,7 +1400,7 @@ async function loadCMSData(){
         show.innerHTML=heroSlides.map(function(s,i){
           var alt=(s.alt||'').replace(/"/g,'&quot;');
           var url=String(s.image).replace(/'/g,'%27');
-          return '<div class="hero-slide'+(i===0?' is-active':'')+'" role="img" aria-label="'+alt+'" style="background-image:url(\''+url+'\')"></div>';
+          return '<div class="hero-slide'+(i===0?' is-active':'')+'" role="img" aria-label="'+alt+'" style="'+bgImageStyle(url)+'"></div>';
         }).join('');
         if(window.initHeroSlideshow)window.initHeroSlideshow();
       }
@@ -1384,13 +1414,13 @@ async function loadCMSData(){
     if(data.text1){var el=document.getElementById('cms-about-text1');if(el)el.textContent=data.text1;}
     if(data.text2){var el=document.getElementById('cms-about-text2');if(el)el.textContent=data.text2;}
     // 写真が設定されている時だけ枠を表示（未設定なら枠ごと隠したまま）
-    if(data.about_photo){var el=document.getElementById('cms-about-photo');if(el){el.src=data.about_photo;el.closest('.about-photo').hidden=false;el.closest('.about-grid').classList.remove('no-photo');}}
+    if(data.about_photo){var el=document.getElementById('cms-about-photo');if(el){setImgSrc(el,data.about_photo);el.closest('.about-photo').hidden=false;el.closest('.about-grid').classList.remove('no-photo');}}
     if(data.rep1){var el=document.getElementById('cms-rep1');if(el)el.textContent=data.rep1;}
     if(data.rep2){var el=document.getElementById('cms-rep2');if(el)el.textContent=data.rep2;}
     if(data.rep3){var el=document.getElementById('cms-rep3');if(el)el.textContent=data.rep3;}
     if(data.rep4){var el=document.getElementById('cms-rep4');if(el)el.textContent=data.rep4;}
     if(data.rep_name){var el=document.getElementById('cms-rep-name');if(el)el.textContent=data.rep_name;}
-    if(data.rep_photo){var el=document.getElementById('cms-rep-photo');if(el){el.src=data.rep_photo;el.style.display='block';}}
+    if(data.rep_photo){var el=document.getElementById('cms-rep-photo');if(el){setImgSrc(el,data.rep_photo);el.style.display='block';}}
     // 統計値（数値部＋単位部に分解して既存デザインを維持。カウントアップ演出は静的値に置換）
     [1,2,3,4].forEach(function(n){
       var v=data['stat'+n+'_value'],l=data['stat'+n+'_label'];
@@ -1466,7 +1496,7 @@ async function loadCMSData(){
       list.innerHTML=shown.map(function(item,i){
         var d=(i<3?' sa-d'+i:'');
         var alt=(item.alt||'').replace(/"/g,'&quot;');
-        var thumbBlock=item.image?'<div class="news-card-thumb"><img src="'+item.image+'" alt="'+alt+'"></div>':'';
+        var thumbBlock=item.image?'<div class="news-card-thumb">'+pictureHTML(item.image,'alt="'+alt+'"')+'</div>':'';
         var cardClass='news-card sa'+d+(item.image?'':' news-card-noimg');
         var content=item.text||item.body||''; // 内容（後方互換でbodyも許容）
         var title=item.title||content;        // タイトル未設定なら内容を見出しに
@@ -1494,7 +1524,7 @@ async function loadCMSData(){
       // 写真つきカード（画像・ラベル・見出し・説明、リンク先があれば「作品紹介を見る →」）
       cards.innerHTML=data.items.map(function(item,i){
         var esc=function(v){return String(v||'').replace(/"/g,'&quot;');};
-        var thumb=item.image?'<div class="works-thumb"><img src="'+esc(item.image)+'" alt="'+esc(item.alt||item.title)+'" width="800" height="600"></div>':'';
+        var thumb=item.image?'<div class="works-thumb">'+pictureHTML(esc(item.image),'alt="'+esc(item.alt||item.title)+'" width="800" height="600"')+'</div>':'';
         var label=item.num?'<span class="works-card-label">'+item.num+'</span>':'';
         var link=item.link?'<a class="works-card-link" href="'+esc(item.link)+'">作品紹介を見る<span aria-hidden="true">&rarr;</span></a>':'';
         return '<div class="works-card sa'+(i>0?' sa-d'+i:'')+'">'+thumb+label+'<h3>'+item.title+'</h3><p>'+item.description+'</p>'+link+'</div>';
@@ -1520,7 +1550,7 @@ async function loadCMSData(){
       grid.innerHTML=data.items.map(function(item,i){
         var alt=(item.alt||'').replace(/"/g,'&quot;');
         var url=String(item.image||'').replace(/"/g,'&quot;');
-        return '<div class="gallery-item sa sa-d'+(i%9+1)+'"><img src="'+url+'" alt="'+alt+'" loading="lazy"></div>';
+        return '<div class="gallery-item sa sa-d'+(i%9+1)+'">'+pictureHTML(url,'alt="'+alt+'" loading="lazy"')+'</div>';
       }).join('');
       var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
       grid.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});

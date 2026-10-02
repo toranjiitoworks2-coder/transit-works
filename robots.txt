@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /images/original/
 
 Sitemap: https://transit-works.pages.dev/sitemap.xml
