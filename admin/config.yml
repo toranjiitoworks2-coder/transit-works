@@ -118,6 +118,7 @@ collections:
               - {label: "画像", name: "image", widget: "image", required: false}
               - {label: "カテゴリ", name: "category", widget: "select", options: ["受託作業", "自主製品"], required: false}
               - {label: "YouTube URL（試聴・任意）", name: "youtube_url", widget: "string", required: false}
+              - {label: "楽曲リストの試聴ボタンを表示（楽曲制作のみオン）", name: "songs", widget: "boolean", default: false, required: false}
               - {label: "画像の代替テキスト", name: "alt", widget: "string", required: false}
 
   # 作品ギャラリー（Voyage）
