@@ -1252,13 +1252,30 @@ function renderWorksGrid(grid,items){
 
 // === 15. CMS データ読み込み ===
 async function loadCMSData(){
-  // 文末のまとまり（「※」以降／最後の「・」「、」以降が8文字以内ならそこ／それ以外は末尾6文字）を分けて返す
+  // 文末のまとまり（「※」以降／意味の切れ目で4〜12文字になる最短の部分／見つからなければ末尾6文字）を分けて返す
   // スマホで最終行が1〜2文字だけにならないよう、末尾をsp-nowrapで包むために使う
   function splitTail(text){
     var i=text.lastIndexOf('※');
     if(i>0&&text.length-i<=12)return [text.slice(0,i),text.slice(i)];
-    var j=Math.max(text.lastIndexOf('・'),text.lastIndexOf('、'));
-    if(j>0&&text.length-j-1>=1&&text.length-j-1<=8)return [text.slice(0,j+1),text.slice(j+1)];
+    // 意味の切れ目：句読点の後／カタカナ・漢字・英数字の境目／助詞の後（次が漢字・カタカナ・英数字、または「ご」「お」＋漢字）
+    var kind=function(c){
+      if(/[ァ-ヺー]/.test(c))return 'kata';
+      if(/[一-龯々〆]/.test(c))return 'kanji';
+      if(/[A-Za-z0-9]/.test(c))return 'latin';
+      if(/[ぁ-ゖ]/.test(c))return 'hira';
+      return 'other';
+    };
+    var best=-1;
+    for(var k=text.length-1;k>0;k--){
+      var tail=text.length-k;
+      if(tail>12)break;
+      var a=text.charAt(k-1),b=text.charAt(k),ka=kind(a),kb=kind(b);
+      var cut=/[、。・」』）)]/.test(a)
+        ||(ka!==kb&&ka!=='hira'&&kb!=='hira'&&ka!=='other'&&kb!=='other')
+        ||(/[のでをにがはとへもや]/.test(a)&&((kb!=='hira'&&kb!=='other')||(/[ごお]/.test(b)&&kind(text.charAt(k+1))==='kanji')));
+      if(cut&&tail>=4){best=k;break;}
+    }
+    if(best>0)return [text.slice(0,best),text.slice(best)];
     if(text.length>6)return [text.slice(0,-6),text.slice(-6)];
     return [text,''];
   }
