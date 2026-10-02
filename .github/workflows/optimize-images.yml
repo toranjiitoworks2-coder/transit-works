@@ -1,0 +1,49 @@
+# CMSでアップロードされた画像（images/uploads/）を自動で縮小・圧縮し、WebP版を作ってコミットする
+# 処理の中身は scripts/optimize_uploads.py。このワークフローのコミットでは、ワークフローは再び動かない
+name: アップロード画像の自動圧縮
+
+on:
+  push:
+    branches: [main]
+    paths: ["images/uploads/**"]
+  workflow_dispatch: # GitHubの画面から手動でも実行できる
+
+permissions:
+  contents: write
+
+concurrency: # CMSで続けて保存した時は順番に処理する
+  group: optimize-images
+  cancel-in-progress: false
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 画像処理ライブラリを入れる
+        run: pip install pillow pillow-heif
+
+      - name: 縮小・圧縮・WebP作成
+        run: python scripts/optimize_uploads.py
+
+      - name: 変更があればコミット
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A images/uploads _data
+          if git diff --cached --quiet; then
+            echo "変更なし"
+            exit 0
+          fi
+          git commit -m "chore: アップロード画像を自動で縮小・圧縮"
+          # 処理中にCMSで別の保存があっても、最新を取り込んでから送る
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep 5
+          done
+          exit 1

@@ -5,6 +5,8 @@ backend:
   base_url: https://transit-works.pages.dev
   auth_endpoint: oauth/authorize
 
+# CMSでアップロードした画像は、GitHub Actions（.github/workflows/optimize-images.yml）が自動で縮小・圧縮する
+# 画像の入力欄ごとに、アップロードできる上限を10MB（max_file_size）にしている
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
@@ -29,7 +31,7 @@ collections:
               - {label: "タイトル", name: "title", widget: "string", required: false}
               - {label: "固定表示（常に一番上に表示）", name: "pinned", widget: "boolean", default: false, required: false}
               - {label: "内容", name: "text", widget: "text"}
-              - {label: "画像", name: "image", widget: "image", required: false}
+              - {label: "画像", name: "image", widget: "image", required: false, media_library: {config: {max_file_size: 10485760}}}
               - {label: "画像の代替テキスト", name: "alt", widget: "string", required: false}
 
   # 施設紹介・代表メッセージ
@@ -40,7 +42,7 @@ collections:
         label: "施設紹介・代表メッセージ"
         file: "_data/about.json"
         fields:
-          - {label: "施設紹介 写真", name: "about_photo", widget: "image", required: false}
+          - {label: "施設紹介 写真", name: "about_photo", widget: "image", required: false, media_library: {config: {max_file_size: 10485760}}}
           - {label: "施設紹介 本文1", name: "text1", widget: "text"}
           - {label: "施設紹介 本文2", name: "text2", widget: "text"}
           - {label: "代表メッセージ 本文1", name: "rep1", widget: "text"}
@@ -48,7 +50,7 @@ collections:
           - {label: "代表メッセージ 本文3", name: "rep3", widget: "text"}
           - {label: "代表メッセージ 本文4", name: "rep4", widget: "text"}
           - {label: "代表氏名", name: "rep_name", widget: "string"}
-          - {label: "代表写真", name: "rep_photo", widget: "image", required: false}
+          - {label: "代表写真", name: "rep_photo", widget: "image", required: false, media_library: {config: {max_file_size: 10485760}}}
           - {label: "統計1 ラベル（例：開所）", name: "stat1_label", widget: "string"}
           - {label: "統計1 値（例：2025年4月1日）", name: "stat1_value", widget: "string"}
           - {label: "統計2 ラベル（例：利用時間）", name: "stat2_label", widget: "string"}
@@ -79,7 +81,7 @@ collections:
             name: "slides"
             widget: "list"
             fields:
-              - {label: "画像", name: "image", widget: "image"}
+              - {label: "画像", name: "image", widget: "image", media_library: {config: {max_file_size: 10485760}}}
               - {label: "画像の代替テキスト", name: "alt", widget: "string", required: false}
 
   # 活動内容
@@ -97,7 +99,7 @@ collections:
               - {label: "英字ラベル（例：CONTRACT WORK）", name: "num", widget: "string", required: false}
               - {label: "タイトル", name: "title", widget: "string"}
               - {label: "説明", name: "description", widget: "text"}
-              - {label: "画像", name: "image", widget: "image", required: false}
+              - {label: "画像", name: "image", widget: "image", required: false, media_library: {config: {max_file_size: 10485760}}}
               - {label: "画像の代替テキスト", name: "alt", widget: "string", required: false}
               - {label: "「作品紹介を見る →」のリンク先（例：#works。空欄ならリンクなし）", name: "link", widget: "string", required: false}
 
@@ -115,7 +117,7 @@ collections:
             fields:
               - {label: "作品名", name: "title", widget: "string"}
               - {label: "説明", name: "description", widget: "text"}
-              - {label: "画像", name: "image", widget: "image", required: false}
+              - {label: "画像", name: "image", widget: "image", required: false, media_library: {config: {max_file_size: 10485760}}}
               - {label: "カテゴリ", name: "category", widget: "select", options: ["受託作業", "自主製品"], required: false}
               - {label: "YouTube URL（試聴・任意）", name: "youtube_url", widget: "string", required: false}
               - {label: "楽曲リストの試聴ボタンを表示（楽曲制作のみオン）", name: "songs", widget: "boolean", default: false, required: false}
@@ -133,7 +135,7 @@ collections:
             name: "items"
             widget: "list"
             fields:
-              - {label: "画像", name: "image", widget: "image", required: true}
+              - {label: "画像", name: "image", widget: "image", required: true, media_library: {config: {max_file_size: 10485760}}}
               - {label: "説明文(alt)", name: "alt", widget: "string", required: false}
 
   # ご利用条件（Target）
