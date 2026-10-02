@@ -170,6 +170,11 @@
     <div class="hero-slide" style="background-image:url('/images/hero-handmade-table.jpg')"></div>
   </div>
   <div class="hero-overlay"></div>
+  <!-- 横切る飛行機と飛行機雲（暗幕の上・ロゴやキャッチコピーの下の層） -->
+  <div class="hero-flight" aria-hidden="true">
+    <span class="hero-contrail" id="heroContrail"></span>
+    <img class="hero-plane" id="flyingPlane" src="plane.png" alt="" width="80" height="80">
+  </div>
   <!-- 中央上寄り：ロゴ -->
   <div class="hero-top">
     <img class="hero-logo" src="/images/logo-hero-white.png" alt="Transit Works" width="1536" height="450">
@@ -898,24 +903,57 @@ function wireFaqFilter(){
 initFaqAccordion();
 wireFaqFilter();
 
-// === 11. Flying plane ===
+// === 11. Flying plane（トップ写真のロゴとキャッチコピーのあいだを横切る） ===
 (function(){
   var hero=document.querySelector(".hero");
   var plane=document.getElementById("flyingPlane");
+  var trail=document.getElementById("heroContrail");
+  var logo=document.querySelector(".hero-logo");
+  var catchEl=document.getElementById("heroCatch");
   var loadEl=document.getElementById("loading");
-  if(!hero||!plane)return;
-  var flown=false;
+  if(!hero||!plane||!trail||!logo||!catchEl||!plane.animate)return;
+  var INTERVAL=30000;   // トップ写真に戻ってきた時、前回からこの時間以上たっていれば再び飛ぶ
+  var TRAIL_FADE=2500;  // 通過後に飛行機雲が消えるまでの時間
+  var flying=false,lastFlight=-Infinity,visible=false;
+  function fly(){
+    if(flying||document.hidden)return;
+    var h=hero.getBoundingClientRect(),l=logo.getBoundingClientRect(),c=catchEl.getBoundingClientRect();
+    var pw=plane.offsetWidth,ph=plane.offsetHeight;
+    var bandTop=l.bottom-h.top,bandBottom=c.top-h.top;
+    if(bandBottom-bandTop<ph)return; // ロゴとキャッチコピーの空き帯が飛行機より狭い時は飛ばさない
+    flying=true;lastFlight=Date.now();
+    var W=h.width,y=(bandTop+bandBottom)/2-ph/2;
+    // PCは5秒、スマホは画面幅に応じて3.5〜4秒
+    var vw=window.innerWidth;
+    var dur=vw>768?5000:3500+Math.min(Math.max((vw-320)/448,0),1)*500;
+    var startX=W,endX=-pw;
+    var tailX=pw*.86,tailY=ph*.5; // 機体の後端（尾翼のあたり）
+    plane.style.top=y+"px";
+    plane.style.opacity="1";
+    var pa=plane.animate([{transform:"translate3d("+startX+"px,0,0)"},{transform:"translate3d("+endX+"px,0,0)"}],{duration:dur,easing:"ease-in-out",fill:"forwards"});
+    // 飛行機雲：飛び始めの位置から後端までを、飛行機と同じ動きで右から左へ伸ばす
+    trail.style.top=(y+tailY-1)+"px";
+    trail.style.left=(endX+tailX)+"px";
+    trail.style.width=(startX-endX)+"px";
+    trail.style.opacity="1";
+    var ta=trail.animate([{transform:"scaleX(0)"},{transform:"scaleX(1)"}],{duration:dur,easing:"ease-in-out",fill:"forwards"});
+    pa.onfinish=function(){
+      plane.style.opacity="0";pa.cancel();
+      var fa=trail.animate([{opacity:1},{opacity:0}],{duration:TRAIL_FADE,easing:"ease-out",fill:"forwards"});
+      fa.onfinish=function(){trail.style.opacity="0";fa.cancel();ta.cancel();flying=false;};
+    };
+  }
   function startObserving(){
+    // トップ写真が6割以上見えている状態になった時に飛ぶ（初回はすぐ、2回目以降は前回から30秒以上たっていれば）
     var obs=new IntersectionObserver(function(entries){
       entries.forEach(function(e){
-        if(e.isIntersecting&&!flown){
-          flown=true;obs.disconnect();
-          plane.style.display="block";
-          setTimeout(function(){plane.style.left="-150px"},100);
-          setTimeout(function(){plane.style.display="none"},5200);
+        var now=e.intersectionRatio>=0.6;
+        if(now&&!visible&&Date.now()-lastFlight>=INTERVAL){
+          setTimeout(function(){if(visible)fly();},400);
         }
+        visible=now;
       });
-    },{threshold:0.3});
+    },{threshold:[0,0.6]});
     obs.observe(hero);
   }
   if(loadEl&&!loadEl.classList.contains("done")){
@@ -1566,7 +1604,6 @@ loadCMSData();
 
 }); // end DOMContentLoaded
 </script>
-<img id="flyingPlane" src="plane.png" alt="" style="position:fixed;top:2%;left:110%;width:80px;z-index:9999;pointer-events:none;transition:left 5s ease-in-out;display:none;filter:brightness(0) invert(1);">
 
 <!-- Netlify Identity Widget：/admin アクセス時のみ遅延読み込み -->
 <script>
