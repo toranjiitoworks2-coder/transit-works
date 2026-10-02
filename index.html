@@ -321,7 +321,7 @@
   <div class="container fade-in">
     <span class="sec-label">作品ギャラリー</span>
     <h2 class="sec-title-en slide-in">Voyage<span class="sec-title-ja">作品ギャラリー</span></h2>
-    <p class="sec-lead">メンバーが心を込めて手がけた自主製品・作品たち</p>
+    <p class="sec-lead">メンバーが心を込めて手がけた自主製品・<span class="sp-nowrap">作品たち</span></p>
     <div class="gallery-grid">
       <div class="gallery-item sa"><img src="/images/works-aroma.jpg" width="1824" height="2736" loading="lazy" alt="トランジットWorksの自主製品 サボテン型のアロマワックスサシェ"></div>
       <div class="gallery-item sa sa-d1"><img src="/images/works-robot.jpg" width="2736" height="1824" loading="lazy" alt="トランジットWorksの木工作品 手作りの木製ロボット"></div>
@@ -343,7 +343,7 @@
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
       </span>
       <span class="insta-banner-text">
-        <span class="insta-banner-title">最新の活動はInstagramでも発信中</span>
+        <span class="insta-banner-title"><span class="sp-phrase">最新の活動は</span><span class="sp-phrase">Instagramでも発信中</span></span>
         <span class="insta-banner-handle">@toranjittoworks</span>
       </span>
       <span class="insta-banner-cta">フォローする &rarr;</span>
@@ -449,7 +449,7 @@
         <div class="access-row"><div class="access-th">事業所名</div><div class="access-td" id="cms-name">トランジットWorks</div></div>
         <div class="access-row"><div class="access-th">種別</div><div class="access-td" id="cms-facility-type">就労継続支援B型</div></div>
         <div class="access-row"><div class="access-th">所在地</div><div class="access-td" id="cms-address">大阪府交野市青山3丁目17-2</div></div>
-        <div class="access-row"><div class="access-th">利用時間</div><div class="access-td"><span id="cms-hours-weekday">9:30〜15:30（月〜金）</span><br><span id="cms-hours-saturday">9:30〜12:00（第2・第4土曜、祝日）※昼食なし</span></div></div>
+        <div class="access-row"><div class="access-th">利用時間</div><div class="access-td"><span id="cms-hours-weekday">9:30〜15:30（月〜金）</span><br><span id="cms-hours-saturday">9:30〜12:00（第2・第4土曜、祝日）<span class="sp-nowrap">※昼食なし</span></span></div></div>
         <div class="access-row"><div class="access-th">休業日</div><div class="access-td" id="cms-closed">日曜・第1土曜・第3土曜</div></div>
         <div class="access-row"><div class="access-th">電話</div><div class="access-td"><a href="tel:0728607737" id="cms-phone">０７２－８６０－７７３７</a></div></div>
       </div>
@@ -529,7 +529,7 @@
         <div class="footer-info">
           <p>大阪府交野市青山3丁目17-2</p>
           <p><a href="tel:0728607737">072-860-7737</a><span class="footer-note">（受付時間 8:30〜17:30）</span></p>
-          <p><span class="footer-label">利用時間：</span>9:30〜15:30（月〜金）<br><span class="footer-label"></span>9:30〜12:00（第2・第4土曜・祝日）※昼食なし</p>
+          <p><span class="footer-label">利用時間：</span>9:30〜15:30（月〜金）<br><span class="footer-label"></span>9:30〜12:00（第2・第4土曜・祝日）<span class="sp-nowrap">※昼食なし</span></p>
           <p><span class="footer-label">休 業 日：</span>日曜・第1土曜・第3土曜</p>
         </div>
         <div class="footer-social">
@@ -551,7 +551,7 @@
         </div>
       </div>
     </div>
-    <p class="footer-copy">&copy; 2025 トランジットWorks / 合同会社ウェルフェア All rights reserved. <span class="footer-type">就労継続支援B型事業所</span></p>
+    <p class="footer-copy">&copy; 2025 トランジットWorks / 合同会社ウェルフェア <span class="sp-nowrap">All rights reserved.</span> <span class="footer-type">就労継続支援B型事業所</span></p>
   </div>
 </footer>
 
@@ -1296,6 +1296,21 @@ function renderWorksGrid(grid,items){
 
 // === 15. CMS データ読み込み ===
 async function loadCMSData(){
+  // 文末のまとまり（「※」以降／最後の「・」「、」以降が8文字以内ならそこ／それ以外は末尾6文字）を分けて返す
+  // スマホで最終行が1〜2文字だけにならないよう、末尾をsp-nowrapで包むために使う
+  function splitTail(text){
+    var i=text.lastIndexOf('※');
+    if(i>0&&text.length-i<=12)return [text.slice(0,i),text.slice(i)];
+    var j=Math.max(text.lastIndexOf('・'),text.lastIndexOf('、'));
+    if(j>0&&text.length-j-1>=1&&text.length-j-1<=8)return [text.slice(0,j+1),text.slice(j+1)];
+    if(text.length>6)return [text.slice(0,-6),text.slice(-6)];
+    return [text,''];
+  }
+  function setTailNowrap(el,text){
+    var p=splitTail(text);
+    el.textContent=p[0];
+    if(p[1]){var s=document.createElement('span');s.className='sp-nowrap';s.textContent=p[1];el.appendChild(s);}
+  }
 
   // ヒーロー
   try{
@@ -1425,6 +1440,8 @@ async function loadCMSData(){
         title=toPastTense(title,isPast);
         content=toPastTense(content,isPast);
         var excerpt=(item.title&&content)?'<p class="news-card-excerpt">'+content+'</p>':''; // タイトルがある時のみ内容を本文表示
+        var tp=splitTail(title);
+        title=tp[1]?tp[0]+'<span class="sp-nowrap">'+tp[1]+'</span>':tp[0]; // 文末が1〜2文字だけ改行されないように
         var dateBlock=item.pinned===true?'<span class="news-card-cat news-card-status">受付中</span>':'<time>'+item.date+'</time>'; // 固定表示は日付の代わりに「受付中」
         return '<a href="#" class="'+cardClass+'">'+thumbBlock+'<div class="news-card-body"><div class="news-card-meta">'+dateBlock+'<span class="news-card-cat">'+item.category+'</span></div><h3 class="news-card-title">'+title+'</h3>'+excerpt+'</div></a>';
       }).join('');
@@ -1555,7 +1572,7 @@ async function loadCMSData(){
     if(data.name){var el=document.getElementById('cms-name');if(el)el.textContent=data.name;}
     if(data.address){var el=document.getElementById('cms-address');if(el)el.textContent=data.address;}
     if(data.hours_weekday){var el=document.getElementById('cms-hours-weekday');if(el)el.textContent=data.hours_weekday;}
-    if(data.hours_saturday){var el=document.getElementById('cms-hours-saturday');if(el)el.textContent=data.hours_saturday;}
+    if(data.hours_saturday){var el=document.getElementById('cms-hours-saturday');if(el)setTailNowrap(el,data.hours_saturday);}
     if(data.closed){var el=document.getElementById('cms-closed');if(el)el.textContent=data.closed;}
     if(data.phone){var el=document.getElementById('cms-phone');if(el){el.textContent=data.phone;el.href='tel:'+data.phone.replace(/[^0-9]/g,'');}}
     if(data.contact_lead){var cl=document.querySelector('#contact .sec-lead');if(cl)cl.textContent=data.contact_lead;}
@@ -1572,9 +1589,13 @@ async function loadCMSData(){
     // 各セクションのリード文（settings側で一元管理）
     if(data.lead_activities){var la=document.querySelector('#activities .sec-lead');if(la)la.textContent=data.lead_activities;}
     if(data.lead_works){var lw=document.querySelector('#works .sec-lead');if(lw)lw.textContent=data.lead_works;}
-    if(data.lead_gallery){var lg=document.querySelector('#gallery .sec-lead');if(lg)lg.textContent=data.lead_gallery;}
+    if(data.lead_gallery){var lg=document.querySelector('#gallery .sec-lead');if(lg)setTailNowrap(lg,data.lead_gallery);}
     if(data.lead_target){var ltg=document.querySelector('#target .sec-lead');if(ltg)ltg.textContent=data.lead_target;}
   }catch(e){}
+  // リード文の文末が1〜2文字だけ改行されないように（CMSで変更された文言にも適用）
+  document.querySelectorAll('.sec-lead').forEach(function(el){
+    if(!el.children.length&&el.textContent.trim())setTailNowrap(el,el.textContent);
+  });
 }
 
 loadCMSData();
