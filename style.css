@@ -867,6 +867,11 @@ html.loading-lock,html.loading-lock body{overflow:hidden}
 @keyframes skywriteLogo{0%{opacity:0;filter:blur(8px)}100%{opacity:.88;filter:blur(0)}}
 @media (prefers-reduced-motion:reduce){
   .loading-logo,.loading-sub{animation:none!important;opacity:1!important;filter:none!important}
+  /* 「視差効果を減らす」設定の人：オープニングと横切る飛行機は表示せず、動きを止めて最初から表示する */
+  #loading,.hero-flight{display:none!important}
+  html{scroll-behavior:auto!important}
+  .sa,.fade-in,.slide-in,.hero-catch,.hero-sub-copy{opacity:1!important;transform:none!important;transition:none!important}
+  .hero-scroll{animation:none!important;transform:translateX(-50%)!important}
 }
 
 /* ===== Print ===== */

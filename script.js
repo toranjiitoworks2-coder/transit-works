@@ -3,6 +3,8 @@
   const wrap = document.querySelector('.loading-plane-wrap');
   const canvas = document.getElementById('main-canvas');
   if(!wrap || !canvas) return;
+  // 「視差効果を減らす」設定の人にはオープニングを再生しない（index.html側ですぐに終了扱いにする）
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const ctx = canvas.getContext('2d');
   let startTime = null;

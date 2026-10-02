@@ -84,7 +84,7 @@
 </head>
 <body>
 <a class="skip-link" href="#about">本文へスキップ</a>
-<script>document.documentElement.classList.add("loading-lock");</script>
+<script>/* 「視差効果を減らす」設定の人にはオープニングを出さないので、スクロールも固定しない */if(!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches))document.documentElement.classList.add("loading-lock");</script>
 
 <!-- ===== Loading Screen ===== -->
 <div id="loading">
@@ -557,6 +557,8 @@
 </button>
 
 <script>
+// 「視差効果を減らす」（prefers-reduced-motion）がオンか
+function prefersReducedMotion(){return !!(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches);}
 document.addEventListener("DOMContentLoaded",function(){
 var hamburger=document.getElementById("hamburger");
 var mobileNav=document.getElementById("mobileNav");
@@ -565,7 +567,7 @@ var links=mobileNav.querySelectorAll("a");
 for(var i=0;i<links.length;i++){links[i].addEventListener("click",function(){hamburger.classList.remove("active");mobileNav.classList.remove("open")})}
 var observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add("visible")}})},{threshold:0.15});
 var fadeEls=document.querySelectorAll(".fade-in,.sa");
-for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
+for(var j=0;j<fadeEls.length;j++){if(prefersReducedMotion())fadeEls[j].classList.add("visible");else observer.observe(fadeEls[j])}
 
 // Hero text animation (fade-in)
 (function(){
@@ -579,6 +581,11 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
     // キャッチをフェードイン → 少し遅れてサブをフェードイン
     catch_el.classList.add("animate");
     setTimeout(function(){sub_el.classList.add("animate")},700);
+  }
+  if(prefersReducedMotion()){ // オープニングを出さず、すぐにサイトを開く
+    loadEl.classList.add("done","hidden");
+    startHeroAnim();
+    return;
   }
   var mo=new MutationObserver(function(){
     if(loadEl.classList.contains("done")){
@@ -678,7 +685,7 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])}
     btn.classList.toggle("show",window.scrollY>300);
   });
   btn.addEventListener("click",function(){
-    window.scrollTo({top:0,behavior:"smooth"});
+    window.scrollTo({top:0,behavior:prefersReducedMotion()?"auto":"smooth"});
   });
 })();
 
@@ -717,8 +724,8 @@ function initHeroSlideshow(){
     if(dots[i])dots[i].classList.add("active");
   }
   function next(){go(i+1);}
-  function restart(){if(heroSlideTimer)clearInterval(heroSlideTimer);heroSlideTimer=setInterval(next,3500);}
-  heroSlideTimer=setInterval(next,3500);
+  function restart(){if(heroSlideTimer)clearInterval(heroSlideTimer);heroSlideTimer=prefersReducedMotion()?null:setInterval(next,3500);} // 設定オンなら自動で切り替えない
+  restart();
 }
 window.initHeroSlideshow=initHeroSlideshow;
 initHeroSlideshow();
@@ -774,7 +781,7 @@ initHeroSlideshow();
 // === 8. About photo parallax ===
 (function(){
   var aboutPhoto=document.querySelector(".about-photo");
-  if(!aboutPhoto)return;
+  if(!aboutPhoto||prefersReducedMotion())return;
   window.addEventListener("scroll",function(){
     var rect=aboutPhoto.getBoundingClientRect();
     if(rect.top<window.innerHeight&&rect.bottom>0){
@@ -811,11 +818,16 @@ initHeroSlideshow();
       if(!target)return;
       e.preventDefault();
       if(busy)return;
-      busy=true;
       var mn=document.getElementById("mobileNav");
       var hb=document.getElementById("hamburger");
       if(mn)mn.classList.remove("open");
       if(hb)hb.classList.remove("active");
+      if(prefersReducedMotion()){ // 演出なしで、すぐに移動
+        var hdr=document.querySelector(".header");
+        window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY-(hdr?hdr.offsetHeight:72)-8,behavior:"auto"});
+        return;
+      }
+      busy=true;
       overlay.classList.remove("exit");
       void overlay.offsetWidth;
       overlay.classList.add("cover");
@@ -916,7 +928,7 @@ wireFaqFilter();
   var TRAIL_FADE=2500;  // 通過後に飛行機雲が消えるまでの時間
   var flying=false,lastFlight=-Infinity,visible=false;
   function fly(){
-    if(flying||document.hidden)return;
+    if(flying||document.hidden||prefersReducedMotion())return; // 「視差効果を減らす」設定の人には表示しない
     var h=hero.getBoundingClientRect(),l=logo.getBoundingClientRect(),c=catchEl.getBoundingClientRect();
     var pw=plane.offsetWidth,ph=plane.offsetHeight;
     var bandTop=l.bottom-h.top,bandBottom=c.top-h.top;
@@ -970,6 +982,10 @@ wireFaqFilter();
 (function(){
   var nums=document.querySelectorAll(".stat-num[data-count]");
   if(!nums.length)return;
+  if(prefersReducedMotion()){ // カウントアップせず最初から表示
+    for(var k=0;k<nums.length;k++)nums[k].textContent=nums[k].getAttribute("data-count");
+    return;
+  }
   var obs=new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if(!e.isIntersecting)return;
