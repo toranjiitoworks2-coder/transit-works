@@ -176,8 +176,8 @@
   </div>
   <!-- 中央下寄り：キャッチ＋サブ -->
   <div class="hero-bottom">
-    <h1 class="hero-catch" id="heroCatch">乗り継ぎの先へ。未来は、ここで動き出す。</h1>
-    <p class="hero-sub-copy" id="heroSubCopy">小さな一歩が、一番遠くまで連れてってくれる。</p>
+    <h1 class="hero-catch" id="heroCatch"><span class="hero-phrase">乗り継ぎの先へ。</span><span class="hero-phrase">未来は、ここで動き出す。</span></h1>
+    <p class="hero-sub-copy" id="heroSubCopy"><span class="hero-phrase">小さな一歩が、</span><span class="hero-phrase">一番遠くまで連れてってくれる。</span></p>
   </div>
   <a href="#about" class="hero-scroll" id="heroScroll" aria-label="次のセクションへスクロール">
     <span class="hero-scroll-text">SCROLL</span>
@@ -1301,13 +1301,18 @@ async function loadCMSData(){
   try{
     const res=await fetch('/_data/hero.json');
     const data=await res.json();
+    // 句読点の後ろで区切り、まとまりごとに途中で折り返さないspanで包む（意味の切れ目で改行させる）
+    function setPhrases(el,text,re){
+      el.textContent='';
+      (text.match(re)||[text]).forEach(function(p){var s=document.createElement('span');s.className='hero-phrase';s.textContent=p;el.appendChild(s);});
+    }
     if(data.catch){
       var el=document.getElementById('heroCatch');
-      if(el)el.textContent=data.catch;
+      if(el)setPhrases(el,data.catch,/[^。]+。?/g);
     }
     if(data.sub){
       var el=document.getElementById('heroSubCopy');
-      if(el)el.textContent=data.sub;
+      if(el)setPhrases(el,data.sub,/[^、。]+[、。]?/g);
     }
     if(data.slides&&data.slides.length){
       var heroSlides=data.slides.filter(function(s){return s&&s.image;});

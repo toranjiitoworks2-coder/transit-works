@@ -114,6 +114,8 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 .hero-catch.animate{opacity:1;transform:translateY(0)}
 .hero-sub-copy{font-size:.95rem;font-weight:300;color:rgba(255,255,255,.85);letter-spacing:.18em;text-shadow:0 2px 12px rgba(0,0,0,.55);opacity:0;transform:translateY(12px);transition:opacity .8s ease,transform .8s ease}
 .hero-sub-copy.animate{opacity:1;transform:translateY(0)}
+/* キャッチ・サブコピーの句読点ごとのまとまり（途中で折り返さず、意味の切れ目で改行） */
+.hero-phrase{display:inline-block}
 .hero-keywords{font-size:.72rem;font-weight:300;color:rgba(255,255,255,.7);letter-spacing:.16em;margin:-6px 0 14px;text-shadow:0 2px 12px rgba(0,0,0,.5)}
 /* Scroll-down indicator（最下部） */
 .hero-scroll{position:absolute;bottom:24px;left:50%;z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;padding:6px 14px;border-radius:24px;background:transparent;color:rgba(255,255,255,.9);white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.55);transition:opacity .4s ease;animation:heroScrollBounce 2s ease-in-out infinite}
@@ -501,22 +503,30 @@ audio.song-media{display:none}
 @media(max-width:768px){
   /* Layout */
   .container{padding:0 20px}
-  html{scroll-padding-top:110px}
+  html{scroll-padding-top:110px;scroll-padding-top:calc(110px + env(safe-area-inset-top))}
 
-  /* Header */
-  .header{padding:0}
+  /* Header（ステータスバー等のセーフエリア分だけ下げ、透過時も60pxの高さを確保） */
+  .header{padding:env(safe-area-inset-top) 0 0;min-height:calc(env(safe-area-inset-top) + 60px)}
+  .header.scrolled{padding-top:calc(env(safe-area-inset-top) + 6px)}
+  .header::before{height:calc(120px + env(safe-area-inset-top))}
   .header-center{padding:12px 16px 8px}
   .header-logo-img{max-width:250px;max-height:100px}
   .header-bottom{display:none}
-  .hamburger{display:flex;position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:1001}
+  /* セーフエリアを除いた領域の縦中央に配置 */
+  .hamburger{display:flex;position:absolute;right:12px;top:calc(env(safe-area-inset-top) + (100% - env(safe-area-inset-top)) / 2);transform:translateY(-50%);z-index:1001}
 
-  /* Hero（フルスクリーン1枚構成） */
-  .hero{height:100vh;height:100dvh;min-height:520px;margin-top:0;padding:0}
+  /* Hero（フルスクリーン1枚構成）
+     高さはアドレスバーが隠れた状態(lvh)で画面下端まで埋め、
+     下端寄りの要素はアドレスバー表示時(svh)でも隠れないよう差分だけ持ち上げる */
+  .hero{height:100vh;height:100lvh;min-height:520px;margin-top:0;padding:0}
+  .hero-overlay{background:linear-gradient(to bottom,rgba(0,0,0,.31) 0%,rgba(0,0,0,.14) 34%,rgba(0,0,0,.18) 50%,rgba(0,0,0,.5) 66%,rgba(0,0,0,.58) 84%,rgba(0,0,0,.5) 100%)}
   .hero-top{top:26%;gap:14px}
   .hero-logo{max-width:240px;max-height:110px}
-  .hero-bottom{bottom:18%;padding:0 20px}
+  .hero-bottom{bottom:18%;bottom:calc(18% + 100lvh - 100svh);padding:0 20px}
+  .hero-scroll{bottom:calc(24px + 100lvh - 100svh)}
+  .hero-dots{bottom:calc(70px + 100lvh - 100svh)}
   .hero-catch{font-size:1.7rem;letter-spacing:.04em;margin-bottom:14px;line-height:1.4}
-  .hero-sub-copy{font-size:.82rem;letter-spacing:.14em}
+  .hero-sub-copy{font-size:.875rem;font-weight:400;color:#fff;letter-spacing:.14em}
   .hero-sub{bottom:20px;left:20px;font-size:.65rem}
 
   /* Sections */
@@ -574,7 +584,8 @@ audio.song-media{display:none}
 
 /* ===== Responsive — Small phones ===== */
 @media(max-width:480px){
-  .hero-catch{font-size:1.5rem;max-width:100%}
+  /* 「未来は、ここで動き出す。」(12文字)が1行に収まる大きさまで縮める */
+  .hero-catch{font-size:1.5rem;font-size:min(1.5rem,calc((100vw - 40px) / 12.6));max-width:100%}
   .hero-logo{max-width:200px;max-height:96px}
   .sec-title-en{font-size:1.8rem}
   .footer-right{flex-direction:column;gap:12px}
