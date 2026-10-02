@@ -237,10 +237,10 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 
 /* ===== Works ===== */
 .works{background:#fff}
-.works-filter,.faq-filter{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:24px 0 32px}
-.works-filter-btn,.faq-filter-btn{background:none;border:1px solid var(--border);font-family:inherit;font-size:.78rem;font-weight:400;color:var(--text-sub);padding:8px 22px;border-radius:999px;cursor:pointer;letter-spacing:.06em;transition:background .25s ease,color .25s ease,border-color .25s ease}
-.works-filter-btn:hover,.faq-filter-btn:hover{color:var(--green);border-color:var(--green)}
-.works-filter-btn.active,.faq-filter-btn.active{background:var(--green);color:#fff;border-color:var(--green)}
+.faq-filter{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:24px 0 32px}
+.faq-filter-btn{background:none;border:1px solid var(--border);font-family:inherit;font-size:.78rem;font-weight:400;color:var(--text-sub);padding:8px 22px;border-radius:999px;cursor:pointer;letter-spacing:.06em;transition:background .25s ease,color .25s ease,border-color .25s ease}
+.faq-filter-btn:hover{color:var(--green);border-color:var(--green)}
+.faq-filter-btn.active{background:var(--green);color:#fff;border-color:var(--green)}
 .faq-filter{margin:0 0 28px}
 .faq-filter:empty{display:none}
 /* FAQフィルタ切り替えのフェード（.saの初期表示より高い詳細度で上書き） */
@@ -250,7 +250,6 @@ a{text-decoration:none;color:inherit}ul{list-style:none}img{max-width:100%;displ
 /* Works概要セクション内：受託作業/自主製品カードギャラリーを説明カードと同じ2列で横並びに */
 .works-gallery-row{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:20px}
 .works-card{overflow:hidden;border-radius:8px;background:var(--gray);transition:opacity .3s ease,transform .3s ease,box-shadow .3s ease}
-.works-card.hide{opacity:0;transform:scale(.96)}
 .works-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.18)}
 .works-thumb{aspect-ratio:4/3;background:#e0e0e0;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .works-thumb span{font-size:.7rem;letter-spacing:.2em;color:#aaa;transition:transform .5s ease}
@@ -582,7 +581,7 @@ audio.song-media{display:none}
   .access-td a{display:inline-block;padding:12px 0;margin:-12px 0}
   .footer-nav-col a{display:inline-block;min-width:44px;text-align:center;padding:10px 0;margin:-10px 0}
   .footer-social a{width:44px;height:44px}
-  .works-filter-btn,.faq-filter-btn,.works-audio-btn{min-height:44px}
+  .faq-filter-btn,.works-audio-btn{min-height:44px}
 }
 
 /* ===== Responsive — Small phones ===== */

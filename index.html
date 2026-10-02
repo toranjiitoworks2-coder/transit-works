@@ -294,10 +294,6 @@
     <span class="sec-label">作品紹介</span>
     <h2 class="sec-title-en slide-in">Hangar<span class="sec-title-ja">作品紹介</span></h2>
     <p class="sec-lead">トランジットWorksで生まれたオリジナル作品たち</p>
-    <div class="works-filter" id="worksFilter">
-      <button class="works-filter-btn active" type="button" data-filter="all">すべて</button>
-      <button class="works-filter-btn" type="button" data-filter="自主製品">自主製品</button>
-    </div>
     <div class="works-grid" id="worksGrid">
       <div class="works-card sa" data-category="自主製品"><div class="works-thumb"><img src="/images/works-aroma.jpg" alt="アロマ作品" width="1333" height="2000"></div><h3>アロマ作品</h3><p>アロマストーンやアロマワックスサシェなど、香りを楽しむハンドメイド作品。</p></div>
       <div class="works-card sa sa-d1" data-category="自主製品"><div class="works-thumb"><img src="/images/works-wood.jpg" alt="木工作品" width="2000" height="1333"></div><h3>木工作品</h3><p>木材を使ったロボット・一輪挿し・マグネットなど、手作りのオリジナル木工作品。</p></div>
@@ -902,39 +898,6 @@ function wireFaqFilter(){
 initFaqAccordion();
 wireFaqFilter();
 
-// === 10b. Works category filter ===
-(function(){
-  var tabs=document.querySelectorAll(".works-filter-btn");
-  var grid=document.getElementById("worksGrid");
-  if(!tabs.length||!grid)return;
-  function applyFilter(cat){
-    var cards=grid.querySelectorAll(".works-card");
-    cards.forEach(function(card){
-      var match=(cat==="all"||card.getAttribute("data-category")===cat);
-      if(match){
-        card.style.display="";
-        requestAnimationFrame(function(){card.classList.remove("hide")});
-      }else{
-        card.classList.add("hide");
-        setTimeout(function(){
-          if(card.classList.contains("hide"))card.style.display="none";
-        },320);
-      }
-    });
-  }
-  window.applyWorksFilter=function(){
-    var active=document.querySelector(".works-filter-btn.active");
-    if(active)applyFilter(active.getAttribute("data-filter"));
-  };
-  tabs.forEach(function(tab){
-    tab.addEventListener("click",function(){
-      tabs.forEach(function(t){t.classList.remove("active")});
-      tab.classList.add("active");
-      applyFilter(tab.getAttribute("data-filter"));
-    });
-  });
-})();
-
 // === 11. Flying plane ===
 (function(){
   var hero=document.querySelector(".hero");
@@ -1468,7 +1431,6 @@ async function loadCMSData(){
     const res=await fetch('/_data/works.json');
     const data=await res.json();
     renderWorksGrid(document.getElementById('worksGrid'),data.items);
-    if(window.applyWorksFilter)window.applyWorksFilter();
   }catch(e){}
 
   // 作品ギャラリー（Voyage）
