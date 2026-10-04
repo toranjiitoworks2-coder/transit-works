@@ -1012,7 +1012,6 @@ wireFaqFilter();
 // === 12. Count-up numbers ===
 (function(){
   var nums=document.querySelectorAll(".stat-num[data-count]");
-  if(!nums.length)return;
   var obs=new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if(!e.isIntersecting)return;
@@ -1031,6 +1030,7 @@ wireFaqFilter();
     });
   },{threshold:0.5});
   for(var i=0;i<nums.length;i++){obs.observe(nums[i])}
+  window.observeCountUp=function(el){obs.observe(el);}; // CMSで数値を差し替えた後にも使う
 })();
 
 // === 14. Hero parallax ===
@@ -1412,7 +1412,7 @@ async function loadCMSData(){
     if(data.rep4){var el=document.getElementById('cms-rep4');if(el)el.textContent=data.rep4;}
     if(data.rep_name){var el=document.getElementById('cms-rep-name');if(el)el.textContent=data.rep_name;}
     if(data.rep_photo){var el=document.getElementById('cms-rep-photo');if(el){setImgSrc(el,data.rep_photo);el.style.display='block';}}
-    // 統計値（数値部＋単位部に分解して既存デザインを維持。カウントアップ演出は静的値に置換）
+    // 統計値（数値部＋単位部に分解して既存デザインを維持。数字だけの値はその数値に向かってカウントアップ）
     [1,2,3,4].forEach(function(n){
       var v=data['stat'+n+'_value'],l=data['stat'+n+'_label'];
       if(v){
@@ -1420,8 +1420,17 @@ async function loadCMSData(){
         if(ev){
           var m=String(v).match(/^([0-9０-９:：〜～\.\-\/]+)([\s\S]*)$/);
           var num=m?m[1]:v,unit=m?m[2]:'';
+          var isCount=/^[0-9]+$/.test(num);
+          var old=ev.querySelector('.stat-num[data-count]');
           ev.innerHTML='';
-          var ns=document.createElement('span');ns.className='stat-num';ns.textContent=num;ev.appendChild(ns);
+          var ns;
+          if(isCount&&old&&old.getAttribute('data-count')===num){ns=old;} // 同じ数値なら、すでに始まっているカウントアップをそのまま使う
+          else{
+            ns=document.createElement('span');ns.className='stat-num';
+            if(isCount&&window.observeCountUp){ns.setAttribute('data-count',num);ns.textContent='0';window.observeCountUp(ns);}
+            else ns.textContent=num;
+          }
+          ev.appendChild(ns);
           if(unit){var us=document.createElement('span');us.className='stat-unit';us.textContent=unit;ev.appendChild(us);}
         }
       }
