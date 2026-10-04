@@ -45,8 +45,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <!-- オープニングの複葉機と雲を最優先で読み込む（「視差効果を減らす」設定の人はオープニングを出さないので読み込まない） -->
-<link rel="preload" as="image" href="/images/loading-plane.png" media="(prefers-reduced-motion: no-preference)">
-<link rel="preload" as="image" href="/images/loading-cloud.png" media="(prefers-reduced-motion: no-preference)">
+<link rel="preload" as="image" href="/images/loading-plane.png">
+<link rel="preload" as="image" href="/images/loading-cloud.png">
 
 <!-- 事業所情報の構造化データ（schema.org LocalBusiness / JSON-LD） -->
 <script type="application/ld+json">
@@ -87,7 +87,7 @@
 </head>
 <body>
 <a class="skip-link" href="#about">本文へスキップ</a>
-<script>/* 「視差効果を減らす」設定の人にはオープニングを出さないので、スクロールも固定しない */if(!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches))document.documentElement.classList.add("loading-lock");</script>
+<script>document.documentElement.classList.add("loading-lock");</script>
 
 <!-- ===== Loading Screen ===== -->
 <div id="loading">
@@ -599,7 +599,7 @@ var links=mobileNav.querySelectorAll("a");
 for(var i=0;i<links.length;i++){links[i].addEventListener("click",function(){hamburger.classList.remove("active");mobileNav.classList.remove("open")})}
 var observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add("visible")}})},{threshold:0.15});
 var fadeEls=document.querySelectorAll(".fade-in,.sa");
-for(var j=0;j<fadeEls.length;j++){if(prefersReducedMotion())fadeEls[j].classList.add("visible");else observer.observe(fadeEls[j])}
+for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])} // 「視差効果を減らす」設定の人は位置を動かさず透明から現れるだけ（style.css）
 
 // Hero text animation (fade-in)
 (function(){
@@ -613,11 +613,6 @@ for(var j=0;j<fadeEls.length;j++){if(prefersReducedMotion())fadeEls[j].classList
     // キャッチをフェードイン → 少し遅れてサブをフェードイン
     catch_el.classList.add("animate");
     setTimeout(function(){sub_el.classList.add("animate")},700);
-  }
-  if(prefersReducedMotion()){ // オープニングを出さず、すぐにサイトを開く
-    loadEl.classList.add("done","hidden");
-    startHeroAnim();
-    return;
   }
   var mo=new MutationObserver(function(){
     if(loadEl.classList.contains("done")){
@@ -760,7 +755,7 @@ function initHeroSlideshow(){
     if(dots[i])dots[i].classList.add("active");
   }
   function next(){go(i+1);}
-  function restart(){if(heroSlideTimer)clearInterval(heroSlideTimer);heroSlideTimer=prefersReducedMotion()?null:setInterval(next,3500);} // 設定オンなら自動で切り替えない
+  function restart(){if(heroSlideTimer)clearInterval(heroSlideTimer);heroSlideTimer=setInterval(next,3500);} // フェードで入れ替わるだけなので「視差効果を減らす」設定でも自動で切り替える
   restart();
 }
 window.initHeroSlideshow=initHeroSlideshow;
@@ -1018,10 +1013,6 @@ wireFaqFilter();
 (function(){
   var nums=document.querySelectorAll(".stat-num[data-count]");
   if(!nums.length)return;
-  if(prefersReducedMotion()){ // カウントアップせず最初から表示
-    for(var k=0;k<nums.length;k++)nums[k].textContent=nums[k].getAttribute("data-count");
-    return;
-  }
   var obs=new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if(!e.isIntersecting)return;

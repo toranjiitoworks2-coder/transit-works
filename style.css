@@ -868,12 +868,11 @@ html.loading-lock,html.loading-lock body{overflow:hidden}
 /* ロゴ専用：最終状態をやや控えめ（opacity:.88）に。KATANO,OSAKAには影響させない */
 @keyframes skywriteLogo{0%{opacity:0;filter:blur(8px)}100%{opacity:.88;filter:blur(0)}}
 @media (prefers-reduced-motion:reduce){
-  .loading-logo,.loading-sub{animation:none!important;opacity:1!important;filter:none!important}
-  /* 「視差効果を減らす」設定の人：オープニングと横切る飛行機は表示せず、動きを止めて最初から表示する */
-  #loading,.hero-flight{display:none!important}
+  /* 「視差効果を減らす」設定の人：やさしい動き（オープニング・写真のフェード・フェードイン・カウントアップ・SCROLL表示）は残し、
+     画面を横切る飛行機は表示せず、フェードインは位置を動かさず透明から現れるだけにする */
+  .hero-flight{display:none!important}
   html{scroll-behavior:auto!important}
-  .sa,.fade-in,.slide-in,.hero-catch,.hero-sub-copy{opacity:1!important;transform:none!important;transition:none!important}
-  .hero-scroll{animation:none!important;transform:translateX(-50%)!important}
+  .sa,.fade-in,.slide-in,.hero-catch,.hero-sub-copy{transform:none!important}
 }
 
 /* ===== Print ===== */
