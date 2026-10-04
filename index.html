@@ -166,10 +166,10 @@
 <!-- ===== Hero ===== -->
 <section class="hero">
   <div class="hero-slideshow" id="heroSlideshow">
-    <div class="hero-slide is-active" style="background-image:url('/images/hero-signage-vertical.jpg');background-image:image-set(url('/images/hero-signage-vertical.webp') type('image/webp'),url('/images/hero-signage-vertical.jpg') type('image/jpeg'))"></div>
-    <div class="hero-slide" style="background-image:url('/images/hero-pressed-flowers.jpg');background-image:image-set(url('/images/hero-pressed-flowers.webp') type('image/webp'),url('/images/hero-pressed-flowers.jpg') type('image/jpeg'))"></div>
-    <div class="hero-slide" style="background-image:url('/images/hero-robots-shelf.jpg');background-image:image-set(url('/images/hero-robots-shelf.webp') type('image/webp'),url('/images/hero-robots-shelf.jpg') type('image/jpeg'))"></div>
-    <div class="hero-slide" style="background-image:url('/images/hero-seesaw-bestfriend.jpg');background-image:image-set(url('/images/hero-seesaw-bestfriend.webp') type('image/webp'),url('/images/hero-seesaw-bestfriend.jpg') type('image/jpeg'))"></div>
+    <div class="hero-slide is-active" style="background-image:url('/images/hero-signage-vertical.jpg');background-image:image-set(url('/images/hero-signage-vertical.webp') type('image/webp'),url('/images/hero-signage-vertical.jpg') type('image/jpeg'));--m-pos:25%"></div>
+    <div class="hero-slide" style="background-image:url('/images/hero-pressed-flowers.jpg');background-image:image-set(url('/images/hero-pressed-flowers.webp') type('image/webp'),url('/images/hero-pressed-flowers.jpg') type('image/jpeg'));--m-pos:75%"></div>
+    <div class="hero-slide" style="background-image:url('/images/hero-robots-shelf.jpg');background-image:image-set(url('/images/hero-robots-shelf.webp') type('image/webp'),url('/images/hero-robots-shelf.jpg') type('image/jpeg'));--m-pos:25%"></div>
+    <div class="hero-slide m-contain" style="background-image:url('/images/hero-seesaw-bestfriend.jpg');background-image:image-set(url('/images/hero-seesaw-bestfriend.webp') type('image/webp'),url('/images/hero-seesaw-bestfriend.jpg') type('image/jpeg'))"></div>
     <div class="hero-slide" style="background-image:url('/images/hero-handmade-table.jpg');background-image:image-set(url('/images/hero-handmade-table.webp') type('image/webp'),url('/images/hero-handmade-table.jpg') type('image/jpeg'))"></div>
   </div>
   <div class="hero-overlay"></div>
@@ -574,6 +574,8 @@ function pictureHTML(src,imgAttrs){
   return w?'<picture><source type="image/webp" srcset="'+encodeURI(w)+'">'+img+'</picture>':img;
 }
 // 背景画像のstyle。WebP版があれば image-set で出し分け（未対応のブラウザは1つ目の指定を使う）
+// トップ写真をスマホで「画面いっぱい」にするときの、左右の切り取る位置
+var HERO_MOBILE_POS={'left':'0%','left-center':'25%','center':'50%','right-center':'75%','right':'100%'};
 function bgImageStyle(src){
   var s="background-image:url('"+src+"')";
   var w=webpOf(src);
@@ -1392,7 +1394,10 @@ async function loadCMSData(){
         show.innerHTML=heroSlides.map(function(s,i){
           var alt=(s.alt||'').replace(/"/g,'&quot;');
           var url=String(s.image).replace(/'/g,'%27');
-          return '<div class="hero-slide'+(i===0?' is-active':'')+'" role="img" aria-label="'+alt+'" style="'+bgImageStyle(url)+'"></div>';
+          // スマホでの表示方法（画面いっぱい／全体を表示）と、画面いっぱいのときの切り取る位置
+          var contain=s.mobile_fit==='contain';
+          var pos=HERO_MOBILE_POS[s.mobile_position]||'50%';
+          return '<div class="hero-slide'+(i===0?' is-active':'')+(contain?' m-contain':'')+'" role="img" aria-label="'+alt+'" style="'+bgImageStyle(url)+(contain?'':';--m-pos:'+pos)+'"></div>';
         }).join('');
         if(window.initHeroSlideshow)window.initHeroSlideshow();
       }

@@ -522,6 +522,14 @@ audio.song-media{display:none}
      高さはアドレスバーが隠れた状態(lvh)で画面下端まで埋め、
      下端寄りの要素はアドレスバー表示時(svh)でも隠れないよう差分だけ持ち上げる */
   .hero{height:100vh;height:100lvh;min-height:520px;margin-top:0;padding:0}
+  /* トップ写真のスマホ表示（写真ごとにCMSで選ぶ）
+     画面いっぱい：--m-pos で左右の切り取る位置を合わせる
+     全体を表示：写真全体を中央に出し、上下は同じ写真のぼかしで埋める */
+  .hero-slide{background-position:var(--m-pos,50%) 50%}
+  .hero-slide.m-contain{background-size:0 0;background-repeat:no-repeat;overflow:hidden}
+  .hero-slide.m-contain::before,.hero-slide.m-contain::after{content:"";position:absolute;background-image:inherit;background-repeat:no-repeat;background-position:center}
+  .hero-slide.m-contain::before{inset:-40px;background-size:cover;filter:blur(24px) brightness(.85)}
+  .hero-slide.m-contain::after{inset:0;background-size:contain}
   .hero-overlay{background:linear-gradient(to bottom,rgba(0,0,0,.31) 0%,rgba(0,0,0,.14) 34%,rgba(0,0,0,.18) 50%,rgba(0,0,0,.5) 66%,rgba(0,0,0,.58) 84%,rgba(0,0,0,.5) 100%)}
   .hero-plane{width:clamp(56px,calc(56px + (100vw - 320px) * .1),80px)}
   .hero-top{top:26%;gap:14px}

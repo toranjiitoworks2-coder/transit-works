@@ -83,6 +83,26 @@ collections:
             fields:
               - {label: "画像", name: "image", widget: "image", media_library: {config: {max_file_size: 10485760}}}
               - {label: "画像の代替テキスト", name: "alt", widget: "string", required: false}
+              - label: "スマホでの表示方法"
+                name: "mobile_fit"
+                widget: "select"
+                required: false
+                default: "cover"
+                options:
+                  - {label: "画面いっぱい", value: "cover"}
+                  - {label: "全体を表示（上下はぼかし）", value: "contain"}
+              - label: "スマホで切り取る位置"
+                name: "mobile_position"
+                widget: "select"
+                required: false
+                default: "center"
+                hint: "「画面いっぱい」のときに使います。写真の左右どこを中心に見せるかを選びます。"
+                options:
+                  - {label: "左端", value: "left"}
+                  - {label: "やや左", value: "left-center"}
+                  - {label: "中央", value: "center"}
+                  - {label: "やや右", value: "right-center"}
+                  - {label: "右端", value: "right"}
 
   # 活動内容
   - name: "activities"
