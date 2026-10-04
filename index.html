@@ -209,7 +209,7 @@
     </div>
     <div class="about-stats sa">
       <div class="stat">
-        <div class="stat-value" id="cms-stat1-value"><span class="stat-num" data-count="2025">0</span><span class="stat-unit">年4月1日</span></div>
+        <div class="stat-value" id="cms-stat1-value"><span class="stat-num" data-count="2025" data-count-from="2015">2015</span><span class="stat-unit">年4月1日</span></div>
         <span class="stat-label" id="cms-stat1-label">開所</span>
       </div>
       <div class="stat">
@@ -1018,12 +1018,13 @@ wireFaqFilter();
       obs.unobserve(e.target);
       var el=e.target;
       var target=parseInt(el.getAttribute("data-count"),10);
+      var from=parseInt(el.getAttribute("data-count-from")||"0",10); // 年号は10年前から数え上げる
       var duration=1500;
       var start=performance.now();
       function tick(now){
         var t=Math.min((now-start)/duration,1);
         var ease=1-Math.pow(1-t,3);
-        el.textContent=Math.round(target*ease);
+        el.textContent=Math.round(from+(target-from)*ease);
         if(t<1)requestAnimationFrame(tick);
       }
       requestAnimationFrame(tick);
@@ -1427,7 +1428,10 @@ async function loadCMSData(){
           if(isCount&&old&&old.getAttribute('data-count')===num){ns=old;} // 同じ数値なら、すでに始まっているカウントアップをそのまま使う
           else{
             ns=document.createElement('span');ns.className='stat-num';
-            if(isCount&&window.observeCountUp){ns.setAttribute('data-count',num);ns.textContent='0';window.observeCountUp(ns);}
+            if(isCount&&window.observeCountUp){
+              var from=/^年/.test(unit)?Math.max(0,parseInt(num,10)-10):0; // 年号（「2025年…」）は10年前から、それ以外は0から
+              ns.setAttribute('data-count',num);ns.setAttribute('data-count-from',from);ns.textContent=from;window.observeCountUp(ns);
+            }
             else ns.textContent=num;
           }
           ev.appendChild(ns);
