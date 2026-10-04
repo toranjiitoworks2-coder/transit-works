@@ -749,12 +749,37 @@ function initHeroSlideshow(){
       dots.push(dot);
     }
   }
+  // 新しい写真が出きるまで古い写真を下に表示したままにして、切り替えの途中で暗くならないようにする
+  var prevTimer=null,layer=2;
   function go(n){
-    slides[i].classList.remove("is-active");
+    var to=(n+slides.length)%slides.length;
+    if(to===i)return;
+    var cur=slides[i];
+    if(prevTimer){ // 切り替えの途中でもう一度切り替えたとき：今の見え方のまま止めて、その上に次の写真を重ねる
+      clearTimeout(prevTimer);
+      cur.style.opacity=getComputedStyle(cur).opacity;
+      cur.style.transition="none";
+    }
+    cur.style.zIndex=++layer;
+    cur.classList.add("is-prev");
+    cur.classList.remove("is-active");
     if(dots[i])dots[i].classList.remove("active");
-    i=(n+slides.length)%slides.length;
+    i=to;
+    slides[i].style.zIndex=++layer;
     slides[i].classList.add("is-active");
     if(dots[i])dots[i].classList.add("active");
+    prevTimer=setTimeout(function(){ // フェード（1.5秒）が終わったら、下に残した写真を片付ける
+      // 新しい写真で完全に隠れているので、残した写真はゆっくり消さずにすぐ消す（すぐ戻ったときに途中から出てこないように）
+      for(var k=0;k<slides.length;k++){
+        var sl=slides[k];
+        if(k!==i)sl.style.transition="none";
+        sl.classList.remove("is-prev");
+        sl.style.opacity="";sl.style.zIndex="";
+      }
+      void slides[i].offsetWidth;
+      for(var m=0;m<slides.length;m++)slides[m].style.transition="";
+      prevTimer=null;layer=2;
+    },1600);
   }
   function next(){go(i+1);}
   function restart(){if(heroSlideTimer)clearInterval(heroSlideTimer);heroSlideTimer=setInterval(next,3500);} // フェードで入れ替わるだけなので「視差効果を減らす」設定でも自動で切り替える
