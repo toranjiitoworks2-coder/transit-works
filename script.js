@@ -3,6 +3,8 @@
   const wrap = document.querySelector('.loading-plane-wrap');
   const canvas = document.getElementById('main-canvas');
   if(!wrap || !canvas) return;
+  // 同じ日の2回目以降はオープニングを省略する（index.html の最初で判定）
+  if(document.documentElement.classList.contains('opening-skip')) return;
 
   const ctx = canvas.getContext('2d');
   let startTime = null;

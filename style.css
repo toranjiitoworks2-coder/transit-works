@@ -851,6 +851,8 @@ audio.song-media{display:none}
 #loading{position:fixed;inset:0;z-index:9999;overflow:hidden;pointer-events:auto;opacity:1;transition:opacity .6s ease}
 #loading.done{opacity:0}
 html.loading-lock,html.loading-lock body{overflow:hidden}
+/* 同じ日の2回目以降：オープニングを省略 */
+html.opening-skip #loading{display:none!important}
 #loading .loading-panel{
   position:absolute;top:0;width:50%;height:100%;background:#0a0a0a;
   transition:transform .8s cubic-bezier(.77,0,.18,1);z-index:3;

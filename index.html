@@ -87,7 +87,7 @@
 </head>
 <body>
 <a class="skip-link" href="#about">本文へスキップ</a>
-<script>document.documentElement.classList.add("loading-lock");</script>
+<script>/* オープニングは1日1回。同じ日に2回目以降開いたときは省略する（日付はこの端末の中だけに保存） */(function(){var skip=false;try{var d=new Date(),day=d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();skip=localStorage.getItem("tw-opening-day")===day;if(!skip)localStorage.setItem("tw-opening-day",day);}catch(e){}document.documentElement.classList.add(skip?"opening-skip":"loading-lock");})();</script>
 
 <!-- ===== Loading Screen ===== -->
 <div id="loading">
@@ -617,6 +617,11 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])} // 「視差効�
     // キャッチをフェードイン → 少し遅れてサブをフェードイン
     catch_el.classList.add("animate");
     setTimeout(function(){sub_el.classList.add("animate")},700);
+  }
+  if(document.documentElement.classList.contains("opening-skip")){ // 同じ日の2回目以降：オープニングを出さずにすぐ開く
+    loadEl.classList.add("done","hidden");
+    startHeroAnim();
+    return;
   }
   var mo=new MutationObserver(function(){
     if(loadEl.classList.contains("done")){
