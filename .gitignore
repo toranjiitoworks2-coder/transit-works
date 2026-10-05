@@ -3,3 +3,11 @@
 
 # 未使用画像
 OIG3.jpg
+
+# 作りかけ・未使用のファイル（利用者さんの顔が写っている写真を含むため、リポジトリの外 C:\dev\transit-works-wip\ に保管）
+# 誤ってコミットされないように、元の場所に戻しても無視する
+work-gallery.html
+_data/gallery-work.json
+images/gallery-work/
+images/C24D0131-C762-4B8B-B556-8B26AFC33B90.jpeg
+music/Neon Rain Gold (1).mp3
