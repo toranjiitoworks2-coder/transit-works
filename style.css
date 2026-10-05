@@ -457,13 +457,13 @@ audio.song-media{display:none}
 .contact-form-wrapper iframe{
   display:block;
   width:100%;
-  height:900px;
+  height:1000px; /* PC：フォームの下端（Googleの注意書き）まで切れずに収まる高さ */
   border:0;
   background:#fff;
 }
 @media(max-width:768px){
   .contact-form-wrapper{margin-top:24px;border-radius:6px}
-  .contact-form-wrapper iframe{height:1200px}
+  .contact-form-wrapper iframe{height:1100px} /* スマホ：エラー表示が出ても収まり、下の空白が少ない高さ */
 }
 
 /* ===== Footer ===== */
