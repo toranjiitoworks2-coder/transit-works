@@ -1,0 +1,45 @@
+# サイトの内容（index.html・_data/）が更新されてプッシュされたら、sitemap.xml の最終更新日（lastmod）をその日付にしてコミットする
+# CMSでの保存もプッシュとして扱われるので、ここで自動更新される
+# 処理の中身は scripts/update_sitemap.py。このワークフローのコミットでは、ワークフローは再び動かない
+name: サイトマップの最終更新日を自動更新
+
+on:
+  push:
+    branches: [main]
+    paths: ["index.html", "_data/**"]
+  workflow_dispatch: # GitHubの画面から手動でも実行できる
+
+permissions:
+  contents: write
+
+concurrency: # 続けて保存した時は順番に処理する
+  group: update-sitemap
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 50 # 最後に内容を変更したコミットの日付を調べるため
+
+      - name: lastmod を更新
+        run: python3 scripts/update_sitemap.py
+
+      - name: 変更があればコミット
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml
+          if git diff --cached --quiet; then
+            echo "変更なし"
+            exit 0
+          fi
+          git commit -m "chore: sitemap.xml の最終更新日を自動更新"
+          # 処理中にCMSで別の保存があっても、最新を取り込んでから送る
+          for i in 1 2 3; do
+            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && exit 0
+            sleep 5
+          done
+          exit 1
