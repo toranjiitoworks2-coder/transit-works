@@ -363,6 +363,21 @@
   </div>
 </section>
 
+<!-- ===== Guide（ご利用案内。空欄の項目は表示しない） ===== -->
+<section class="section guide" id="guide">
+  <div class="container fade-in">
+    <span class="sec-label">ご利用案内</span>
+    <h2 class="sec-title-en slide-in">Guide<span class="sec-title-ja">ご利用案内</span></h2>
+    <p class="sec-lead">通う前に知っておきたいことをまとめました。くわしくはお気軽にお問い合わせください。</p>
+    <div class="guide-grid" id="guideGrid">
+      <div class="guide-item sa"><h3 class="guide-label">送迎</h3><p>送迎を行っています。送迎できる範囲に限りがありますので、まずはお気軽にご相談ください。</p></div>
+      <div class="guide-item sa sa-d1"><h3 class="guide-label">昼食</h3><p>1食540円（味噌汁付き）です。土曜日は昼食がありません。</p></div>
+    </div>
+    <div class="guide-schedule" id="guideSchedule" hidden></div>
+    <p class="guide-office" id="guideOffice" hidden></p>
+  </div>
+</section>
+
 <!-- ===== Flow ===== -->
 <section class="section flow" id="flow">
   <div class="container fade-in">
@@ -1693,6 +1708,31 @@ async function loadCMSData(){
       var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
       grid.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
     }
+  }catch(e){}
+
+  // ご利用案内（Guide）：空欄の項目は表示しない。すべて空欄ならセクションごと隠す
+  try{
+    const res=await fetch('/_data/guide.json');
+    const data=await res.json();
+    var sec=document.getElementById('guide');
+    var esc=function(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');};
+    var has=function(v){return v!=null&&String(v).trim()!=='';};
+    var ld=document.querySelector('#guide .sec-lead');
+    if(ld){ld.textContent=has(data.lead)?data.lead:'';ld.hidden=!has(data.lead);}
+    var cards=[['工賃',data.wage],['利用料',data.fee],['送迎',data.transport],['昼食',data.lunch],['通える地域',data.area]].filter(function(c){return has(c[1]);});
+    var grid=document.getElementById('guideGrid');
+    grid.innerHTML=cards.map(function(c,i){return '<div class="guide-item sa'+(i>0?' sa-d'+i:'')+'"><h3 class="guide-label">'+c[0]+'</h3><p>'+esc(String(c[1]).trim())+'</p></div>';}).join('');
+    grid.hidden=!cards.length;
+    var rows=(data.schedule||[]).filter(function(r){return r&&(has(r.time)||has(r.text));});
+    var sch=document.getElementById('guideSchedule');
+    sch.innerHTML=rows.length?'<h3 class="guide-label">1日の流れ</h3><ol class="guide-timeline">'+rows.map(function(r){return '<li><span class="guide-time">'+esc(r.time)+'</span><span class="guide-text">'+esc(r.text)+'</span></li>';}).join('')+'</ol>':'';
+    sch.hidden=!rows.length;
+    var off=document.getElementById('guideOffice');
+    off.textContent=has(data.office_number)?'事業所番号：'+String(data.office_number).trim():'';
+    off.hidden=!has(data.office_number);
+    if(sec)sec.hidden=!cards.length&&!rows.length&&!has(data.office_number);
+    var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
+    grid.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
   }catch(e){}
 
   // ご利用の流れ（Flow）

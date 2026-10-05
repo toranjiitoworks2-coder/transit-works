@@ -182,6 +182,30 @@ collections:
               - {label: "補足", name: "detail", widget: "string", required: false}
           - {label: "注記", name: "note", widget: "text"}
 
+  # ご利用案内（Guide）
+  - name: "guide"
+    label: "ご利用案内（Guide）"
+    files:
+      - name: "guide"
+        label: "ご利用案内"
+        file: "_data/guide.json"
+        fields:
+          - {label: "リード文", name: "lead", widget: "text", required: false}
+          - {label: "工賃", name: "wage", widget: "text", required: false, hint: "例：平均月額や時給の目安、支払い日など。空欄なら表示しません。"}
+          - {label: "利用料", name: "fee", widget: "text", required: false, hint: "例：自己負担の有無や目安。空欄なら表示しません。"}
+          - {label: "送迎", name: "transport", widget: "text", required: false, hint: "例：送迎の範囲・費用・時間帯。空欄なら表示しません。"}
+          - {label: "昼食", name: "lunch", widget: "text", required: false, hint: "空欄なら表示しません。"}
+          - {label: "通える地域", name: "area", widget: "text", required: false, hint: "例：交野市・枚方市など。空欄なら表示しません。"}
+          - label: "1日の流れ"
+            name: "schedule"
+            widget: "list"
+            required: false
+            hint: "1行ずつ時刻と内容を入れてください。1行もなければ表示しません。"
+            fields:
+              - {label: "時刻", name: "time", widget: "string", hint: "例：9:30"}
+              - {label: "内容", name: "text", widget: "string", hint: "例：朝礼・体調確認"}
+          - {label: "事業所番号", name: "office_number", widget: "string", required: false, hint: "空欄なら表示しません。"}
+
   # ご利用の流れ（Flow）
   - name: "flow"
     label: "ご利用の流れ（Flow）"
