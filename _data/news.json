@@ -44,11 +44,15 @@
     },
     {
       "date": "2026-09-26",
+      "end_date": "2026-09-27",
       "category": "NEWS",
       "title": "Love Kyotanabeに出店します",
       "pinned": false,
       "text": "フランチェ松井山手「Love Kyotanabe」に出店します(9/26土・27日)。  10:00〜16:00、木工クラフト製品のワークショップも行います。",
-      "image": "/images/news-love-kyotanabe.jpg"
+      "venue": "フランチェ松井山手",
+      "time": "10:00〜16:00",
+      "image": "/images/news-love-kyotanabe.jpg",
+      "alt": "9月の出店予定のチラシ。第16回 鎮魂か祭：2026年9月6日(日) 11:00〜19:00、二ノ宮神社。Love Kyotanabe：2026年9月26日(土)・27日(日) 10:00〜16:00、フランチェ松井山手。木工クラフト製品のワークショップあり。"
     },
     {
       "date": "2026-09-06",
@@ -56,7 +60,11 @@
       "title": "第16回 鎮魂か祭に出店します",
       "pinned": false,
       "text": "二ノ宮神社「第16回 鎮魂か祭」に出店します。  11:00〜19:00、木工クラフト製品のワークショップも行います。",
-      "image": "/images/news-chinkonka-matsuri-v2.jpg"
+      "venue": "二ノ宮神社",
+      "time": "11:00〜19:00",
+      "address": "枚方市船橋本町1丁目707",
+      "image": "/images/news-chinkonka-matsuri-v2.jpg",
+      "alt": "第16回 鎮魂か祭のチラシ。2026年9月6日(日) 11:00〜19:00、二ノ宮神社（枚方市船橋本町1丁目707）。入場無料、小雨決行（雨天中止）。"
     },
     {
       "date": "2026-08-22",
@@ -64,7 +72,10 @@
       "title": "つながる市に出店します",
       "pinned": false,
       "text": "無印良品 松井山手「つながる市」に出店します。  11:00〜17:00、木工クラフト製品のワークショップも行います。",
-      "image": "/images/news-tsunagaru-ichi.jpg"
+      "venue": "無印良品 松井山手",
+      "time": "11:00〜17:00",
+      "image": "/images/news-tsunagaru-ichi.jpg",
+      "alt": "8月の出店予定のチラシ。つながる市：8月22日(土) 11:00〜17:00、無印良品 松井山手。木工クラフト製品のワークショップも予定。"
     },
     {
       "date": "2025-06-01",

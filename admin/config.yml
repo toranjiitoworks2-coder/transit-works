@@ -26,13 +26,19 @@ collections:
             name: "items"
             widget: "list"
             fields:
-              - {label: "日付", name: "date", widget: "string"}
+              - {label: "日付", name: "date", widget: "string", hint: "例：2026-09-26（イベントは開催日。複数日のときは初日）"}
+              - {label: "終了日（複数日のイベントのとき）", name: "end_date", widget: "string", required: false, hint: "例：2026-09-27。1日だけのときは空欄にしてください。空欄なら、本文の「出店します（9/26土・27日）」の書き方から読み取ります。"}
               - {label: "カテゴリ", name: "category", widget: "select", options: ["NEWS", "イベント", "活動報告"]}
               - {label: "タイトル", name: "title", widget: "string", required: false}
               - {label: "固定表示（常に一番上に表示）", name: "pinned", widget: "boolean", default: false, required: false}
               - {label: "内容", name: "text", widget: "text"}
+              - {label: "会場", name: "venue", widget: "string", required: false, hint: "例：無印良品 松井山手。入力すると、カードと詳細に表示され、Google向けのイベント情報も作られます。"}
+              - {label: "時間", name: "time", widget: "string", required: false, hint: "例：10:00〜16:00（この形で書くと、Google向けのイベント情報に開始・終了の時刻も入ります）"}
+              - {label: "会場の住所", name: "address", widget: "string", required: false, hint: "例：大阪府枚方市船橋本町1丁目707（Googleの検索結果にイベントとして表示されるには、住所が必要です）"}
+              - {label: "会場の地図URL", name: "map_url", widget: "string", required: false, hint: "GoogleマップのURLを貼ってください。詳細に「地図を見る」ボタンが出ます。"}
+              - {label: "関連リンク", name: "link_url", widget: "string", required: false, hint: "主催者のページなどのURLを貼ってください。詳細に「関連リンク」ボタンが出ます。"}
               - {label: "画像", name: "image", widget: "image", required: false, media_library: {config: {max_file_size: 10485760}}}
-              - {label: "画像の代替テキスト", name: "alt", widget: "string", required: false}
+              - {label: "画像の代替テキスト", name: "alt", widget: "string", required: false, hint: "チラシの場合は、日時・会場など要点を入れてください（例：「つながる市 8月22日(土) 11:00〜17:00 無印良品 松井山手」）。目の見えにくい方の読み上げや、画像が表示できないときに使われます。"}
 
   # 施設紹介・代表メッセージ
   - name: "about"

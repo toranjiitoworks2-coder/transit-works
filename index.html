@@ -492,7 +492,9 @@
     <div class="news-modal-img" id="newsModalImgWrap"><img id="newsModalImg" src="" alt=""></div>
     <div class="news-modal-meta"><time id="newsModalDate"></time><span class="news-modal-cat" id="newsModalStatus" hidden></span><span class="news-modal-cat" id="newsModalCat"></span></div>
     <h3 class="news-modal-title" id="newsModalTitle"></h3>
+    <dl class="news-modal-event" id="newsModalEvent" hidden></dl>
     <p class="news-modal-desc" id="newsModalDesc"></p>
+    <div class="news-modal-links" id="newsModalLinks" hidden></div>
   </div>
 </div>
 
@@ -922,6 +924,58 @@ function initFaqAccordion(){
 }
 
 // faq.jsonの内容からFAQPage構造化データ(JSON-LD)を動的生成してheadに挿入
+// お知らせ：入力された文字を、そのまま文字として表示するための変換
+function newsEsc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+// お知らせ：http／https のURLだけを使う（それ以外はボタンにしない）
+function newsSafeUrl(v){
+  var s=String(v||'').trim();
+  if(!/^https?:\/\//i.test(s))return '';
+  try{return new URL(s).href;}catch(e){return '';}
+}
+// お知らせのうち、会場が入っているものを Google向けのイベント情報（構造化データ）にする（カテゴリは問わない）
+function injectEventJsonLd(entries){
+  var old=document.getElementById("event-jsonld");
+  if(old)old.remove();
+  function z(n){return (n<10?'0':'')+n;}
+  function ymd(d){return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate());}
+  var events=[];
+  (entries||[]).forEach(function(e){
+    var item=e.item;
+    if(!item.venue||!String(item.venue).trim())return;
+    var sd=String(item.date||'').trim().match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+    if(!sd)return;
+    var start=sd[1]+'-'+z(+sd[2])+'-'+z(+sd[3]);
+    var end=isNaN(e.end.getTime())?start:ymd(e.end);
+    // 時間が「10:00〜16:00」の形なら、開始・終了の時刻も入れる（全角の数字や記号も読む）
+    var t=String(item.time||'').replace(/[０-９：]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-0xFEE0);})
+      .match(/(\d{1,2}):(\d{2})\s*[〜~～\-－–―]\s*(\d{1,2}):(\d{2})/);
+    var place={"@type":"Place","name":String(item.venue).trim()};
+    if(item.address&&String(item.address).trim())place.address={"@type":"PostalAddress","streetAddress":String(item.address).trim(),"addressCountry":"JP"};
+    var map=newsSafeUrl(item.map_url);
+    if(map)place.hasMap=map;
+    var ev={
+      "@context":"https://schema.org",
+      "@type":"Event",
+      "name":e.name,
+      "startDate":t?start+'T'+z(+t[1])+':'+t[2]+':00+09:00':start,
+      "endDate":t?end+'T'+z(+t[3])+':'+t[4]+':00+09:00':end,
+      "eventStatus":"https://schema.org/EventScheduled",
+      "eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode",
+      "location":place
+    };
+    if(e.text)ev.description=e.text.replace(/\s+/g,' ').trim();
+    if(item.image)ev.image=[new URL(item.image,location.origin).href];
+    var link=newsSafeUrl(item.link_url);
+    if(link)ev.url=link;
+    events.push(ev);
+  });
+  if(!events.length)return;
+  var script=document.createElement("script");
+  script.type="application/ld+json";
+  script.id="event-jsonld";
+  script.textContent=JSON.stringify(events.length===1?events[0]:events);
+  document.head.appendChild(script);
+}
 function injectFaqJsonLd(items){
   if(!items||!items.length)return;
   var old=document.getElementById("faq-jsonld");
@@ -1293,6 +1347,18 @@ wireFaqFilter();
   var catEl=document.getElementById("newsModalCat");
   var titleEl=document.getElementById("newsModalTitle");
   var descEl=document.getElementById("newsModalDesc");
+  var eventEl=document.getElementById("newsModalEvent");
+  var linksEl=document.getElementById("newsModalLinks");
+  // 会場・住所・時間（入っているものだけ）と、地図・関連リンクのボタン
+  function fillEvent(item){
+    item=item||{};
+    var rows=[["会場",item.venue],["住所",item.address],["時間",item.time]].filter(function(r){return r[1]&&String(r[1]).trim();});
+    eventEl.innerHTML=rows.map(function(r){return '<div class="news-modal-event-row"><dt>'+r[0]+'</dt><dd>'+newsEsc(String(r[1]).trim())+'</dd></div>';}).join('');
+    eventEl.hidden=!rows.length;
+    var links=[[newsSafeUrl(item.map_url),"地図を見る"],[newsSafeUrl(item.link_url),"関連リンク"]].filter(function(l){return l[0];});
+    linksEl.innerHTML=links.map(function(l){return '<a class="news-modal-btn" href="'+newsEsc(l[0])+'" target="_blank" rel="noopener">'+l[1]+'<span aria-hidden="true">↗</span><span class="visually-hidden">（新しいタブで開きます）</span></a>';}).join('');
+    linksEl.hidden=!links.length;
+  }
   function openModal(card){
     var img=card.querySelector(".news-card-thumb img");
     if(img){
@@ -1315,6 +1381,7 @@ wireFaqFilter();
     catEl.textContent=cat?cat.textContent:"";
     titleEl.textContent=title?title.textContent:"";
     descEl.textContent=excerpt?excerpt.textContent:(title?title.textContent:"");
+    fillEvent((window.newsShownItems||[])[card.getAttribute("data-news-index")]);
     modal.classList.add("open");
     modal.setAttribute("aria-hidden","false");
     document.body.style.overflow="hidden";
@@ -1492,6 +1559,8 @@ async function loadCMSData(){
     if(list&&data.items&&data.items.length){
       // イベント開催日(複数日の場合は最終日)を取得し、過ぎていれば「出店します」を「出店しました」に変換
       function getEventEndDate(item){
+        var ed=String(item.end_date||'').trim().match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/); // 「終了日」の欄があればそれを使う
+        if(ed)return new Date(+ed[1],+ed[2]-1,+ed[3],23,59,59);
         var parts=(item.date||'').split('-');
         var year=parseInt(parts[0],10), month=parts[1]?parseInt(parts[1],10):null, day=parts[2]?parseInt(parts[2],10):null;
         var text=(item.title||'')+' '+(item.text||'');
@@ -1541,9 +1610,20 @@ async function loadCMSData(){
         var excerpt=(item.title&&content)?'<p class="news-card-excerpt">'+content+'</p>':''; // タイトルがある時のみ内容を本文表示
         var tp=splitTail(title);
         title=tp[1]?tp[0]+'<span class="sp-nowrap">'+tp[1]+'</span>':tp[0]; // 文末が1〜2文字だけ改行されないように
+        // 会場・時間（入っている方だけ表示）
+        var evParts=[];
+        if(item.venue&&String(item.venue).trim())evParts.push('<span class="news-card-ev"><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><span class="visually-hidden">会場：</span>'+newsEsc(String(item.venue).trim())+'</span>');
+        if(item.time&&String(item.time).trim())evParts.push('<span class="news-card-ev"><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm.5-13H11v6l5.2 3.1.8-1.3-4.5-2.7z"/></svg><span class="visually-hidden">時間：</span>'+newsEsc(String(item.time).trim())+'</span>');
+        var evBlock=evParts.length?'<p class="news-card-event">'+evParts.join('')+'</p>':'';
         var dateBlock=item.pinned===true?'<span class="news-card-cat news-card-status">受付中</span>':'<time>'+item.date+'</time>'; // 固定表示は日付の代わりに「受付中」
-        return '<a href="#" class="'+cardClass+'">'+thumbBlock+'<div class="news-card-body"><div class="news-card-meta">'+dateBlock+'<span class="news-card-cat">'+item.category+'</span></div><h3 class="news-card-title">'+title+'</h3>'+excerpt+'</div></a>';
+        return '<a href="#" class="'+cardClass+'" data-news-index="'+i+'">'+thumbBlock+'<div class="news-card-body"><div class="news-card-meta">'+dateBlock+'<span class="news-card-cat">'+item.category+'</span></div><h3 class="news-card-title">'+title+'</h3>'+evBlock+excerpt+'</div></a>';
       }).join('');
+      window.newsShownItems=shown; // 詳細（モーダル）で会場・地図などを表示するために使う
+      injectEventJsonLd(shown.map(function(item){
+        var endDate=getEventEndDate(item);
+        var isPast=!isNaN(endDate.getTime())&&endDate.getTime()<Date.now();
+        return {item:item,end:endDate,name:toPastTense(item.title||item.text||'',isPast),text:toPastTense(item.text||'',isPast)};
+      }));
       var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
       list.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
     }
