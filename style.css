@@ -896,13 +896,14 @@ html.loading-lock,html.loading-lock body{overflow:hidden}
   80%{transform:translateY(4px)}
   100%{transform:translateY(0)}
 }
-.loading-sub{display:flex;align-items:center;justify-content:center;gap:.9em;font-size:11px;letter-spacing:.4em;color:#fff;margin-top:14px;opacity:0;font-weight:300;filter:blur(8px);animation:skywrite 1.4s 2.3s ease-out forwards;will-change:opacity,filter}
+.loading-sub{display:flex;align-items:center;justify-content:center;white-space:nowrap;gap:.9em;font-size:11px;letter-spacing:.4em;color:#fff;margin-top:14px;opacity:0;font-weight:300;filter:blur(8px);animation:skywrite 1.4s 2.3s ease-out forwards;will-change:opacity,filter}
 .loading-sub::before,.loading-sub::after{content:"";width:28px;height:1px;background:rgba(255,255,255,.55);flex:none}
 /* ロゴの下の言葉「どこまでも遠く、どこまでも高く。」 */
 .loading-tagline{margin-top:20px;font-size:15px;font-weight:300;letter-spacing:.28em;padding-left:.28em;line-height:1.9;color:rgba(255,255,255,.92);white-space:nowrap;opacity:0;filter:blur(8px);animation:skywrite 1.4s 2s ease-out forwards;will-change:opacity,filter}
 .loading-tagline span{display:inline-block}
 .loading-tagline+.loading-sub{margin-top:12px;animation-delay:2.8s}
-@media(max-width:480px){.loading-tagline{font-size:13px;letter-spacing:.2em;padding-left:.2em;margin-top:16px}}
+/* スマホ：「どこまでも遠く、／どこまでも高く。」の2行にして、ロゴの幅に収める */
+@media(max-width:768px){.loading-tagline{font-size:min(13px,calc(38vw / 9.6));letter-spacing:.15em;padding-left:.15em;margin-top:14px;line-height:2}.loading-tagline span{display:block}}
 /* SKIP：画面の右下に小さく控えめに。押すか画面をタップするとすぐ開く */
 .loading-skip{position:absolute;right:max(20px,env(safe-area-inset-right));bottom:max(20px,env(safe-area-inset-bottom));z-index:6;display:flex;align-items:center;gap:10px;min-height:44px;padding:0 6px 0 10px;background:none;border:0;font-family:inherit;font-size:10px;font-weight:300;letter-spacing:.35em;color:rgba(255,255,255,.5);cursor:pointer;opacity:0;animation:loadFadeIn .8s .8s ease-out forwards;transition:color .3s ease}
 .loading-skip::before{content:"";width:18px;height:1px;background:currentColor;transition:width .3s ease}
