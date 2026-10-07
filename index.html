@@ -87,7 +87,8 @@
 </head>
 <body>
 <a class="skip-link" href="#about">本文へスキップ</a>
-<script>/* オープニングは1日1回。同じ日に2回目以降開いたときは省略する（日付はこの端末の中だけに保存） */(function(){var skip=false;try{var d=new Date(),day=d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();skip=localStorage.getItem("tw-opening-day")===day;if(!skip)localStorage.setItem("tw-opening-day",day);}catch(e){}document.documentElement.classList.add(skip?"opening-skip":"loading-lock");})();</script>
+<script>/* オープニング：新しく開いたとき（新しいタブ・ブラウザを開き直したとき）はフル、同じタブで再読み込みしたときは短縮版。
+   「このタブで一度見た」印は sessionStorage（タブを閉じると消える）に置く */(function(){var short=false;try{var nav=performance.getEntriesByType&&performance.getEntriesByType("navigation")[0];var reload=nav?nav.type==="reload":(performance.navigation&&performance.navigation.type===1);short=reload&&sessionStorage.getItem("tw-opening-seen")==="1";sessionStorage.setItem("tw-opening-seen","1");localStorage.removeItem("tw-opening-day");}catch(e){}var c=document.documentElement.classList;c.add("loading-lock");if(short)c.add("opening-short");})();</script>
 
 <!-- ===== Loading Screen ===== -->
 <div id="loading">
@@ -97,8 +98,10 @@
   <div class="loading-plane-wrap" style="display:none;z-index:5;"></div>
   <div class="loading-brand">
     <picture><source type="image/webp" srcset="/images/logo-hero-white.webp"><img src="/images/logo-hero-white.png" class="loading-logo" alt="トランジットWorks"></picture>
+    <p class="loading-tagline"><span>どこまでも遠く、</span><span>どこまでも高く。</span></p>
     <div class="loading-sub">KATANO, OSAKA</div>
   </div>
+  <button type="button" class="loading-skip" id="loadingSkip" aria-label="オープニングを飛ばしてサイトを開く">SKIP</button>
 </div>
 
 <!-- Page transition overlay (nav click) -->
@@ -633,16 +636,19 @@ for(var j=0;j<fadeEls.length;j++){observer.observe(fadeEls[j])} // 「視差効�
     catch_el.classList.add("animate");
     setTimeout(function(){sub_el.classList.add("animate")},700);
   }
-  if(document.documentElement.classList.contains("opening-skip")){ // 同じ日の2回目以降：オープニングを出さずにすぐ開く
-    loadEl.classList.add("done","hidden");
-    startHeroAnim();
-    return;
+  // SKIP ボタン、またはオープニング中の画面のどこかを押すと、すぐサイトを開く
+  function skipOpening(){
+    if(loadEl.classList.contains("done"))return;
+    loadEl.classList.add("skipped","done");
   }
+  loadEl.addEventListener("click",skipOpening);
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")skipOpening();});
   var mo=new MutationObserver(function(){
     if(loadEl.classList.contains("done")){
       mo.disconnect();
-      setTimeout(startHeroAnim,300);
-      setTimeout(function(){loadEl.classList.add("hidden")},1200);
+      var skipped=loadEl.classList.contains("skipped"); // SKIP したときは幕を速く開ける（style.css）
+      setTimeout(startHeroAnim,skipped?150:300);
+      setTimeout(function(){loadEl.classList.add("hidden")},skipped?700:1200);
     }
   });
   mo.observe(loadEl,{attributes:true,attributeFilter:["class"]});

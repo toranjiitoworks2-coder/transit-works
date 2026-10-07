@@ -3,12 +3,15 @@
   const wrap = document.querySelector('.loading-plane-wrap');
   const canvas = document.getElementById('main-canvas');
   if(!wrap || !canvas) return;
-  // 同じ日の2回目以降はオープニングを省略する（index.html の最初で判定）
-  if(document.documentElement.classList.contains('opening-skip')) return;
+  // 同じタブで再読み込みしたときは短縮版（index.html の最初で判定）
+  const SHORT = document.documentElement.classList.contains('opening-short');
+  const loadEl = document.getElementById('loading');
 
   const ctx = canvas.getContext('2d');
   let startTime = null;
-  const DURATION = 5000;
+  const DURATION = SHORT ? 1300 : 5000;
+  const FADE_IN  = SHORT ? 350 : 250;   // 複葉機がふわっと現れる時間（ミリ秒）
+  const FADE_OUT = SHORT ? 250 : 500;   // 消えていく時間（ミリ秒）
 
   function resize(){
     canvas.width  = window.innerWidth;
@@ -97,6 +100,7 @@
   }
 
   function animate(ts){
+    if(loadEl.classList.contains('done')) return; // SKIP されたら描くのをやめる
     if(!startTime) startTime = ts;
     const elapsed = ts - startTime;
     const t = Math.min(elapsed / DURATION, 1);
@@ -120,8 +124,8 @@
 
     // 飛行機をcanvasに直接描画（黒ピクセル透過済み）
     let opacity = 1;
-    if(t < 0.05) opacity = t / 0.05;
-    if(t > 0.9)  opacity = (1-t) / 0.1;
+    if(elapsed < FADE_IN) opacity = elapsed / FADE_IN;
+    if(elapsed > DURATION - FADE_OUT) opacity = Math.max(DURATION - elapsed, 0) / FADE_OUT;
 
     if(processedPlane){
       ctx.save();
@@ -136,8 +140,8 @@
       requestAnimationFrame(animate);
     } else {
       setTimeout(()=>{
-        document.getElementById('loading').classList.add('done');
-      }, 300);
+        loadEl.classList.add('done');
+      }, SHORT ? 100 : 300);
     }
   }
 
@@ -149,6 +153,6 @@
     setTimeout(()=>{
       window.__openingStarted = true; // 飛行中は index.html の安全装置が待つ
       requestAnimationFrame(animate);
-    }, 200);
+    }, SHORT ? 0 : 200);
   });
 })();

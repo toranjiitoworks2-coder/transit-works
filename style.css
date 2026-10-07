@@ -865,8 +865,6 @@ audio.song-media{display:none}
 #loading{position:fixed;inset:0;z-index:9999;overflow:hidden;pointer-events:auto;opacity:1;transition:opacity .6s ease}
 #loading.done{opacity:0}
 html.loading-lock,html.loading-lock body{overflow:hidden}
-/* 同じ日の2回目以降：オープニングを省略 */
-html.opening-skip #loading{display:none!important}
 #loading .loading-panel{
   position:absolute;top:0;width:50%;height:100%;background:#0a0a0a;
   transition:transform .8s cubic-bezier(.77,0,.18,1);z-index:3;
@@ -900,6 +898,26 @@ html.opening-skip #loading{display:none!important}
 }
 .loading-sub{display:flex;align-items:center;justify-content:center;gap:.9em;font-size:11px;letter-spacing:.4em;color:#fff;margin-top:14px;opacity:0;font-weight:300;filter:blur(8px);animation:skywrite 1.4s 2.3s ease-out forwards;will-change:opacity,filter}
 .loading-sub::before,.loading-sub::after{content:"";width:28px;height:1px;background:rgba(255,255,255,.55);flex:none}
+/* ロゴの下の言葉「どこまでも遠く、どこまでも高く。」 */
+.loading-tagline{margin-top:20px;font-size:15px;font-weight:300;letter-spacing:.28em;padding-left:.28em;line-height:1.9;color:rgba(255,255,255,.92);white-space:nowrap;opacity:0;filter:blur(8px);animation:skywrite 1.4s 2s ease-out forwards;will-change:opacity,filter}
+.loading-tagline span{display:inline-block}
+.loading-tagline+.loading-sub{margin-top:12px;animation-delay:2.8s}
+@media(max-width:480px){.loading-tagline{font-size:13px;letter-spacing:.2em;padding-left:.2em;margin-top:16px}}
+/* SKIP：画面の右下に小さく控えめに。押すか画面をタップするとすぐ開く */
+.loading-skip{position:absolute;right:max(20px,env(safe-area-inset-right));bottom:max(20px,env(safe-area-inset-bottom));z-index:6;display:flex;align-items:center;gap:10px;min-height:44px;padding:0 6px 0 10px;background:none;border:0;font-family:inherit;font-size:10px;font-weight:300;letter-spacing:.35em;color:rgba(255,255,255,.5);cursor:pointer;opacity:0;animation:loadFadeIn .8s .8s ease-out forwards;transition:color .3s ease}
+.loading-skip::before{content:"";width:18px;height:1px;background:currentColor;transition:width .3s ease}
+.loading-skip:hover,.loading-skip:focus-visible{color:rgba(255,255,255,.9)}
+.loading-skip:hover::before{width:28px}
+.loading-skip:focus-visible{outline:1px solid rgba(255,255,255,.6);outline-offset:2px}
+#loading.done .loading-skip{opacity:0;animation:none;transition:opacity .3s ease}
+/* 同じタブで再読み込みしたとき：短縮版（約1.5秒）。文字はすぐに出す */
+html.opening-short .loading-logo{animation-duration:.6s;animation-delay:.05s}
+html.opening-short .loading-tagline{animation-duration:.6s;animation-delay:.3s}
+html.opening-short .loading-tagline+.loading-sub{animation-duration:.6s;animation-delay:.5s}
+html.opening-short .loading-skip{animation-duration:.4s;animation-delay:.2s}
+/* SKIP したとき：幕を速く開ける */
+#loading.skipped .loading-panel{transition-duration:.5s}
+#loading.skipped .loading-brand,#loading.skipped canvas{transition-duration:.25s}
 .loading-plane-wrap{position:absolute;top:0;left:0;opacity:0;will-change:transform,opacity;z-index:1;display:none}
 @keyframes loadFadeIn{from{opacity:0}to{opacity:1}}
 /* スカイライティング風リビール：煙が晴れて文字がにじみ出る */
