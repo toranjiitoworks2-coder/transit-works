@@ -49,7 +49,7 @@
 <link rel="preload" as="image" href="/images/loading-cloud.png">
 
 <!-- 事業所情報の構造化データ（schema.org LocalBusiness / JSON-LD） -->
-<script type="application/ld+json">
+<script type="application/ld+json" id="ld-business">
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
@@ -66,6 +66,17 @@
     "postalCode": "576-0066",
     "addressCountry": "JP"
   },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 34.78969322384322,
+    "longitude": 135.68901823265415
+  },
+  "hasMap": "https://www.google.com/maps?q=34.78969322384322,135.68901823265415",
+  "additionalProperty": [
+    {"@type": "PropertyValue", "name": "電車でお越しの方", "value": "京阪交野線「交野市駅」から徒歩約21分"},
+    {"@type": "PropertyValue", "name": "電車でお越しの方", "value": "JR学研都市線「河内磐船駅」から徒歩約26分"},
+    {"@type": "PropertyValue", "name": "バスでお越しの方", "value": "京阪交野市駅から京阪バス「津田香里線」（津田駅行）で「幾野一丁目」下車、徒歩約11分"}
+  ],
   "openingHoursSpecification": [
     {
       "@type": "OpeningHoursSpecification",
@@ -1858,6 +1869,16 @@ async function loadCMSData(){
         });
         rrow.hidden=!rbox.children.length;
       }
+      // 構造化データ（検索サイト向けの事業所情報）の行き方も、CMSの内容にそろえる
+      var ld=document.getElementById('ld-business');
+      if(ld){try{
+        var biz=JSON.parse(ld.textContent),props=[];
+        [['電車でお越しの方',data.access_train],['バスでお越しの方',data.access_bus]].forEach(function(g){
+          (g[1]||[]).forEach(function(t){if(t&&String(t).trim())props.push({"@type":"PropertyValue","name":g[0],"value":String(t).trim()});});
+        });
+        if(props.length)biz.additionalProperty=props;else delete biz.additionalProperty;
+        ld.textContent=JSON.stringify(biz,null,2);
+      }catch(e){}}
     }
     if(data.phone){var el=document.getElementById('cms-phone');if(el){el.textContent=data.phone;el.href='tel:'+data.phone.replace(/[^0-9]/g,'');}}
     if(data.contact_lead){var cl=document.querySelector('#contact .sec-lead');if(cl)cl.textContent=data.contact_lead;}
