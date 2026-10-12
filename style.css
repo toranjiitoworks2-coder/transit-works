@@ -492,6 +492,8 @@ audio.song-media{display:none}
 .footer-info a:hover{color:#fff}
 .footer-note{font-size:.68rem;color:rgba(255,255,255,.7);margin-left:6px}
 .footer-label{display:inline-block;width:5.5em}
+/* 利用時間：「（月〜金）」「※昼食の…」などのまとまりの途中では改行しない */
+.hours-chunk{white-space:nowrap}
 .footer-social{display:flex;gap:12px}
 .footer-social a{
   width:40px;height:40px;border-radius:50%;
@@ -616,6 +618,7 @@ audio.song-media{display:none}
   .footer{padding:48px 0 0}
   .footer-grid{grid-template-columns:1fr;gap:32px;text-align:center}
   .footer-info{margin-bottom:20px}
+  .footer-label:empty{display:none} /* 中央そろえなので、2行目の字下げ用の空欄は使わない */
   .footer-social{justify-content:center}
   .footer-right{justify-content:center;gap:24px}
   .footer-nav-col{align-items:center;gap:20px}

@@ -463,7 +463,7 @@
         <div class="access-row"><div class="access-th">事業所名</div><div class="access-td" id="cms-name">トランジットWorks</div></div>
         <div class="access-row"><div class="access-th">種別</div><div class="access-td" id="cms-facility-type">就労継続支援B型</div></div>
         <div class="access-row"><div class="access-th">所在地</div><div class="access-td" id="cms-address">大阪府交野市青山3丁目17-2</div></div>
-        <div class="access-row"><div class="access-th">利用時間</div><div class="access-td"><span id="cms-hours-weekday">9:30〜15:30（月〜金）</span><br><span id="cms-hours-saturday">9:30〜12:00（第2・第4土曜、祝日）<span class="sp-nowrap">※昼食なし</span></span></div></div>
+        <div class="access-row"><div class="access-th">利用時間</div><div class="access-td"><span id="cms-hours-weekday"><span class="hours-chunk">9:30〜15:30</span><span class="hours-chunk">（月〜金）</span><span class="hours-chunk">昼食あり</span><span class="hours-chunk">（1食540円・味噌汁付き）</span></span><br><span id="cms-hours-saturday"><span class="hours-chunk">9:30〜12:00</span><span class="hours-chunk">（第2・第4土曜、祝日）</span><span class="hours-chunk">※昼食の提供はありません</span></span></div></div>
         <div class="access-row"><div class="access-th">休業日</div><div class="access-td" id="cms-closed">日曜・第1土曜・第3土曜</div></div>
         <div class="access-row"><div class="access-th">電話</div><div class="access-td"><a href="tel:0728607737" id="cms-phone">０７２－８６０－７７３７</a></div></div>
       </div>
@@ -545,7 +545,7 @@
         <div class="footer-info">
           <p>大阪府交野市青山3丁目17-2</p>
           <p><a href="tel:0728607737">072-860-7737</a><span class="footer-note">（受付時間 8:30〜17:30）</span></p>
-          <p><span class="footer-label">利用時間：</span>9:30〜15:30（月〜金）<br><span class="footer-label"></span>9:30〜12:00（第2・第4土曜・祝日）<span class="sp-nowrap">※昼食なし</span></p>
+          <p><span class="footer-label">利用時間：</span><span id="cms-footer-hours-weekday"><span class="hours-chunk">9:30〜15:30</span><span class="hours-chunk">（月〜金）</span><span class="hours-chunk">昼食あり</span><span class="hours-chunk">（1食540円・味噌汁付き）</span></span><br><span class="footer-label"></span><span id="cms-footer-hours-saturday"><span class="hours-chunk">9:30〜12:00</span><span class="hours-chunk">（第2・第4土曜、祝日）</span><span class="hours-chunk">※昼食の提供はありません</span></span></p>
           <p><span class="footer-label">休 業 日：</span>日曜・第1土曜・第3土曜</p>
         </div>
         <div class="footer-social">
@@ -1482,6 +1482,14 @@ async function loadCMSData(){
     if(text.length>6)return [text.slice(0,-6),text.slice(-6)];
     return [text,''];
   }
+  // 「（」の前・「）」の後・「※」の前で区切り、まとまりごとに途中で折り返さないspan（hours-chunk）で包む
+  function setChunksNowrap(el,text){
+    el.textContent='';
+    text.replace(/）/g,'）\n').replace(/([^\n])(?=[（※])/g,'$1\n').split('\n').forEach(function(t){
+      if(!t)return;
+      var s=document.createElement('span');s.className='hours-chunk';s.textContent=t;el.appendChild(s);
+    });
+  }
   function setTailNowrap(el,text){
     var p=splitTail(text);
     el.textContent=p[0];
@@ -1791,8 +1799,9 @@ async function loadCMSData(){
     const data=await res.json();
     if(data.name){var el=document.getElementById('cms-name');if(el)el.textContent=data.name;}
     if(data.address){var el=document.getElementById('cms-address');if(el)el.textContent=data.address;}
-    if(data.hours_weekday){var el=document.getElementById('cms-hours-weekday');if(el)el.textContent=data.hours_weekday;}
-    if(data.hours_saturday){var el=document.getElementById('cms-hours-saturday');if(el)setTailNowrap(el,data.hours_saturday);}
+    // 利用時間：アクセス欄とフッターの両方に反映（括弧・※の前後で区切り、そのまとまりの途中では改行しない）
+    if(data.hours_weekday){['cms-hours-weekday','cms-footer-hours-weekday'].forEach(function(id){var el=document.getElementById(id);if(el)setChunksNowrap(el,data.hours_weekday);});}
+    if(data.hours_saturday){['cms-hours-saturday','cms-footer-hours-saturday'].forEach(function(id){var el=document.getElementById(id);if(el)setChunksNowrap(el,data.hours_saturday);});}
     if(data.closed){var el=document.getElementById('cms-closed');if(el)el.textContent=data.closed;}
     if(data.phone){var el=document.getElementById('cms-phone');if(el){el.textContent=data.phone;el.href='tel:'+data.phone.replace(/[^0-9]/g,'');}}
     if(data.contact_lead){var cl=document.querySelector('#contact .sec-lead');if(cl)cl.textContent=data.contact_lead;}
