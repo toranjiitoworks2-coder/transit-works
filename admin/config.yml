@@ -252,6 +252,8 @@ collections:
           - {label: "利用時間（平日）", name: "hours_weekday", widget: "string"}
           - {label: "利用時間（土曜）", name: "hours_saturday", widget: "string"}
           - {label: "休業日", name: "closed", widget: "string"}
+          - {label: "交通：電車でお越しの方", name: "access_train", widget: "list", required: false, field: {label: "行き方（例：京阪交野線「交野市駅」から徒歩約21分）", name: "route", widget: "string"}, hint: "1行に1つの行き方。空にするとアクセス欄に出ません。"}
+          - {label: "交通：バスでお越しの方", name: "access_bus", widget: "list", required: false, field: {label: "行き方（例：京阪交野市駅から京阪バス「津田香里線」で「幾野一丁目」下車、徒歩約11分）", name: "route", widget: "string"}, hint: "1行に1つの行き方。空にするとアクセス欄に出ません。"}
           - {label: "お問い合わせ リード文", name: "contact_lead", widget: "text"}
           - {label: "お問い合わせ 注記", name: "contact_note", widget: "text"}
           - {label: "施設種別（例：就労継続支援B型）", name: "facility_type", widget: "string"}

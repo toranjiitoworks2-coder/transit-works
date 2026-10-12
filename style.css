@@ -450,6 +450,14 @@ audio.song-media{display:none}
 .access-row{display:flex;gap:24px;padding:16px 0;border-bottom:1px solid var(--border)}
 .access-th{min-width:80px;font-size:.72rem;font-weight:500;color:var(--green);letter-spacing:.04em;padding-top:2px}
 .access-td{font-size:.88rem;color:var(--text)}
+/* 交通（電車・バスでの行き方） */
+.access-row[hidden]{display:none}
+.access-route+.access-route{margin-top:12px}
+.access-route-label{font-size:.78rem;font-weight:500;color:var(--text-sub);margin-bottom:2px}
+.access-route-list{margin:0;padding:0}
+.access-route-list li{position:relative;padding-left:1em}
+.access-route-list li::before{content:"・";position:absolute;left:0}
+.route-chunk{white-space:nowrap} /* 「「交野市駅」から」などのまとまりの途中では改行しない */
 .access-map{border-radius:8px;overflow:hidden}
 .access-map iframe{display:block;border-radius:8px}
 

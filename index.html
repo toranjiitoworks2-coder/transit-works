@@ -463,6 +463,7 @@
         <div class="access-row"><div class="access-th">事業所名</div><div class="access-td" id="cms-name">トランジットWorks</div></div>
         <div class="access-row"><div class="access-th">種別</div><div class="access-td" id="cms-facility-type">就労継続支援B型</div></div>
         <div class="access-row"><div class="access-th">所在地</div><div class="access-td" id="cms-address">大阪府交野市青山3丁目17-2</div></div>
+        <div class="access-row" id="cms-access-routes-row"><div class="access-th">交通</div><div class="access-td" id="cms-access-routes"><div class="access-route"><p class="access-route-label">電車でお越しの方</p><ul class="access-route-list"><li><span class="route-chunk">京阪交野線</span><span class="route-chunk">「交野市駅」から</span><span class="route-chunk">徒歩約21分</span></li><li><span class="route-chunk">JR学研都市線</span><span class="route-chunk">「河内磐船駅」から</span><span class="route-chunk">徒歩約26分</span></li></ul></div><div class="access-route"><p class="access-route-label">バスでお越しの方</p><ul class="access-route-list"><li><span class="route-chunk">京阪交野市駅から</span><span class="route-chunk">京阪バス</span><span class="route-chunk">「津田香里線」</span><span class="route-chunk">（津田駅行）で</span><span class="route-chunk">「幾野一丁目」下車、</span><span class="route-chunk">徒歩約11分</span></li></ul></div></div></div>
         <div class="access-row"><div class="access-th">利用時間</div><div class="access-td"><span id="cms-hours-weekday"><span class="hours-chunk">9:30〜15:30</span><span class="hours-chunk">（月〜金）</span><span class="hours-chunk">昼食あり</span><span class="hours-chunk">（1食540円・味噌汁付き）</span></span><br><span id="cms-hours-saturday"><span class="hours-chunk">9:30〜12:00</span><span class="hours-chunk">（第2・第4土曜、祝日）</span><span class="hours-chunk">※昼食の提供はありません</span></span></div></div>
         <div class="access-row"><div class="access-th">休業日</div><div class="access-td" id="cms-closed">日曜・第1土曜・第3土曜</div></div>
         <div class="access-row"><div class="access-th">電話</div><div class="access-td"><a href="tel:0728607737" id="cms-phone">０７２－８６０－７７３７</a></div></div>
@@ -1516,6 +1517,14 @@ async function loadCMSData(){
       var s=document.createElement('span');s.className='hours-chunk';s.textContent=t;el.appendChild(s);
     });
   }
+  // 行き方の文を「、」「から」の後・「「」「（」の前で区切り、まとまりごとに途中で折り返さないspan（route-chunk）で包む
+  function setRouteChunks(el,text){
+    el.textContent='';
+    text.replace(/(、|から)/g,'$1\n').replace(/([^\n])(?=[「（])/g,'$1\n').split('\n').forEach(function(t){
+      if(!t)return;
+      var s=document.createElement('span');s.className='route-chunk';s.textContent=t;el.appendChild(s);
+    });
+  }
   function setTailNowrap(el,text){
     var p=splitTail(text);
     el.textContent=p[0];
@@ -1833,6 +1842,23 @@ async function loadCMSData(){
     if(data.hours_weekday){['cms-hours-weekday','cms-footer-hours-weekday'].forEach(function(id){var el=document.getElementById(id);if(el)setChunksNowrap(el,data.hours_weekday);});}
     if(data.hours_saturday){['cms-hours-saturday','cms-footer-hours-saturday'].forEach(function(id){var el=document.getElementById(id);if(el)setChunksNowrap(el,data.hours_saturday);});}
     if(data.closed){var el=document.getElementById('cms-closed');if(el)el.textContent=data.closed;}
+    // 交通（電車・バス）：CMSのリストから表示。どちらも空なら行ごと隠す
+    if(Array.isArray(data.access_train)||Array.isArray(data.access_bus)){
+      var rbox=document.getElementById('cms-access-routes'),rrow=document.getElementById('cms-access-routes-row');
+      if(rbox&&rrow){
+        rbox.textContent='';
+        [['電車でお越しの方',data.access_train],['バスでお越しの方',data.access_bus]].forEach(function(g){
+          var items=(g[1]||[]).filter(function(t){return t&&String(t).trim();});
+          if(!items.length)return;
+          var wrap=document.createElement('div');wrap.className='access-route';
+          var lb=document.createElement('p');lb.className='access-route-label';lb.textContent=g[0];wrap.appendChild(lb);
+          var ul=document.createElement('ul');ul.className='access-route-list';
+          items.forEach(function(t){var li=document.createElement('li');setRouteChunks(li,String(t).trim());ul.appendChild(li);});
+          wrap.appendChild(ul);rbox.appendChild(wrap);
+        });
+        rrow.hidden=!rbox.children.length;
+      }
+    }
     if(data.phone){var el=document.getElementById('cms-phone');if(el){el.textContent=data.phone;el.href='tel:'+data.phone.replace(/[^0-9]/g,'');}}
     if(data.contact_lead){var cl=document.querySelector('#contact .sec-lead');if(cl)cl.textContent=data.contact_lead;}
     if(data.contact_note){var cn=document.querySelector('#contact .contact-note');if(cn)cn.textContent=data.contact_note;}
