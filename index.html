@@ -374,7 +374,7 @@
     <p class="sec-lead">通う前に知っておきたいことをまとめました。くわしくはお気軽にお問い合わせください。</p>
     <div class="guide-grid" id="guideGrid">
       <div class="guide-item sa"><h3 class="guide-label">送迎</h3><p>送迎を行っています。送迎できる範囲に限りがありますので、まずはお気軽にご相談ください。</p></div>
-      <div class="guide-item sa sa-d1"><h3 class="guide-label">昼食</h3><p>1食540円（味噌汁付き）です。土曜日は昼食がありません。</p></div>
+      <div class="guide-item sa sa-d1"><h3 class="guide-label">昼食</h3><p>平日は昼食があります（1食540円・味噌汁付き）。土曜・祝日は昼食の提供はありません。</p></div>
     </div>
     <div class="guide-schedule" id="guideSchedule" hidden></div>
     <p class="guide-office" id="guideOffice" hidden></p>
@@ -435,7 +435,7 @@
       </div>
       <div class="faq-item sa sa-d6" data-category="施設・サービスについて">
         <button class="faq-q" aria-expanded="false">昼食はありますか？<span class="faq-icon"></span></button>
-        <div class="faq-a"><p>はい、昼食の提供を行っております。1食540円（味噌汁付き）で、業者委託の冷凍弁当をご用意しています。</p></div>
+        <div class="faq-a"><p>平日は昼食があります（1食540円・味噌汁付き）。業者委託の冷凍弁当をご用意しています。土曜・祝日は昼食の提供はありません。</p></div>
       </div>
       <div class="faq-item sa sa-d7" data-category="工賃について">
         <button class="faq-q" aria-expanded="false">工賃の支払い時期はいつですか？<span class="faq-icon"></span></button>
@@ -1737,6 +1737,8 @@ async function loadCMSData(){
     var grid=document.getElementById('guideGrid');
     grid.innerHTML=cards.map(function(c,i){return '<div class="guide-item sa'+(i>0?' sa-d'+i:'')+'"><h3 class="guide-label">'+c[0]+'</h3><p>'+esc(String(c[1]).trim())+'</p></div>';}).join('');
     grid.hidden=!cards.length;
+    // 文末が1〜2文字だけ改行されないように
+    grid.querySelectorAll('.guide-item p').forEach(function(p){if(!p.children.length&&p.textContent.trim())setTailNowrap(p,p.textContent);});
     var rows=(data.schedule||[]).filter(function(r){return r&&(has(r.time)||has(r.text));});
     var sch=document.getElementById('guideSchedule');
     sch.innerHTML=rows.length?'<h3 class="guide-label">1日の流れ</h3><ol class="guide-timeline">'+rows.map(function(r){return '<li><span class="guide-time">'+esc(r.time)+'</span><span class="guide-text">'+esc(r.text)+'</span></li>';}).join('')+'</ol>':'';
@@ -1785,6 +1787,8 @@ async function loadCMSData(){
         var cat=(item.category||'').replace(/"/g,'&quot;');
         return '<div class="faq-item sa'+(i>0?' sa-d'+(i%9):'')+'" data-category="'+cat+'"><button class="faq-q" aria-expanded="false">'+item.question+'<span class="faq-icon"></span></button><div class="faq-a"><p>'+item.answer+'</p></div></div>';
       }).join('');
+      // 答えの文末が1〜2文字だけ改行されないように
+      list.querySelectorAll('.faq-a p').forEach(function(p){if(!p.children.length&&p.textContent.trim())setTailNowrap(p,p.textContent);});
       initFaqAccordion();
       wireFaqFilter(); // 再生成したタブに配線（カテゴリタブのフィルタ動作）
       var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible")})},{threshold:0.15});
