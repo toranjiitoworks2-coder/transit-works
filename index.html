@@ -1528,6 +1528,60 @@ async function loadCMSData(){
       var s=document.createElement('span');s.className='hours-chunk';s.textContent=t;el.appendChild(s);
     });
   }
+  // 構造化データ（検索サイト向けの事業所情報）を、CMSの「基本情報」の値で上書きする
+  // 読み取れない値・空の値は上書きせず、HTMLに書いてある固定の内容をそのまま使う
+  function updateBusinessLd(data){
+    var ld=document.getElementById('ld-business');
+    if(!ld||!data)return;
+    var biz;
+    try{biz=JSON.parse(ld.textContent);}catch(e){return;}
+    var str=function(v){return v==null?'':String(v).trim();};
+    // 全角の数字・記号を半角に（「０７２－８６０」→「072-860」）
+    var half=function(t){return t.replace(/[０-９]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-0xFEE0);}).replace(/[－‐―ー−]/g,'-').replace(/[：]/g,':');};
+    // 電話番号：「072-860-7737」→「+81-72-860-7737」
+    var tel=half(str(data.phone)).replace(/\s/g,'');
+    if(/^0\d[\d-]{7,}$/.test(tel)&&tel.replace(/\D/g,'').length>=10)biz.telephone='+81-'+tel.slice(1);
+    // 住所：「大阪府交野市青山3丁目17-2」→ 都道府県・市区町村・それより後
+    var am=str(data.address).match(/^(東京都|北海道|(?:京都|大阪)府|.{2,3}県)(.+?[市区町村])(.+)$/);
+    if(am&&biz.address){
+      biz.address.addressRegion=am[1];
+      biz.address.addressLocality=am[2];
+      biz.address.streetAddress=am[3].trim();
+    }
+    var zip=half(str(data.postal_code)).replace(/^〒/,'');
+    if(biz.address&&/^\d{3}-?\d{4}$/.test(zip))biz.address.postalCode=zip.replace(/^(\d{3})-?(\d{4})$/,'$1-$2');
+    // 営業時間：「9:30〜15:30（月〜金）…」から開始・終了時刻と曜日を読み取る
+    var DAYS={'月':'Monday','火':'Tuesday','水':'Wednesday','木':'Thursday','金':'Friday','土':'Saturday','日':'Sunday'},ORDER='月火水木金土日';
+    var readTime=function(t){
+      var m=half(t).match(/(\d{1,2}):(\d{2})\s*[〜~～-]\s*(\d{1,2}):(\d{2})/);
+      if(!m)return null;
+      var pad=function(h){return (h.length<2?'0':'')+h;};
+      return {opens:pad(m[1])+':'+m[2],closes:pad(m[3])+':'+m[4]};
+    };
+    var spec=biz.openingHoursSpecification||[];
+    var wd=str(data.hours_weekday),sa=str(data.hours_saturday);
+    if(spec[0]&&wd){
+      var t1=readTime(wd);
+      if(t1){spec[0].opens=t1.opens;spec[0].closes=t1.closes;}
+      var dm=wd.match(/([月火水木金土日])[〜~～\-－]([月火水木金土日])/);
+      if(dm){var a=ORDER.indexOf(dm[1]),b=ORDER.indexOf(dm[2]);if(a<=b)spec[0].dayOfWeek=ORDER.slice(a,b+1).split('').map(function(c){return DAYS[c];});}
+    }
+    if(spec[1]&&sa){
+      var t2=readTime(sa);
+      if(t2){spec[1].opens=t2.opens;spec[1].closes=t2.closes;}
+      var pm=sa.match(/（([^）]+)）/);
+      if(pm)spec[1].description=/のみ$/.test(pm[1])?pm[1]:pm[1]+'のみ';
+    }
+    // 行き方（交通）：CMSのリストがあるときだけ、その内容にそろえる
+    if(Array.isArray(data.access_train)||Array.isArray(data.access_bus)){
+      var props=[];
+      [['電車でお越しの方',data.access_train],['バスでお越しの方',data.access_bus]].forEach(function(g){
+        (g[1]||[]).forEach(function(t){if(str(t))props.push({"@type":"PropertyValue","name":g[0],"value":str(t)});});
+      });
+      if(props.length)biz.additionalProperty=props;else delete biz.additionalProperty;
+    }
+    ld.textContent=JSON.stringify(biz,null,2);
+  }
   // 行き方の文を「、」「から」の後・「「」「（」の前で区切り、まとまりごとに途中で折り返さないspan（route-chunk）で包む
   function setRouteChunks(el,text){
     el.textContent='';
@@ -1869,17 +1923,8 @@ async function loadCMSData(){
         });
         rrow.hidden=!rbox.children.length;
       }
-      // 構造化データ（検索サイト向けの事業所情報）の行き方も、CMSの内容にそろえる
-      var ld=document.getElementById('ld-business');
-      if(ld){try{
-        var biz=JSON.parse(ld.textContent),props=[];
-        [['電車でお越しの方',data.access_train],['バスでお越しの方',data.access_bus]].forEach(function(g){
-          (g[1]||[]).forEach(function(t){if(t&&String(t).trim())props.push({"@type":"PropertyValue","name":g[0],"value":String(t).trim()});});
-        });
-        if(props.length)biz.additionalProperty=props;else delete biz.additionalProperty;
-        ld.textContent=JSON.stringify(biz,null,2);
-      }catch(e){}}
     }
+    updateBusinessLd(data); // 構造化データの電話番号・住所・営業時間・行き方もCMSの値にそろえる
     if(data.phone){var el=document.getElementById('cms-phone');if(el){el.textContent=data.phone;el.href='tel:'+data.phone.replace(/[^0-9]/g,'');}}
     if(data.contact_lead){var cl=document.querySelector('#contact .sec-lead');if(cl)cl.textContent=data.contact_lead;}
     if(data.contact_note){var cn=document.querySelector('#contact .contact-note');if(cn)cn.textContent=data.contact_note;}
