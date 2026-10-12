@@ -494,6 +494,8 @@ audio.song-media{display:none}
 .footer-label{display:inline-block;width:5.5em}
 /* 利用時間：「（月〜金）」「※昼食の…」などのまとまりの途中では改行しない */
 .hours-chunk{white-space:nowrap}
+/* 数字と単位（540円など）・時刻（9:30など）の途中では改行しない */
+.num-nowrap{white-space:nowrap}
 .footer-social{display:flex;gap:12px}
 .footer-social a{
   width:40px;height:40px;border-radius:50%;

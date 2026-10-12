@@ -1408,6 +1408,7 @@ wireFaqFilter();
     titleEl.textContent=title?title.textContent:"";
     descEl.textContent=excerpt?excerpt.textContent:(title?title.textContent:"");
     fillEvent((window.newsShownItems||[])[card.getAttribute("data-news-index")]);
+    wrapNumUnits(modal); // 数字と単位・時刻の途中で改行されないように
     modal.classList.add("open");
     modal.setAttribute("aria-hidden","false");
     document.body.style.overflow="hidden";
@@ -1452,6 +1453,31 @@ function renderWorksGrid(grid,items){
   grid.querySelectorAll('.sa').forEach(function(el){obs.observe(el)});
 }
 
+// 数字と単位（540円・30分・5名など）や時刻（9:30など）、「17-2」「9/26」のような数字の途中で改行されないように、
+// root の中の文字を探して <span class="num-nowrap"> で包む（何度呼んでも二重には包まない）
+var NUM_UNIT_RE=/[0-9０-９]{1,2}[:：][0-9０-９]{2}|[0-9０-９]+(?:[-－‐/／][0-9０-９]+)+|[0-9０-９][0-9０-９,，.．]*(?:か月|ヶ月|ケ月|時間|丁目|km|cm|mm|kg|円|分|名|件|人|日|時|食|歳|回|個|枚|点|%|％|年|月|週|秒|階|番|号)/g;
+function wrapNumUnits(root){
+  if(!root)return;
+  var walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),nodes=[],n;
+  while((n=walker.nextNode())){
+    var par=n.parentNode;
+    if(!par||/^(SCRIPT|STYLE|TEXTAREA)$/.test(par.nodeName)||(par.classList&&par.classList.contains('num-nowrap')))continue;
+    NUM_UNIT_RE.lastIndex=0;
+    if(NUM_UNIT_RE.test(n.nodeValue))nodes.push(n);
+  }
+  nodes.forEach(function(node){
+    var text=node.nodeValue,frag=document.createDocumentFragment(),last=0,m;
+    NUM_UNIT_RE.lastIndex=0;
+    while((m=NUM_UNIT_RE.exec(text))){
+      if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));
+      var sp=document.createElement('span');sp.className='num-nowrap';sp.textContent=m[0];frag.appendChild(sp);
+      last=m.index+m[0].length;
+    }
+    if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));
+    node.parentNode.replaceChild(frag,node);
+  });
+}
+
 // === 15. CMS データ読み込み ===
 async function loadCMSData(){
   try{const r=await fetch('/_data/webp.json');const d=await r.json();(d.files||[]).forEach(function(f){WEBP_FILES[f]=1;});}catch(e){}
@@ -1473,9 +1499,9 @@ async function loadCMSData(){
       var tail=text.length-k;
       if(tail>12)break;
       var a=text.charAt(k-1),b=text.charAt(k),ka=kind(a),kb=kind(b);
-      var cut=/[、。・」』）)]/.test(a)
+      var cut=!/[0-9０-９]/.test(a)&&(/[、。・」』）)]/.test(a)
         ||(ka!==kb&&ka!=='hira'&&kb!=='hira'&&ka!=='other'&&kb!=='other')
-        ||(/[のでをにがはとへもや]/.test(a)&&((kb!=='hira'&&kb!=='other')||(/[ごお]/.test(b)&&kind(text.charAt(k+1))==='kanji')));
+        ||(/[のでをにがはとへもや]/.test(a)&&((kb!=='hira'&&kb!=='other')||(/[ごお]/.test(b)&&kind(text.charAt(k+1))==='kanji'))));
       if(cut&&tail>=4){best=k;break;}
     }
     if(best>0)return [text.slice(0,best),text.slice(best)];
@@ -1829,6 +1855,8 @@ async function loadCMSData(){
   document.querySelectorAll('.sec-lead').forEach(function(el){
     if(!el.children.length&&el.textContent.trim())setTailNowrap(el,el.textContent);
   });
+  // 数字と単位・時刻の途中で改行されないように（ご利用案内・よくある質問・アクセス欄・お知らせ）
+  ['guide','faq','access','news'].forEach(function(id){wrapNumUnits(document.getElementById(id));});
 }
 
 loadCMSData();
