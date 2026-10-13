@@ -49,6 +49,7 @@ collections:
         file: "_data/about.json"
         fields:
           - {label: "施設紹介 写真", name: "about_photo", widget: "image", required: false, media_library: {config: {max_file_size: 10485760}}}
+          - {label: "施設紹介 写真の代替テキスト", name: "about_photo_alt", widget: "string", required: false, hint: "写真に何が写っているかを短く書きます（例：明るい作業スペース）。目の見えにくい方の読み上げや、画像が表示できないときに使われます。"}
           - {label: "施設紹介 本文1", name: "text1", widget: "text"}
           - {label: "施設紹介 本文2", name: "text2", widget: "text"}
           - {label: "代表メッセージ 本文1", name: "rep1", widget: "text"}

@@ -180,7 +180,8 @@
 <!-- ===== Hero ===== -->
 <section class="hero">
   <div class="hero-slideshow" id="heroSlideshow">
-    <div class="hero-slide is-active" style="background-image:url('/images/hero-signage-vertical.jpg');background-image:image-set(url('/images/hero-signage-vertical.webp') type('image/webp'),url('/images/hero-signage-vertical.jpg') type('image/jpeg'));--m-pos:25%"></div>
+    <div class="hero-slide is-active m-contain" role="img" aria-label="「TRANSIT WORKS」の文字と複葉機が描かれた、トランジットWorksの看板" style="background-image:url('/images/uploads/sign.jpg');background-image:image-set(url('/images/uploads/sign.webp') type('image/webp'),url('/images/uploads/sign.jpg') type('image/jpeg'))"></div>
+    <div class="hero-slide" style="background-image:url('/images/hero-signage-vertical.jpg');background-image:image-set(url('/images/hero-signage-vertical.webp') type('image/webp'),url('/images/hero-signage-vertical.jpg') type('image/jpeg'));--m-pos:25%"></div>
     <div class="hero-slide" style="background-image:url('/images/hero-pressed-flowers.jpg');background-image:image-set(url('/images/hero-pressed-flowers.webp') type('image/webp'),url('/images/hero-pressed-flowers.jpg') type('image/jpeg'));--m-pos:75%"></div>
     <div class="hero-slide" style="background-image:url('/images/hero-robots-shelf.jpg');background-image:image-set(url('/images/hero-robots-shelf.webp') type('image/webp'),url('/images/hero-robots-shelf.jpg') type('image/jpeg'));--m-pos:25%"></div>
     <div class="hero-slide m-contain" style="background-image:url('/images/hero-seesaw-bestfriend.jpg');background-image:image-set(url('/images/hero-seesaw-bestfriend.webp') type('image/webp'),url('/images/hero-seesaw-bestfriend.jpg') type('image/jpeg'))"></div>
@@ -1637,7 +1638,7 @@ async function loadCMSData(){
     if(data.text1){var el=document.getElementById('cms-about-text1');if(el)el.textContent=data.text1;}
     if(data.text2){var el=document.getElementById('cms-about-text2');if(el)el.textContent=data.text2;}
     // 写真が設定されている時だけ枠を表示（未設定なら枠ごと隠したまま）
-    if(data.about_photo){var el=document.getElementById('cms-about-photo');if(el){setImgSrc(el,data.about_photo);el.closest('.about-photo').hidden=false;el.closest('.about-grid').classList.remove('no-photo');}}
+    if(data.about_photo){var el=document.getElementById('cms-about-photo');if(el){setImgSrc(el,data.about_photo);if(data.about_photo_alt)el.alt=data.about_photo_alt;el.closest('.about-photo').hidden=false;el.closest('.about-grid').classList.remove('no-photo');}}
     if(data.rep1){var el=document.getElementById('cms-rep1');if(el)el.textContent=data.rep1;}
     if(data.rep2){var el=document.getElementById('cms-rep2');if(el)el.textContent=data.rep2;}
     if(data.rep3){var el=document.getElementById('cms-rep3');if(el)el.textContent=data.rep3;}

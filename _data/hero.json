@@ -2,6 +2,7 @@
   "catch": "乗り継ぎの先へ。未来は、ここで動き出す。",
   "sub": "小さな一歩が、一番遠くまで連れてってくれる。",
   "slides": [
+    { "image": "/images/uploads/sign.jpg", "alt": "「TRANSIT WORKS」の文字と複葉機が描かれた、トランジットWorksの看板", "mobile_fit": "contain", "mobile_position": "center" },
     { "image": "/images/hero-signage-vertical.jpg", "alt": "「TRANSIT WORKS」の看板が縦アングルで写る松井山手祭り出店ブース", "mobile_fit": "cover", "mobile_position": "left-center" },
     { "image": "/images/hero-pressed-flowers.jpg", "alt": "押し花シールと多肉植物の鉢植え、木彫り人形が並ぶ物販ブースの陳列アップ", "mobile_fit": "cover", "mobile_position": "right-center" },
     { "image": "/images/hero-robots-shelf.jpg", "alt": "目玉ボタンが特徴の木製ロボット雑貨2体と雑貨陳列棚", "mobile_fit": "cover", "mobile_position": "left-center" },
