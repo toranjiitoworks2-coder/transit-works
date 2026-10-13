@@ -108,6 +108,17 @@ picture{display:contents}
 .hero-slide.is-active{opacity:1;z-index:2}
 /* 切り替え中の古い写真：新しい写真が出きるまで、下でそのまま表示しておく（重なり順は 新しい写真 ＞ 古い写真 ＞ そのほか） */
 .hero-slide.is-prev{opacity:1;transition:none;z-index:1}
+/* トップ写真のPC表示「右に寄せる（左はぼかし）」（写真ごとにCMSで選ぶ）
+   写真を画面の高さに合わせ、左端をロゴの右側寄りに置いて、写真の文字とロゴが重ならないようにする。
+   空いた左側は同じ写真のぼかしで埋め、境目はなめらかにつなぐ。
+   写真の右側が切れやすい縦長ぎみの画面では使わず、ふつうの表示（中央）にする */
+@media(min-width:1280px) and (min-aspect-ratio:16/10){
+  .hero-slide.pc-right{background-size:0 0;background-repeat:no-repeat;overflow:hidden}
+  .hero-slide.pc-right::before,.hero-slide.pc-right::after{content:"";position:absolute;background-image:inherit;background-repeat:no-repeat}
+  .hero-slide.pc-right::before{inset:-40px;background-size:cover;background-position:center;filter:blur(24px) brightness(.6)}
+  .hero-slide.pc-right::after{--pc-x:calc(50vw + 200px - 34vh);inset:0;background-size:auto 100%;background-position:var(--pc-x) 50%;
+    -webkit-mask-image:linear-gradient(to right,transparent var(--pc-x),#000 calc(var(--pc-x) + 160px));mask-image:linear-gradient(to right,transparent var(--pc-x),#000 calc(var(--pc-x) + 160px))}
+}
 .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(0,0,0,.31) 0%,rgba(0,0,0,.14) 34%,rgba(0,0,0,.12) 55%,rgba(0,0,0,.35) 80%,rgba(0,0,0,.42) 100%)}
 /* 横切る飛行機と飛行機雲（暗幕の上・ロゴやキャッチコピーの下を飛ぶ） */
 .hero-flight{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}

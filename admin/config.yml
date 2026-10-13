@@ -110,6 +110,15 @@ collections:
                   - {label: "中央", value: "center"}
                   - {label: "やや右", value: "right-center"}
                   - {label: "右端", value: "right"}
+              - label: "PCで写す位置"
+                name: "pc_position"
+                widget: "select"
+                required: false
+                default: "center"
+                hint: "写真の中の文字（看板など）が、トップのロゴと重なるときは「右に寄せる」を選びます。画面の形によっては中央で表示されます。"
+                options:
+                  - {label: "中央（画面いっぱい）", value: "center"}
+                  - {label: "右に寄せる（左はぼかし）", value: "right"}
 
   # 活動内容
   - name: "activities"

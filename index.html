@@ -180,7 +180,7 @@
 <!-- ===== Hero ===== -->
 <section class="hero">
   <div class="hero-slideshow" id="heroSlideshow">
-    <div class="hero-slide is-active m-contain" role="img" aria-label="「TRANSIT WORKS」の文字と複葉機が描かれた、トランジットWorksの看板" style="background-image:url('/images/uploads/sign.jpg');background-image:image-set(url('/images/uploads/sign.webp') type('image/webp'),url('/images/uploads/sign.jpg') type('image/jpeg'))"></div>
+    <div class="hero-slide is-active m-contain pc-right" role="img" aria-label="「TRANSIT WORKS」の文字と複葉機が描かれた、トランジットWorksの看板" style="background-image:url('/images/uploads/sign.jpg');background-image:image-set(url('/images/uploads/sign.webp') type('image/webp'),url('/images/uploads/sign.jpg') type('image/jpeg'))"></div>
     <div class="hero-slide" style="background-image:url('/images/hero-signage-vertical.jpg');background-image:image-set(url('/images/hero-signage-vertical.webp') type('image/webp'),url('/images/hero-signage-vertical.jpg') type('image/jpeg'));--m-pos:25%"></div>
     <div class="hero-slide" style="background-image:url('/images/hero-pressed-flowers.jpg');background-image:image-set(url('/images/hero-pressed-flowers.webp') type('image/webp'),url('/images/hero-pressed-flowers.jpg') type('image/jpeg'));--m-pos:75%"></div>
     <div class="hero-slide" style="background-image:url('/images/hero-robots-shelf.jpg');background-image:image-set(url('/images/hero-robots-shelf.webp') type('image/webp'),url('/images/hero-robots-shelf.jpg') type('image/jpeg'));--m-pos:25%"></div>
@@ -1624,7 +1624,8 @@ async function loadCMSData(){
           // スマホでの表示方法（画面いっぱい／全体を表示）と、画面いっぱいのときの切り取る位置
           var contain=s.mobile_fit==='contain';
           var pos=HERO_MOBILE_POS[s.mobile_position]||'50%';
-          return '<div class="hero-slide'+(i===0?' is-active':'')+(contain?' m-contain':'')+'" role="img" aria-label="'+alt+'" style="'+bgImageStyle(url)+(contain?'':';--m-pos:'+pos)+'"></div>';
+          var pcRight=s.pc_position==='right'; // PCで写す位置：右に寄せる（左はぼかし）
+          return '<div class="hero-slide'+(i===0?' is-active':'')+(contain?' m-contain':'')+(pcRight?' pc-right':'')+'" role="img" aria-label="'+alt+'" style="'+bgImageStyle(url)+(contain?'':';--m-pos:'+pos)+'"></div>';
         }).join('');
         if(window.initHeroSlideshow)window.initHeroSlideshow();
       }
