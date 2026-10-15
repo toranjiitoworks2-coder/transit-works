@@ -479,6 +479,7 @@
         <div class="access-row"><div class="access-th">利用時間</div><div class="access-td"><span id="cms-hours-weekday"><span class="hours-chunk">9:30〜15:30</span><span class="hours-chunk">（月〜金）</span><span class="hours-chunk">昼食あり</span></span><br><span id="cms-hours-saturday"><span class="hours-chunk">9:30〜12:00</span><span class="hours-chunk">（土曜・祝日）</span><span class="hours-chunk">※昼食の提供はありません</span></span></div></div>
         <div class="access-row"><div class="access-th">休業日</div><div class="access-td" id="cms-closed"><span class="hours-chunk">日曜・年末年始</span><span class="hours-chunk">（12/30〜1/3）</span></div></div>
         <div class="access-row"><div class="access-th">電話</div><div class="access-td"><a href="tel:0728607737" id="cms-phone">０７２－８６０－７７３７</a></div></div>
+        <div class="access-row" id="cms-phone-hours-row"><div class="access-th">お電話受付</div><div class="access-td" id="cms-phone-hours"><span class="hours-chunk">8:30〜17:30</span><span class="hours-chunk">（日曜・年末年始を除く）</span></div></div>
       </div>
       <div>
         <div class="access-map">
@@ -557,7 +558,8 @@
         <div class="footer-logo">トランジットWorks</div>
         <div class="footer-info">
           <p>大阪府交野市青山3丁目17-2</p>
-          <p><a href="tel:0728607737">072-860-7737</a><span class="footer-note">（受付時間 8:30〜17:30）</span></p>
+          <p><a href="tel:0728607737">072-860-7737</a></p>
+          <p id="cms-footer-phone-hours-row"><span class="footer-label">お電話受付：</span><span id="cms-footer-phone-hours"><span class="hours-chunk">8:30〜17:30</span><span class="hours-chunk">（日曜・年末年始を除く）</span></span></p>
           <p><span class="footer-label">利用時間：</span><span id="cms-footer-hours-weekday"><span class="hours-chunk">9:30〜15:30</span><span class="hours-chunk">（月〜金）</span><span class="hours-chunk">昼食あり</span></span><br><span class="footer-label"></span><span id="cms-footer-hours-saturday"><span class="hours-chunk">9:30〜12:00</span><span class="hours-chunk">（土曜・祝日）</span><span class="hours-chunk">※昼食の提供はありません</span></span></p>
           <p><span class="footer-label">休 業 日：</span><span id="cms-footer-closed"><span class="hours-chunk">日曜・年末年始</span><span class="hours-chunk">（12/30〜1/3）</span></span></p>
         </div>
@@ -1929,6 +1931,8 @@ async function loadCMSData(){
     }
     updateBusinessLd(data); // 構造化データの電話番号・住所・営業時間・行き方もCMSの値にそろえる
     if(data.phone){var el=document.getElementById('cms-phone');if(el){el.textContent=data.phone;el.href='tel:'+data.phone.replace(/[^0-9]/g,'');}}
+    // お電話受付時間：アクセス欄とフッターの両方に反映（括弧の前で区切り、そのまとまりの途中では改行しない）。空なら行ごと隠す
+    if('phone_hours' in data){var ph=String(data.phone_hours||'').trim();[['cms-phone-hours','cms-phone-hours-row'],['cms-footer-phone-hours','cms-footer-phone-hours-row']].forEach(function(p){var el=document.getElementById(p[0]),row=document.getElementById(p[1]);if(!el||!row)return;if(ph){setChunksNowrap(el,ph);row.hidden=false;}else row.hidden=true;});}
     if(data.contact_lead){var cl=document.querySelector('#contact .sec-lead');if(cl)cl.textContent=data.contact_lead;}
     if(data.contact_note){var cn=document.querySelector('#contact .contact-note');if(cn)cn.textContent=data.contact_note;}
     // 施設種別
