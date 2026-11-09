@@ -232,6 +232,11 @@ picture{display:contents}
 .news-card-thumb{aspect-ratio:16/9;background:#e0e0e0;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
 .news-card-thumb img{width:100%;height:100%;object-fit:cover}
 .news-card-thumb span{font-size:.7rem;letter-spacing:.2em;color:#aaa}
+/* 縦長のチラシ：枠（16:9）はそのまま、チラシ全体を縮めて収め、左右には同じ画像をぼかして暗くしたものを敷く */
+.news-card-thumb{position:relative}
+.news-card-thumb-bg{display:none}
+.news-card-thumb.is-portrait .news-card-thumb-bg{display:block;position:absolute;inset:-24px;background-size:cover;background-position:center;filter:blur(16px) brightness(.62);transform:scale(1.08)}
+.news-card-thumb.is-portrait img{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:contain}
 .news-card-body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:10px;flex:1}
 .news-card-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .news-card-meta time{font-size:.72rem;letter-spacing:.04em;color:var(--text-sub)}

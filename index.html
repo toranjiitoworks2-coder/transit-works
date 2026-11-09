@@ -1794,7 +1794,7 @@ async function loadCMSData(){
       list.innerHTML=shown.map(function(item,i){
         var d=(i<3?' sa-d'+i:'');
         var alt=(item.alt||'').replace(/"/g,'&quot;');
-        var thumbBlock=item.image?'<div class="news-card-thumb">'+pictureHTML(item.image,'alt="'+alt+'"')+'</div>':'';
+        var thumbBlock=item.image?'<div class="news-card-thumb"><span class="news-card-thumb-bg" aria-hidden="true"></span>'+pictureHTML(item.image,'alt="'+alt+'"')+'</div>':''; // 背景（ぼかし）は縦長のチラシのときだけ使う
         var cardClass='news-card sa'+d+(item.image?'':' news-card-noimg');
         var content=item.text||item.body||''; // 内容（後方互換でbodyも許容）
         var title=item.title||content;        // タイトル未設定なら内容を見出しに
@@ -1814,6 +1814,17 @@ async function loadCMSData(){
         return '<a href="#" class="'+cardClass+'" data-news-index="'+i+'">'+thumbBlock+'<div class="news-card-body"><div class="news-card-meta">'+dateBlock+'<span class="news-card-cat">'+item.category+'</span></div><h3 class="news-card-title">'+title+'</h3>'+evBlock+excerpt+'</div></a>';
       }).join('');
       window.newsShownItems=shown; // 詳細（モーダル）で会場・地図などを表示するために使う
+      // 縦長の画像（チラシなど）は、切らずに枠の中へ全体を収め、左右のすき間に同じ画像をぼかして敷く。横長はこれまでどおり枠いっぱい
+      list.querySelectorAll('.news-card-thumb img').forEach(function(img){
+        function check(){
+          if(!img.naturalWidth||img.naturalHeight<=img.naturalWidth)return;
+          var thumb=img.closest('.news-card-thumb');
+          var bg=thumb.querySelector('.news-card-thumb-bg');
+          if(bg)bg.style.backgroundImage='url("'+String(img.currentSrc||img.src).replace(/"/g,'%22')+'")';
+          thumb.classList.add('is-portrait');
+        }
+        if(img.complete)check();else img.addEventListener('load',check,{once:true});
+      });
       injectEventJsonLd(shown.map(function(item){
         var endDate=getEventEndDate(item);
         var isPast=!isNaN(endDate.getTime())&&endDate.getTime()<Date.now();
