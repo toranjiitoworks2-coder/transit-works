@@ -517,11 +517,16 @@
 </div>
 
 <!-- ===== News modal ===== -->
+<!-- チラシの拡大表示（お知らせの詳細でチラシを押すと開く。もう一度押すか×で閉じる） -->
+<div class="news-zoom" id="newsZoom" role="dialog" aria-modal="true" aria-label="チラシの拡大表示" hidden>
+  <button type="button" class="news-zoom-close" id="newsZoomClose" aria-label="拡大表示を閉じる">&times;</button>
+  <img id="newsZoomImg" src="" alt="">
+</div>
 <div class="news-modal" id="newsModal" aria-hidden="true">
   <div class="news-modal-overlay" data-close></div>
   <div class="news-modal-box" role="dialog" aria-modal="true" aria-labelledby="newsModalTitle">
     <button class="news-modal-close" type="button" aria-label="閉じる" data-close>&times;</button>
-    <div class="news-modal-img" id="newsModalImgWrap"><img id="newsModalImg" src="" alt=""></div>
+    <div class="news-modal-img" id="newsModalImgWrap"><button type="button" class="news-modal-zoom-btn" id="newsModalZoomBtn" aria-label="チラシを拡大して見る"><img id="newsModalImg" src="" alt=""><span class="news-modal-zoom-hint" aria-hidden="true"><svg viewBox="0 0 24 24" width="13" height="13"><path fill="currentColor" d="M10 2a8 8 0 0 1 6.32 12.9l5.39 5.39-1.42 1.42-5.39-5.39A8 8 0 1 1 10 2zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm1 2v3h3v2h-3v3H9v-3H6V9h3V6h2z"/></svg>拡大</span></button></div>
     <div class="news-modal-pager" id="newsModalPager" role="group" aria-label="チラシの表・裏の切り替え" hidden>
       <button type="button" class="news-modal-page" data-page="0" aria-pressed="true">表</button>
       <button type="button" class="news-modal-page" data-page="1" aria-pressed="false">裏</button>
@@ -1471,8 +1476,31 @@ wireFaqFilter();
   modal.addEventListener("click",function(e){
     if(e.target.hasAttribute("data-close"))closeModal();
   });
+  // チラシの拡大表示：チラシを押すと大きく開き、拡大画面のどこかを押すか×で閉じる
+  var zoomEl=document.getElementById("newsZoom");
+  var zoomImg=document.getElementById("newsZoomImg");
+  var zoomBtn=document.getElementById("newsModalZoomBtn");
+  function openZoom(){
+    var src=imgEl.getAttribute("src");
+    if(!src)return;
+    zoomImg.setAttribute("src",src);
+    zoomImg.setAttribute("alt",imgEl.getAttribute("alt")||"");
+    zoomEl.hidden=false;
+    zoomEl.scrollTop=0;zoomEl.scrollLeft=0;
+    document.getElementById("newsZoomClose").focus();
+  }
+  function closeZoom(){
+    if(zoomEl.hidden)return;
+    zoomEl.hidden=true;
+    zoomImg.setAttribute("src","");
+    if(modal.classList.contains("open"))zoomBtn.focus();
+  }
+  zoomBtn.addEventListener("click",openZoom);
+  zoomEl.addEventListener("click",closeZoom);
   document.addEventListener("keydown",function(e){
-    if(e.key==="Escape"&&modal.classList.contains("open"))closeModal();
+    if(e.key!=="Escape")return;
+    if(!zoomEl.hidden){closeZoom();return;} // 拡大中は拡大だけ閉じる
+    if(modal.classList.contains("open"))closeModal();
   });
 })();
 

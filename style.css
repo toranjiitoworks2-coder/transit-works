@@ -323,7 +323,19 @@ picture{display:contents}
 .news-modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,.75)}
 .news-modal-box{position:relative;z-index:1;max-width:560px;width:100%;max-height:90vh;overflow:auto;background:#fff;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.4);animation:worksModalPop .3s ease}
 .news-modal-img{width:100%;background:#f0f0f0}
-.news-modal-img img{width:100%;height:auto;max-height:60vh;object-fit:cover;display:block}
+/* チラシは切らずに全体を表示（縦長は縮めて、表・裏ボタンが見える高さに収める）。押すと拡大表示 */
+.news-modal-img{display:flex;justify-content:center}
+.news-modal-zoom-btn{position:relative;display:block;padding:0;margin:0;border:0;background:none;cursor:zoom-in;max-width:100%}
+.news-modal-zoom-btn img{display:block;width:auto;max-width:100%;height:auto;max-height:calc(90vh - 80px);max-height:calc(90svh - 80px);object-fit:contain}
+.news-modal-zoom-btn:focus-visible{outline:2px solid var(--green);outline-offset:-2px}
+.news-modal-zoom-hint{position:absolute;right:10px;bottom:10px;display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:999px;background:rgba(0,0,0,.55);color:#fff;font-size:.68rem;letter-spacing:.08em;pointer-events:none}
+/* チラシの拡大表示 */
+.news-zoom{position:fixed;inset:0;z-index:2100;display:flex;overflow:auto;background:rgba(0,0,0,.92);cursor:zoom-out;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.news-zoom[hidden]{display:none}
+.news-zoom img{flex:none;margin:auto;display:block;width:max(860px,100vw);max-width:none;height:auto}
+@media(min-width:861px){.news-zoom img{width:min(1200px,100vw)}}
+.news-zoom-close{position:fixed;top:12px;right:12px;z-index:1;width:44px;height:44px;border:none;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;font-size:1.8rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.news-zoom-close:hover{background:rgba(0,0,0,.85)}
 /* チラシの表・裏の切り替えボタン（2枚あるときだけ表示） */
 .news-modal-pager{display:flex;justify-content:center;gap:8px;padding:12px 24px 0}
 .news-modal-pager[hidden]{display:none}
