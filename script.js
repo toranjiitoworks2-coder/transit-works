@@ -12,6 +12,16 @@
   const DURATION = SHORT ? 1300 : 5000;
   const FADE_IN  = SHORT ? 350 : 250;   // 複葉機がふわっと現れる時間（ミリ秒）
   const FADE_OUT = SHORT ? 250 : 500;   // 消えていく時間（ミリ秒）
+  const HOLD = 1000;                    // すべて出そろったあと、止めて見せる「間」（ミリ秒）
+
+  // 最後に出る文字（KATANO, OSAKA）の表示アニメーションが終わったら知らせる
+  const textShown = (function(){
+    const last = loadEl && loadEl.querySelector('.loading-sub');
+    if(!last || typeof last.getAnimations !== 'function') return Promise.resolve();
+    const anims = last.getAnimations();
+    if(!anims.length) return Promise.resolve();
+    return Promise.all(anims.map(a => a.finished)).catch(()=>{});
+  })();
 
   function resize(){
     canvas.width  = window.innerWidth;
@@ -139,9 +149,15 @@
     if(t < 1){
       requestAnimationFrame(animate);
     } else {
-      setTimeout(()=>{
-        loadEl.classList.add('done');
-      }, SHORT ? 100 : 300);
+      const finish = ()=>{ if(!loadEl.classList.contains('done')) loadEl.classList.add('done'); };
+      if(SHORT){
+        // 再読み込みの短縮版は「間」を入れず、今までどおりすぐ切り替える
+        setTimeout(finish, 100);
+      } else {
+        // 文字（ロゴ・キャッチ・KATANO, OSAKA）が出きるのを待ち、約1秒そのまま見せてからサイトへ切り替える
+        // （SKIP したときは index.html 側ですでに done になっているので、ここでは何もしない）
+        textShown.then(()=>{ setTimeout(finish, HOLD); });
+      }
     }
   }
 
