@@ -39,6 +39,8 @@ collections:
               - {label: "関連リンク", name: "link_url", widget: "string", required: false, hint: "主催者のページなどのURLを貼ってください。詳細に「関連リンク」ボタンが出ます。"}
               - {label: "画像", name: "image", widget: "image", required: false, media_library: {config: {max_file_size: 10485760}}}
               - {label: "画像の代替テキスト", name: "alt", widget: "string", required: false, hint: "チラシの場合は、日時・会場など要点を入れてください（例：「つながる市 8月22日(土) 11:00〜17:00 無印良品 松井山手」）。目の見えにくい方の読み上げや、画像が表示できないときに使われます。"}
+              - {label: "画像（2枚目：チラシの裏など）", name: "image2", widget: "image", required: false, hint: "チラシが表・裏の2枚あるときに、裏を入れてください。詳細で「表／裏」を切り替えて見られます。カードには1枚目だけが出ます。", media_library: {config: {max_file_size: 10485760}}}
+              - {label: "2枚目の画像の代替テキスト", name: "alt2", widget: "string", required: false, hint: "2枚目の画像の要点を書いてください（例：「つながる市のチラシ（裏）。出店者の紹介」）。"}
 
   # 施設紹介・代表メッセージ
   - name: "about"
